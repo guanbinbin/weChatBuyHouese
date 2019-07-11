@@ -1,13 +1,63 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+
+<scroll-view scroll-y class='home-page' style='margin-top: {{height}}px'>
+
+<view class='search_container'> 
+ <view class="flex-row search_box middle">
+<view class="flex-view-item"><i class="fa fa-search " style="color:rgba(170,170,170,.5)"></i></view>
+<view class="flex-view-item"><input placeholder='你想住在哪？'>
+ </input></view> 
+ </view>
 </view>
+
+<view class='swiper_container'>
+<swiper class='swiper' indicator-dots="{{swiper1.indicatorDots}}"
+  autoplay="{{swiper1.autoplay}}" interval="{{swiper1.interval}}" duration="{{swiper1.duration}}">
+  <block wx:for="{{swiper1.imgUrls}}" wx:key="1">
+    <swiper-item class="swiper_box">
+      <image src="{{item}}" class="slide-image swiper_img" width="100%" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+</view>
+<view class='part_two'>
+<view class='info_swiper'>
+<text>消息推送推荐</text>
+<swiper class='swiper' display-multiple-items='3' indicator-dots="{{swiper2.indicatorDots}}"
+  autoplay="{{swiper2.autoplay}}" interval="{{swiper2.interval}}" duration="{{swiper2.duration}}">
+  <block wx:for="{{swiper2.content}}" wx:key="1">
+    <swiper-item class="swiper_box">
+      <image src="{{item.imgUrl}}" class="slide-image swiper_img" width="100%" height="150"/>
+      <text>{{item.text}}</text>
+    </swiper-item>
+  </block>
+</swiper>
+</view>
+
+<view>
+<text>推荐好房</text>
+<view class='flex-container'>
+<view  wx:for="{{roomList}}" wx:key="2" style='width:100%'>
+
+<view class='roomImg' style='width:40%'>
+<image src="{{item.img}}"/>
+</view>
+
+<view class="roomInfo" style='width:60%'>
+<text class='block title'>{{item.title}}</text>
+<text class='block addr'>{{item.addr}}</text>
+<text class='subTitle' wx:for="{{item.subTitle}}">{{item}}</text>
+<text class='block'>
+<text class='price'>{{item.price}}</text>
+<text class='room'>{{item.room}}</text>
+<text class='size'>{{item.size}}</text>
+</text>
+</view>
+
+</view>
+</view>
+
+</view>
+</view>
+</scroll-view>

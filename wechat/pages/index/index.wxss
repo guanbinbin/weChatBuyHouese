@@ -1,21 +1,55 @@
-/**index.wxss**/
-.userinfo {
+.search_container{
+  margin:20rpx 30rpx;
+  height: 70rpx;
+  background-color: rgba(170, 170, 170, 0.2);
+  border-radius: 25px;
+}
+.search_box{
+  padding-top: 10rpx;
+  width: 80%
+}
+.swiper_container{
+  padding: 0 15rpx;
+}
+.swiper{
+  width: 100%;
+  height: 27vh;
+}
+.swiper_img{
+  width: 100%;
+  height: 25vh;
+  border-radius: 5px;
+} 
+.swiper_box{
+  padding-right: 10rpx;
+  
+}
+.flex-row{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.part_two{
+padding: 0 30rpx;
 }
-
-.userinfo-nickname {
-  color: #aaa;
+.info_swiper>swiper{
+margin-top:30rpx
 }
-
-.usermotto {
-  margin-top: 200px;
+.info_swiper image{
+  height: 12vh;
 }
+.info_swiper .swiper{
+  height: 12vh;
+  margin-bottom: 30rpx;
+}
+.flex-container{
+  display: flex;
+  flex-direction:column;
+}
+.flex-container>view{
+  display: flex;
+  flex-direction: row;
+}
+.roomImg>image{
+  width: 80%;
+  height: 12vh;
+} 

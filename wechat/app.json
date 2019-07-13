@@ -1,16 +1,17 @@
 {
   "pages": [
+    "pages/map/map",
     "pages/personCenter/center",
     "pages/index/index",
     "pages/housePart/houseList/houseList",
     "pages/housePart/houseDetail/houseDetail",
     "pages/index01/index",
-    
     "pages/personCenter/myHouse/myHouse",
     "pages/personCenter/commond/commond",
     "pages/personCenter/applyHouse/applyHouse",
     "pages/personCenter/collections/collections",
     "pages/personCenter/records/records"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,5 @@
+<view class="page-body">
+<view class="page-section page-section-gap">
+<web-view src="http://47.102.139.17:9090/download/map.html"></web-view>
+</view>
+</view>

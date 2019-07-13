@@ -1,14 +1,48 @@
 {
   "pages": [
+    "pages/personCenter/center",
     "pages/index/index",
-    "pages/index01/index"
+    "pages/housePart/houseList/houseList",
+    "pages/housePart/houseDetail/houseDetail",
+    "pages/index01/index",
+    
+    "pages/personCenter/myHouse/myHouse",
+    "pages/personCenter/commond/commond",
+    "pages/personCenter/applyHouse/applyHouse",
+    "pages/personCenter/collections/collections",
+    "pages/personCenter/records/records"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black", 
-    "navigationStyle":"custom"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/md-home1.png",
+        "iconPath": "images/md-home.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/md-map1.png",
+        "iconPath": "images/md-map.png",
+        "pagePath": "pages/index/index",
+        "text": "地图找房"
+      },
+      {
+        "selectedIconPath": "images/md-person1.png",
+        "iconPath": "images/md-person.png",
+        "pagePath": "pages/personCenter/center",
+        "text": "我的"
+      }
+    ]
+  }
 }

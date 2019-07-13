@@ -1,0 +1,8 @@
+@import '../../index/index.wxss';
+.topNav{
+  width: 100%;
+  height: 100%;
+}
+.indexContainer{
+  padding: 0 20rpx;
+}

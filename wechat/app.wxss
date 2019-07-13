@@ -1,6 +1,13 @@
 /**app.wxss**/
 @import "/css/font-awesome-size.wxss";
 @import "/css/font-awesome.wxss";
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 0rpx;
+  border-radius: 50%;
+  border:1px solid
+}
 .container {
   height: 100%;
   display: flex;
@@ -25,19 +32,90 @@ pages {
   font-size:14px;
 }
 .addr{
-  font-size:12px;
+  font-size:10px;
   color:rgba(170, 170, 170, .5)
 }
 .price{
-  color:red;
+  color:#FB5640;
   font-size: 14px;
 }
 .room,.size{
-  font-size:12px;
+  font-size:10px;
 }
 .subTitle{
-  font-size: 12px;
+  font-size: 10px;
+  background-color: #E8F3EA;
+  color:#70C677;
+  padding:5rpx 10rpx;
+  border-radius: 5rpx; 
 }
 .block{
   display: block;
+}
+.inline{
+  display: inline-block;
+}
+.space{
+  margin-right: 10rpx;
+}
+.sup{
+  font-size: 8px;
+  vertical-align:text-top;
+}
+.divLine{
+ background: #E0E3DA;
+ width: 100%;
+ height: 2rpx;
+}
+.font10{
+  font-size: 10px
+}
+.font12{
+  font-size: 12px
+}
+.font14{
+  font-size: 14px
+}
+.font16{
+  font-size: 16px;
+}
+.bold{
+  font-weight: bold
+}
+.flexBox{
+  display: flex;
+  flex-direction: row;
+}
+.wrap{
+  flex-wrap: wrap
+}
+.justify{
+  justify-content: space-between;
+}
+.align{
+  align-items: center
+}
+.gray{
+  color:#999999
+}
+.gray1{
+  color:#666666
+}
+.m_b_10{
+  margin-bottom:10rpx
+}
+.position_re{
+  position: relative;
+}
+.position_f{
+  position:fixed;
+}
+.position_ab{
+  position: absolute;
+}
+.fl{
+  float: left
+}
+.fr{
+  float: right
 }

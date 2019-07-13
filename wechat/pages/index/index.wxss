@@ -1,7 +1,7 @@
 .search_container{
   margin:20rpx 30rpx;
   height: 70rpx;
-  background-color: rgba(170, 170, 170, 0.2);
+  background-color: rgba(170, 170, 170, 0.1);
   border-radius: 25px;
 }
 .search_box{
@@ -50,6 +50,20 @@ margin-top:30rpx
   flex-direction: row;
 }
 .roomImg>image{
-  width: 80%;
-  height: 12vh;
+  width: 90%;
+  height: 13vh;
+  border-radius: 5rpx;
 } 
+.roombox{
+border-bottom:1px solid rgba(170, 170, 170, 0.1);
+margin-bottom:30rpx;
+padding-bottom:30rpx;
+}
+.indexContainer .roombox:last-child{
+ border-bottom:0px; 
+ margin-bottom:30rpx;
+padding-bottom:0rpx;
+}
+.indexContainer{
+  margin-top:20rpx;
+}

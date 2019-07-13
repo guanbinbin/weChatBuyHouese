@@ -9,7 +9,7 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.5",
+	"libVersion": "2.0.4",
 	"appid": "wxe7a351c39c76c81d",
 	"projectname": "wechat",
 	"isGameTourist": false,

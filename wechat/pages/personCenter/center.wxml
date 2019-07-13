@@ -1,0 +1,18 @@
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<scroll-view style='margin-top: {{height}}px'>
+<view class="infoBox flexBox">
+<view style='width:15%'>
+<image class="userinfo-avatar" src="{{userInfo.image}}" background-size="cover"></image>
+</view>
+<view style="width:75%">
+<text class="block">Tansy</text>
+<text class="block">点击查看我的个人信息</text>
+</view>
+</view> 
+<view>
+</view>
+
+<view>
+</view>
+</scroll-view>

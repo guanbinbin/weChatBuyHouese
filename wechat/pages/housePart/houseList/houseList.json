@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "nav-bar": "../../../components/navbar/navbar",
+    "dropdownmenu": "../../../components/dropdownmenu/dropdownmenu"
+  }
+  
+}

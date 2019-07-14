@@ -118,3 +118,8 @@ pages {
 .fr{
   float: right
 }
+.required{
+  content: '*';
+  color: red;
+  
+}

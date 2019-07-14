@@ -1,1 +1,46 @@
-/* pages/personCenter/myHouse/myHouse.wxss */
+@import '../../index/index.wxss';
+.tab{
+ width: 100%;
+ height: 100rpx;
+ position: fixed;
+ top: 0;
+ left: 0;
+ z-index: 100;
+ white-space: nowrap;
+ box-sizing: border-box;
+ overflow: hidden;
+ line-height: 100rpx;
+background-color: #ffffff;
+}
+.tab-item{
+ display: inline-block;
+ width: 20%;
+ text-align: center;
+ font-size: 14px;
+ color: #8f9193;
+}
+.active{
+ color: #70C677;
+}
+.content{
+ padding-top: 100rpx;
+ box-sizing: border-box; 
+ font-size: 14px;
+}
+.content-item{
+ overflow-y: scroll;
+
+}
+.content-item>scroll-view{
+  padding: 0 15rpx; 
+}
+.applyBlock{
+  height: 80rpx;
+  width: 100%; 
+  background-color: #70C677;
+  color: #ffffff;
+  justify-content:center;
+}
+.indexContainer{
+  margin-bottom:120rpx;
+}

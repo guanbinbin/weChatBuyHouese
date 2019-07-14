@@ -1,2 +1,79 @@
-<!--pages/personCenter/myHouse/myHouse.wxml-->
-<text>pages/personCenter/myHouse/myHouse.wxml</text>
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class="position_re" style='margin-top: {{height}}px'>
+<view class="tab" style="top:{{height}}px">
+ <block wx:for="{{menuList}}" wx:key="index">
+  <view class="tab-item {{currentTab == index ? 'active' : ''}}" data-current="{{index}}" bindtap='clickMenu'>{{item.name}}</view>
+ </block></view>
+ <swiper class="content" style='height: {{windowHeight-height}}px' duration="1000" current="{{currentTab}}" bindchange="changeContent">
+ <swiper-item class="content-item" wx:for="{{menuList}}" wx:key="index">
+ <scroll-view>
+ <view wx:if="{{item.name=='全部房源'}}">
+ <view class='flex-container indexContainer'>
+<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+
+<view class='roomImg' style='width:40%'>
+<image src="{{item.img}}"/>
+</view>
+
+<view class="roomInfo" style='width:60%'>
+<text class='block title'>{{item.title}}</text>
+<text class='block addr'>{{item.addr}}</text>
+<text class='subTitle space' wx:for="{{item.subTitle}}" wx:key="index">{{item}}</text>
+<text class='block'>
+<text class='price space'>{{item.price}}</text>
+<text class='room space'>{{item.room}}</text>
+<text class='size space'>{{item.size}}m<text class="sup">2</text></text>
+</text>
+</view>
+</view>
+</view>
+ </view>
+  <view wx:if="{{item.name=='已审核房源'}}">
+  <view class='flex-container indexContainer'>
+<view  wx:for="{{roomList}}" wx:key="index" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+
+<view class='roomImg' style='width:40%'>
+<image src="{{item.img}}"/>
+</view>
+<view class="roomInfo" style='width:60%'>
+<text class='block title'>{{item.title}}</text>
+<text class='block addr'>{{item.addr}}</text>
+<text class='subTitle space' wx:for="{{item.subTitle}}">{{item}}</text>
+<text class='block'>
+<text class='price space'>{{item.price}}</text>
+<text class='room space'>{{item.room}}</text>
+<text class='size space'>{{item.size}}m<text class="sup">2</text></text>
+</text>
+</view>
+</view>
+</view>
+  </view>
+   <view wx:if="{{item.name=='未审核房源'}}">
+<view class='flex-container indexContainer'>
+<view  wx:for="{{roomList}}" wx:key="index" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+
+<view class='roomImg' style='width:40%'>
+<image src="{{item.img}}"/>
+</view>
+
+<view class="roomInfo" style='width:60%'>
+<text class='block title'>{{item.title}}</text>
+<text class='block addr'>{{item.addr}}</text>
+<text class='subTitle space' wx:for="{{item.subTitle}}">{{item}}</text>
+<text class='block'>
+<text class='price space'>{{item.price}}</text>
+<text class='room space'>{{item.room}}</text>
+<text class='size space'>{{item.size}}m<text class="sup">2</text></text>
+</text>
+</view>
+</view>
+</view>
+   </view>
+ </scroll-view>
+ </swiper-item>
+ </swiper>
+ <view bindtap="jumpToPublish" class="font14 position_f applyBlock flexBox align" style="bottom:0">
+ 发布房源
+ </view>
+</view>

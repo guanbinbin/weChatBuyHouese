@@ -1,0 +1,36 @@
+.imgPart>image{
+  width: 100%; 
+}
+.publish_box{
+  padding: 30rpx
+}
+.title{
+  padding-left: 10rpx;
+  border-left: 2px solid #70C677;
+}
+.space{
+  margin-right: 20rpx;
+  width: 20%;
+}
+.publish_box input{
+  width: 70%;
+} 
+.textareaBox{
+  height: 120rpx!important;
+  align-items: flex-start;
+}
+.textareaBox>textarea{
+  height: 120rpx
+}
+ .detail>view,.contact>view,.baseInfo>view{
+  height: 50rpx;
+  border-bottom: 1px solid #E0E3DA;
+  padding:15rpx 0 ;
+}
+.publishBtn{
+  width:100%;
+  height:80rpx;
+  background-color:#70C677;
+  color:#ffffff;
+  justify-content:center;
+}

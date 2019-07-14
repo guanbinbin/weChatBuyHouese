@@ -10,18 +10,31 @@ Page({
       title: '我的主页', //导航栏 中间的标题
     },
     height: app.globalData.height * 2 + 20, 
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  }, 
   onLoad: function (options) {
     
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+  jumpToMyhouse:function(e){
+    console.log("跳转到我的房源......");
+    //console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: 'myHouse/myHouse'
+    })
+  },
+  jumpToCommond: function (e) {
+    console.log("跳转到推荐房源......");
+    //console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: 'commond/commond'
+    })
+  },
+  jumpToApplyhouse: function (e) {
+    console.log("跳转到购房申请......");
+    //console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: 'applyHouse/applyHouse'
+    })
+  },
   onReady: function () {
     
   },

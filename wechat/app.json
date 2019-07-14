@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/map/map",
     "pages/personCenter/center",
+    "pages/map/map",
+    
     "pages/index/index",
     "pages/housePart/houseList/houseList",
     "pages/housePart/houseDetail/houseDetail",

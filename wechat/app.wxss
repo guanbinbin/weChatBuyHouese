@@ -5,8 +5,7 @@
   width: 80rpx;
   height: 80rpx;
   margin: 0rpx;
-  border-radius: 50%;
-  border:1px solid
+  border-radius: 50%; 
 }
 .container {
   height: 100%;

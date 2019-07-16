@@ -1,14 +1,17 @@
  <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
-<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<scroll-view style='margin-top: {{height}}px'>
+<nav-bar navbar-data='{{nvabarData}}' bind:myevent="onMyEvent"></nav-bar>
+<scroll-view wx:if='{{!rightDialog}}' style='margin-top: {{height}}px'>
 <view>
 <view class="imgPart">
 <image wx:if="{{!showImg}}" bindtap="chooseImg" src="../../../../images/index/apply.png"/>
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showImg}}"> 
-<view wx:for="{{imgPath}}" style="width:33.3%;padding:0rpx;height:11vh">
-<image style="width:100%;height:11vh" src="{{item}}"></image></view>
-<view bindtap="continueUpload" wx:if="{{imgPath.length<9}}" style="width:33.3%;padding:0rpx;height:11vh">
-<image style="width:80%;height:11vh" src="../../../../images/people/add.png"></image>
+<view wx:for="{{imgPath}}" class='img_list'>
+<image class='upload_img' bindtap="previewImage" data-src='{{item}}'src="{{item}}">
+<image class='delete_icon delete_position' bindtap="deleteImage" data-index='{{index}}' src='../../../../images/delete.png'></image>
+</image>
+</view>
+<view bindtap="continueUpload" class='add_icon' wx:if="{{imgPath.length<9}}">
+<image src="../../../../images/people/add.png"></image>
 </view>
  
 </view>
@@ -16,20 +19,21 @@
 <view class="publish_box">
 <view class="baseInfo font14">
 <view><text class="font16 title ">基本信息</text></view>
-<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>小区名称</text>
-<input placeholder="请输入小区名称"></input>
+<view class="flexBox align"><view class=" space block"><text style="color:red">*</text>小区名称</view>
+<input bindinput='' value='{{roomFormData.name}}' placeholder="请输入小区名称"></input>
 </view>
-<view class="flexBox align"><text class=" space block">房型信息</text>
+<view class="flexBox align"><view class=" space block">房型信息</view>
 <input  placeholder="请输入房型信息"></input>
 </view>
 <view class="flexBox align"><text class=" space block">小区楼层</text>
 <input  placeholder="请输入小区楼层"></input>
 </view>
-<view class="flexBox align"><text style="color:red">*</text><text class=" space block">产权面积</text>
+<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>产权面积</text>
 <input placeholder="请输入户型面积"></input>m<text class="sup">2</text>
 </view>
-<view class="flexBox align"><text style="color:red">*</text><text class=" space block">房产权属</text>
-<input placeholder="请选择"></input>
+<view bindtap='openRightDialog' class="flexBox align"><text class=" space block"><text style="color:red">*</text>房产权属</text>
+<image class='delete_icon' src="../../../../images/icons/add.png"></image>
+<text>上传产权图片</text>
 </view>
 <!--<view class="flexBox align"><text class=" space block">车位</text>
 <input placeholder="请选择"></input>
@@ -37,7 +41,7 @@
 <view class="flexBox align"><text class=" space block">房屋标签</text>
 <input  placeholder="请选择"></input>
 </view>
-<view class="flexBox align"><text style="color:red">*</text><text class=" space block">售价</text>
+<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>售价</text>
 <input placeholder="请输入售价"></input>
 </view>
 <view class="flexBox align textareaBox"><text class="space block">基础情况</text>
@@ -63,10 +67,10 @@
 
 <view class="contact font14">
 <view><text class="font16 title ">联系方式</text></view>
-<view class="flexBox align"><text style="color:red">*</text><text class=" space block">联系人</text>
+<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系人</text>
 <input  placeholder="请输入"></input>
 </view>
-<view class="flexBox align"><text style="color:red">*</text><text class=" space block">联系电话</text>
+<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系电话</text>
 <input placeholder="请输入"></input>
 </view>
 </view>
@@ -76,4 +80,8 @@
 发布房源</view>
 </view>
 
+</scroll-view>
+
+<scroll-view wx:if='{{rightDialog}}' style='margin-top: {{height}}px'>
+chuanzhaopian
 </scroll-view>

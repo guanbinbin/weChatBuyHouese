@@ -1,6 +1,9 @@
+.container_box{ 
+   
+}
 .infoBox{
   padding: 40rpx 25rpx;
-  background-color: #c0bfbf;
+  background-color: #70C677;
   height: 13vh;
 }
 .userinfo-avatar{
@@ -32,4 +35,19 @@ align-items: center;
 height: 100rpx;
 padding:0 30rpx;
 border-bottom: 1px solid #E0E3DA;
+}
+.left_part{
+width:90%;
+background-color:#fff;
+margin:0 auto;
+border-radius:20rpx;
+height:65vh;
+position:relative;
+bottom:20rpx;
+box-shadow:0rpx 10rpx 20rpx rgb(182, 180, 180);
+padding: 10rpx; 
+}
+.center_icon{
+  width: 40rpx;
+  height: 40rpx;
 }

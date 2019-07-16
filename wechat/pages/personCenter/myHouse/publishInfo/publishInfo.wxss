@@ -11,6 +11,7 @@
 .space{
   margin-right: 20rpx;
   width: 20%;
+  text-align: right;
 }
 .publish_box input{
   width: 70%;
@@ -23,7 +24,7 @@
   height: 120rpx
 }
  .detail>view,.contact>view,.baseInfo>view{
-  height: 50rpx;
+  height: 60rpx;
   border-bottom: 1px solid #E0E3DA;
   padding:15rpx 0 ;
 }
@@ -33,4 +34,34 @@
   background-color:#70C677;
   color:#ffffff;
   justify-content:center;
+}
+.img_list{
+  width:33.3%;
+  padding:0rpx;
+  height:13vh;
+}
+.upload_img{
+  position: relative;
+  width:100%;
+  height:13vh
+}
+.delete_icon{
+  width: 40rpx;
+  height: 40rpx;
+  
+}
+.delete_position{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
+.add_icon{
+  width:30%;
+  padding:0rpx;
+  height:13vh
+}
+.add_icon>image{
+  width:80%; 
+  height:13vh 
 }

@@ -3,7 +3,7 @@ Component({
   properties: {
     navbarData: {   //navbarData   由父页面传递的数据，变量名字自命名
       type: Object,
-      value: {},
+      value: {}, 
       observer: function (newVal, oldVal) { }
     }
   },
@@ -27,12 +27,18 @@ Component({
   methods: {
     // 返回上一页面
     _navback() {
-      wx.navigateBack()
+      console.log(this.data.navbarData)
+      if(this.data.navbarData.innerPage){
+        this.triggerEvent('myevent', { paramBtoA: false });
+      }else{
+        wx.navigateBack();
+      }
+      
     },
     //返回到首页
     _backhome() {
-      wx.navigateTo({
-        url: '../../index/index',
+      wx.switchTab({
+        url: this.data.navbarData.indexUrl,
       })
     }
   }

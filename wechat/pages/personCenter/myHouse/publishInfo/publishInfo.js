@@ -5,11 +5,22 @@ Page({
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '发布房源', //导航栏 中间的标题
+      indexUrl:'../../../index/index',
+      innerPage:false,
+      innerName:''
     },
     height: app.globalData.height * 2 + 20,
     //图片预览
     showImg:false,
-    imgPath:[]
+    //产权上传
+    rightDialog:false,
+    //房屋照片路径集合
+    imgPath:[],
+    //产权照片路径集合
+    rightImgPath:[],
+    //身份证照片路径集合
+    idCardImgPath:[],
+    roomFormData:{}
   },
 
   /**
@@ -55,6 +66,54 @@ Page({
         console.log(_this.data.imgPath);
       }
     })
+  },
+  //图片预览
+  previewImage:function(e){
+    var _this = this;
+    var current = e.target.dataset.src;
+    if(typeof current!='undefined'){
+      wx.previewImage({
+        current: current, // 当前显示图片的http链接
+        urls: _this.data.imgPath // 需要预览的图片http链接列表
+      }) 
+    }
+   
+  },
+  //删除图片
+  deleteImage:function(e){
+  var index = e.target.dataset.index;
+  this.data.imgPath.splice(index,1);
+    if (this.data.imgPath.length==0){
+      this.setData({
+        showImg:false
+      })
+    }
+  this.setData({
+    imgPath:this.data.imgPath
+  })
+  },
+  //打开上传产权照片和身份证照片窗口
+  openRightDialog:function(){
+    var _this = this;
+  this.setData({
+    rightDialog:true,
+    nvabarData:{
+      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
+      title: '产权图片上传', //导航栏 中间的标题
+      indexUrl: '../../../index/index',
+      innerPage: true,
+      innerName: 'rightDialog',
+      page:this
+    }
+
+  })
+  },
+  //顶部导航传参
+  onMyEvent: function (e) {
+    this.setData({
+      rightDialog: e.detail.paramBtoA
+    })
+    console.log(this.data.roomFormData)
   },
   upload: function () {
     let that = this;

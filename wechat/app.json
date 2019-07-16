@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/personCenter/myHouse/publishInfo/publishInfo",
-    "pages/personCenter/myHouse/myHouse",
     "pages/personCenter/center",
+    
+    "pages/index/index",
+    
+    "pages/personCenter/myHouse/myHouse",
     "pages/map/map",
     
     "pages/housePart/houseList/houseList",
@@ -32,19 +34,19 @@
         "selectedIconPath": "images/md-home1.png",
         "iconPath": "images/md-home.png",
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": " "
       },
       {
         "selectedIconPath": "images/md-map1.png",
         "iconPath": "images/md-map.png",
         "pagePath": "pages/map/map",
-        "text": "地图找房"
+        "text": " "
       },
       {
         "selectedIconPath": "images/md-person1.png",
         "iconPath": "images/md-person.png",
         "pagePath": "pages/personCenter/center",
-        "text": "我的"
+        "text": " "
       }
     ]
   }

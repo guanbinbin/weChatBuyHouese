@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/personCenter/myHouse/publishInfo/publishInfo",
-    "pages/personCenter/center",
-    
     "pages/index/index",
+    "pages/personCenter/myHouse/publishInfo/publishInfo",
+    
+    "pages/personCenter/center",
     
     "pages/personCenter/myHouse/myHouse",
     "pages/map/map",

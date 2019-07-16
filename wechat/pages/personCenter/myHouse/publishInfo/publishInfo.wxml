@@ -1,9 +1,9 @@
  <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
 <nav-bar navbar-data='{{nvabarData}}' bind:myevent="onMyEvent"></nav-bar>
-<scroll-view wx:if='{{!rightDialog}}' style='margin-top: {{height}}px'>
+<scroll-view hidden='{{rightDialog}}' style='margin-top: {{height}}px'>
 <view>
 <view class="imgPart">
-<image wx:if="{{!showImg}}" bindtap="chooseImg" src="../../../../images/index/apply.png"/>
+<image wx:if="{{!showImg}}" bindtap="chooseImg" data-type="room" src="../../../../images/index/apply.png"/>
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showImg}}"> 
 <view wx:for="{{imgPath}}" class='img_list'>
 <image class='upload_img' bindtap="previewImage" data-src='{{item}}'src="{{item}}">
@@ -82,6 +82,33 @@
 
 </scroll-view>
 
-<scroll-view wx:if='{{rightDialog}}' style='margin-top: {{height}}px'>
-chuanzhaopian
+<scroll-view hidden='{{!rightDialog}}' style='margin-top: {{height}}px'>
+<!--上传房产证照片-->
+<view class="imgPart">
+<image wx:if="{{!showImg}}" bindtap="chooseImg" data-type="right" src="../../../../images/index/apply.png"/>
+<view class="flexBox wrap" style="width:100%;" wx:if="{{showImg}}"> 
+<view wx:for="{{imgPath}}" class='img_list'>
+<image class='upload_img' bindtap="previewImage" data-src='{{item}}'src="{{item}}">
+<image class='delete_icon delete_position' bindtap="deleteImage" data-index='{{index}}' src='../../../../images/delete.png'></image>
+</image>
+</view>
+<view bindtap="continueUpload" class='add_icon' wx:if="{{imgPath.length<9}}">
+<image src="../../../../images/people/add.png"></image>
+</view>
+ </view>
+</view>
+<!--上传身份证照片-->
+<view class="imgPart">
+<image wx:if="{{!showImg}}" bindtap="chooseImg" data-type="idCard" src="../../../../images/index/apply.png"/>
+<view class="flexBox wrap" style="width:100%;" wx:if="{{showImg}}"> 
+<view wx:for="{{imgPath}}" class='img_list'>
+<image class='upload_img' bindtap="previewImage" data-src='{{item}}'src="{{item}}">
+<image class='delete_icon delete_position' bindtap="deleteImage" data-index='{{index}}' src='../../../../images/delete.png'></image>
+</image>
+</view>
+<view bindtap="continueUpload" class='add_icon' wx:if="{{imgPath.length<9}}">
+<image src="../../../../images/people/add.png"></image>
+</view>
+ </view>
+</view>
 </scroll-view>

@@ -6,8 +6,7 @@ Page({
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '发布房源', //导航栏 中间的标题
       indexUrl:'../../../index/index',
-      innerPage:false,
-      innerName:''
+      innerPage:false,//是否是该页面的第二个页面
     },
     height: app.globalData.height * 2 + 20,
     //图片预览
@@ -30,8 +29,10 @@ Page({
 
   },
 
-  chooseImg:function(){
+  chooseImg:function(e){
     var _this = this;
+    var type = e.target.dataset.type;
+    console.log("type:"+type);
     wx.chooseImage({
       count: 9,
       sizeType: ['original', 'compressed'],
@@ -40,6 +41,7 @@ Page({
         console.log("上传的图片文件......");
         console.log(res);
         var tempFilePaths = res.tempFilePaths
+        //这里要条件判断
         _this.setData({
           showImg:true,
           imgPath:tempFilePaths
@@ -95,23 +97,28 @@ Page({
   //打开上传产权照片和身份证照片窗口
   openRightDialog:function(){
     var _this = this;
+    var innerPage = "nvabarData.innerPage";
+    var title = "nvabarData.title";
+    /*nvabarData:{
+    showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
+      title: '产权图片上传', //导航栏 中间的标题
+        indexUrl: '../../../index/index',
+          innerPage: true,  
+    }*/
   this.setData({
     rightDialog:true,
-    nvabarData:{
-      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '产权图片上传', //导航栏 中间的标题
-      indexUrl: '../../../index/index',
-      innerPage: true,
-      innerName: 'rightDialog',
-      page:this
-    }
-
-  })
+    [innerPage]:true,
+    [title]:"产权图片上传"
+   })
   },
   //顶部导航传参
   onMyEvent: function (e) {
+    var innerPage = "nvabarData.innerPage";
+    var title = "nvabarData.title";
     this.setData({
-      rightDialog: e.detail.paramBtoA
+      rightDialog: e.detail.paramBtoA,
+      [title]:"发布房源",
+      [innerPage]:false
     })
     console.log(this.data.roomFormData)
   },

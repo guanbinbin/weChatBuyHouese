@@ -1,4 +1,6 @@
 const app = getApp();
+var list = [];
+var that;
 Page({ 
   data: {
     // 组件所需的参数
@@ -19,14 +21,29 @@ Page({
     rightImgPath:[],
     //身份证照片路径集合
     idCardImgPath:[],
-    roomFormData:{}
+    roomFormData:{},
+    //城市-区域下拉框数据
+    cityIndex: [0, 0],
+    cityArray: [["成都"], ["成华区", "高新区", "天府新区", "郫县", "锦江区", "金牛区", "武侯区", "新都区", "新津县", "青白江"]],
+    objectMultiArray:
+    [{ "regid": "2", "parid": "1", "regname": "成都", "regtype": "1", "ageid": "0" }, { "regid": "391", "parid": "2", "regname": "成华区", "regtype": "2", "ageid": "0" }, { "regid": "392", "parid": "2", "regname": "高新区", "regtype": "2", "ageid": "0" }, { "regid": "393", "parid": "2", "regname": "郫县", "regtype": "2", "ageid": "0" }, { "regid": "394", "parid": "2", "regname": "双流区", "regtype": "2", "ageid": "0" }, { "regid": "395", "parid": "2", "regname": "天府新区", "regtype": "2", "ageid": "0" }, { "regid": "396", "parid": "2", "regname": "锦江区", "regtype": "2", "ageid": "0" }, { "regid": "397", "parid": "2", "regname": "金牛区", "regtype": "2", "ageid": "0" }],
+    //房型信息下拉框数据
+    roomInfoIndex:[0,0,0],
+    roomInfoArray: [
+      ['0室', '1室', '2室', '3室', '4室', '5室', '6室', '7室', '8室', '9室', '10室'], 
+      ['0厅', '1厅', '2厅', '3厅', '4厅', '5厅', '6厅', '7厅', '8厅', '9厅', '10厅'], 
+      ['0卫', '1卫', '2卫', '3卫', '4卫', '5卫', '6卫', '7卫', '8卫', '9卫', '10卫']],
+  
+    //在住情况下拉数据
+    liveInOrnotIndex: 0,
+    liveInOrnotArray: ["是", "否"],
   },
-
+   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    that = this;
   },
 
   chooseImg:function(e){
@@ -122,8 +139,7 @@ Page({
     })
     console.log(this.data.roomFormData)
   },
-  upload: function () {
-    let that = this;
+  upload: function () { 
     wx.chooseImage({
       count: 9, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -176,6 +192,42 @@ Page({
       }
     })
   },
+  cityChange: function (e) { 
+    that.setData({
+      "cityIndex[0]": e.detail.value[0],
+      "cityIndex[1]": e.detail.value[1]
+    })
+  },
+  roomInfoChange:function(e){
+    this.setData({
+      "roomInfoIndex[0]": e.detail.value[0],
+      "roomInfoIndex[1]": e.detail.value[1],
+      "roomInfoIndex[2]": e.detail.value[2]
+    })
+  },
+  liveInOrnotChange:function(e){
+    this.setData({
+      "liveInOrnotIndex": e.detail.value[0],
+    })
+  },
+ /* bindMultiPickerColumnChange: function (e) {
+    let that = this;
+    switch (e.detail.column) {
+      case 0:
+        list = []
+        for (var i = 0; i < that.data.objectMultiArray.length; i++) {
+          if (that.data.objectMultiArray[i].parid == that.data.objectMultiArray[e.detail.value].regid) {
+            list.push(that.data.objectMultiArray[i].regname)
+          }
+        }
+        that.setData({
+          "multiArray[1]": list,
+          "multiIndex[0]": e.detail.value,
+          "multiIndex[1]": 0
+        })
+
+    }
+  },*/
   onReady: function () {
 
   },

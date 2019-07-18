@@ -1,0 +1,29 @@
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<scroll-view scroll-y class='home-page' style='margin-top: {{height}}px'>
+<view class='search_container'> 
+ <view class="flex-row search_box middle">
+<view class="flex-view-item"> 
+<image class='center_icon' src='../../../images/icons/search.png'></image>
+</view>
+<view class="flex-view-item" space="nbsp">
+   <input name="search" 
+  type='text' 
+  confirm-type="search" 
+  bindconfirm="searchConfirm"   
+  bindinput='getInput' 
+  placeholder=' 你想住在哪？'>
+ </input></view> 
+ </view>
+</view>
+
+<!--历史记录部分-->
+<view class='historyPart'>
+<view class='titlePart'>
+<text class='font16 title'>历史记录</text>
+</view>
+<view class='history_icon'>
+<text class="subTitle space" wx:for="{{historyData}}">{{item}}</text>
+</view>
+</view>
+</scroll-view>

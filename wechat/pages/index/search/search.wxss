@@ -1,0 +1,43 @@
+.search_container{
+  margin:20rpx 30rpx;
+  height: 70rpx;
+  background-color: rgba(170, 170, 170, 0.3);
+  border-radius: 25px;
+}
+.search_box{
+  padding-top: 10rpx;
+  width: 80%
+} 
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}  
+.flex-container{
+  display: flex;
+  flex-direction:column;
+}
+.flex-container>view{
+  display: flex;
+  flex-direction: row;
+}  
+.historyPart{ 
+  padding: 20rpx 30rpx;
+}
+.titlePart{
+  padding-bottom: 20rpx;
+  border-bottom: .5px solid rgba(170, 170, 170, 0.3)
+}
+.subTitle{
+font-size:12px;
+background-color:#E8F3EA;
+color:#70C677;
+padding:15rpx 10rpx;
+border-radius:10rpx;
+margin-bottom: 10rpx;
+}
+.history_icon{
+display:flex;
+flex-direction:row;
+flex-wrap:wrap;
+margin-top: 20rpx
+}

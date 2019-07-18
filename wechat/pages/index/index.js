@@ -2,7 +2,7 @@ const app = getApp();
 Page({ 
   data: {
     //输入框的输入内容
-    searchContent:'',
+    searchContent:'', 
     swiper1:{
       imgUrls: [
         '../../images/index/head1.jpg',
@@ -140,20 +140,15 @@ Page({
       url: '../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id
     })
   },
-  //手机键盘输入确认
-  searchConfirm:function(){
-    console.log("跳转到房源列表页......");
+ 
+  //显示搜索页面
+  jumpToSearchPage:function(){
+    console.log("跳转到搜索页面......");
     wx.navigateTo({
-      url: '../housePart/houseList/houseList?content=' + this.data.searchContent
+      url: '../index/search/search'
     })
   },
-  //获取输入框的值
-  getInput:function(e){ 
-      this.setData({
-        searchContent: e.detail.value,
-      }); 
-      console.log("搜索框输入内容："+this.data.searchContent)
-  },
+ 
   /**
    * 生命周期函数--监听页面加载
    */

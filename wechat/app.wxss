@@ -85,6 +85,9 @@ pages {
   display: flex;
   flex-direction: row;
 }
+.flex{
+  display: flex;
+}
 .wrap{
   flex-wrap: wrap
 }
@@ -122,4 +125,17 @@ pages {
   content: '*';
   color: red;
   
+}
+.center_icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.title{
+  padding-left: 10rpx;
+  border-left: 2px solid #70C677;
+}
+.pickerBox{
+  width: 100%;
+  text-align: left
 }

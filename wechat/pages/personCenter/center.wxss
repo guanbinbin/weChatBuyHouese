@@ -47,7 +47,3 @@ bottom:20rpx;
 box-shadow:0rpx 10rpx 20rpx rgb(182, 180, 180);
 padding: 10rpx; 
 }
-.center_icon{
-  width: 40rpx;
-  height: 40rpx;
-}

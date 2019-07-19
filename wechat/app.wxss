@@ -139,3 +139,12 @@ pages {
   width: 100%;
   text-align: left
 }
+.t_left{
+text-align: left
+}
+.t_right{
+text-align: right
+}
+.t_center{
+text-align: center
+}

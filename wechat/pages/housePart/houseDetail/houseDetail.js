@@ -24,6 +24,7 @@ Page({
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '房源详情', //导航栏 中间的标题
+      indexUrl:'../../index/index'
       
     },
     height: app.globalData.height * 2 + 20,

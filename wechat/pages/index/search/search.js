@@ -30,6 +30,13 @@ Page({
       url: '../../housePart/houseList/houseList?content=' + this.data.searchContent
     })
   },
+  //点击每一个小标题
+  tapToDetail:function(e){
+    console.log("跳转到房源列表页......");
+    wx.navigateTo({
+      url: '../../housePart/houseList/houseList?content=' + e.currentTarget.dataset.param
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

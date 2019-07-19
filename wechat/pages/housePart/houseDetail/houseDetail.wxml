@@ -11,9 +11,15 @@
   </block>
 </swiper>
 <view class='detailPart'>
-<view>
+<view class="flexBox t_left">
+<view style='width:75%'>
 <text class='block price bold font16'>{{houseDetail.price}}</text>
 <text class='block font14'>{{houseDetail.title}}</text>
+</view>
+<view class='collect_icon t_center'>
+<image src='../../../images/icons/collect_icon.png'></image>
+<view class="font12">收藏房源</view>
+</view>
 </view>
 <view class='divLine'></view>
 

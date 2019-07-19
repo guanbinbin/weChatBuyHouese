@@ -16,22 +16,28 @@ Page({
     },
     swiper2: {
       content: [{
-        text: '1111',
+        title: '万科璟南堂今日...',
+        price:"200万",
         imgUrl: '../../images/index/head1.jpg',
       }, {
-          text: '1111',
+          title: '万科璟南堂今日...',
+          price: "200万",
           imgUrl: '../../images/index/head1.jpg',
         }, {
-          text: '1111',
+          title: '万科璟南堂今日...',
+          price: "200万",
           imgUrl: '../../images/index/head1.jpg',
         }, {
-          text: '1111',
+          title: '万科璟南堂今日...',
+          price: "200万",
           imgUrl: '../../images/index/head1.jpg',
         }, {
-          text: '1111',
+          title: '万科璟南堂今日...',
+          price: "200万",
           imgUrl: '../../images/index/head1.jpg',
         }, {
-          text: '1111',
+          title: '万科璟南堂今日...',
+          price: "200万",
           imgUrl: '../../images/index/head1.jpg',
         }],
        

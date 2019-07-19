@@ -23,7 +23,7 @@
 <text class='font16 title'>历史记录</text>
 </view>
 <view class='history_icon'>
-<text class="subTitle space" wx:for="{{historyData}}">{{item}}</text>
+<text class="subTitle space" wx:for="{{historyData}}" data-param="{{item}}" bindtap='tapToDetail'>{{item}}</text>
 </view>
 </view>
 </scroll-view>

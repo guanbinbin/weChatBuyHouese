@@ -6,6 +6,7 @@ Page({
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '我的房源', //导航栏 中间的标题
+      indexUrl:"../../index/index"
     },
     height: app.globalData.height * 2 + 20, 
     menuList: [{

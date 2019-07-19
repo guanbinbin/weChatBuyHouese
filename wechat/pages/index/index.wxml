@@ -25,7 +25,7 @@
   <block wx:for="{{swiper1.imgUrls}}" wx:key="1">
     <swiper-item class="swiper_box">
       <image src="{{item}}" class="slide-image swiper_img" width="100%" height="150"/>
-    </swiper-item>
+     </swiper-item>
   </block>
 </swiper>
 </view>
@@ -35,9 +35,12 @@
 <swiper class='swiper' display-multiple-items='3' indicator-dots="{{swiper2.indicatorDots}}"
   autoplay="{{swiper2.autoplay}}" interval="{{swiper2.interval}}" duration="{{swiper2.duration}}">
   <block wx:for="{{swiper2.content}}" wx:key="1">
-    <swiper-item class="swiper_box">
+    <swiper-item class="swiper_box" bindtap='jumpToDetail'>
       <image src="{{item.imgUrl}}" class="slide-image swiper_img" width="100%" height="150"/>
-      <text>{{item.text}}</text>
+       <view>
+      <text class='block font12'>{{item.title}}</text>
+      <text class='block font12 price' space='nbsp'>总价 {{item.price}}</text>
+      </view>
     </swiper-item>
   </block>
 </swiper>

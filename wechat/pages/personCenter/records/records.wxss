@@ -1,1 +1,4 @@
-/* pages/personCenter/records/records.wxss */
+@import '../../index/index.wxss';
+.indexContainer{
+  padding: 0 20rpx;
+}

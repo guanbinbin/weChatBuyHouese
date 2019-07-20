@@ -47,7 +47,7 @@
 </text>
 </view>
 </view>
-</view>
+</view> 
   </view>
    <view wx:if="{{item.name=='未审核房源'}}">
 <view class='flex-container indexContainer'>

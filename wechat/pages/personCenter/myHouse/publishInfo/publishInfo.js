@@ -13,6 +13,8 @@ Page({
     height: app.globalData.height * 2 + 20,
     //图片预览
     showImg:false,
+    showRightImg:false,
+    showIdCardImg:false,
     //产权上传
     rightDialog:false,
     //房屋照片路径集合
@@ -21,6 +23,7 @@ Page({
     rightImgPath:[],
     //身份证照片路径集合
     idCardImgPath:[],
+    that:[],
     roomFormData:{},
     //城市-区域下拉框数据
     cityIndex: [0, 0],
@@ -49,26 +52,54 @@ Page({
   chooseImg:function(e){
     var _this = this;
     var type = e.target.dataset.type;
-    console.log("type:"+type);
     wx.chooseImage({
       count: 9,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
-        console.log("上传的图片文件......");
+        console.log("选择的房源图片......");
         console.log(res);
-        var tempFilePaths = res.tempFilePaths
+        var tempFilePaths = [];
+        for (let i = 0; i < res.tempFilePaths.length;i++){
+        var item = {};
+        item.type = type;
+        item.path = res.tempFilePaths[i];
+        tempFilePaths.push(item);
+        } 
         //这里要条件判断
-        _this.setData({
-          showImg:true,
-          imgPath:tempFilePaths
-        })
+        if(type=="room"){
+          _this.setData({
+            showImg: true,
+            imgPath: tempFilePaths
+          })
+          console.log(_this.data.imgPath);
+        } else if (type == "right"){
+          _this.setData({
+            showRightImg: true,
+            rightImgPath: tempFilePaths
+          })
+          console.log(_this.data.rightImgPath);
+        }else{
+          _this.setData({
+            showIdCardImg: true,
+            idCardImgPath: tempFilePaths
+          })
+          console.log(_this.data.idCardImgPath);
+        }
+        
       }
     })
   },
   continueUpload:function(){
   var _this = this;
-  var num = 9-this.data.imgPath.length;
+  var type = e.target.dataset.type;
+    if (type == "room") {
+    num = 9-this.data.imgPath.length;
+    }else if(type=="right"){
+      num = 9 - this.data.rightImgPath.length;
+    }else{
+      num = 9 - this.data.idCardImgPath.length;
+    }
   console.log(num)
     wx.chooseImage({
       count: num,
@@ -77,39 +108,104 @@ Page({
       success(res) {
         console.log("继续上传的图片文件......");
         console.log(res);
-        var tempFilePaths = res.tempFilePaths
-       var newarr =  _this.data.imgPath.concat(tempFilePaths);
-        _this.setData({
-          imgPath: newarr
-        })
-        console.log(_this.data.imgPath);
+        var tempFilePaths = [];
+        for (let i = 0; i < res.tempFilePaths.length; i++) {
+          var item = {};
+          item.type = "room";
+          item.path = res.tempFilePaths[i];
+          tempFilePaths.push(item);
+        } 
+        var newarr =  _this.data.imgPath.concat(tempFilePaths);
+        //这里要条件判断
+        if (type == "room") {
+          _this.setData({
+            showImg: true,
+            imgPath: newarr
+          })
+          console.log(_this.data.imgPath);
+        } else if (type == "right") {
+          _this.setData({
+            showRightImg: true,
+            rightImgPath: newarr
+          })
+          console.log(_this.data.rightImgPath);
+        } else {
+          _this.setData({
+            showIdCardImg: true,
+            idCardImgPath: newarr
+          })
+          console.log(_this.data.idCardImgPath);
+        }
       }
     })
   },
   //图片预览
   previewImage:function(e){
-    var _this = this;
+    var _this = this; 
+    var type = e.target.dataset.type;
     var current = e.target.dataset.src;
+    var urls = [];
+    if(type=="room"){
+      for (let i = 0; i < _this.data.imgPath.length; i++) {
+        urls.push(_this.data.imgPath[i].path);
+      }
+    }else if(type=="right"){
+      for (let i = 0; i < _this.data.rightImgPath.length; i++) {
+        urls.push(_this.data.rightImgPath[i].path);
+      }
+    }else{
+      for (let i = 0; i < _this.data.idCardImgPath.length; i++) {
+        urls.push(_this.data.idCardImgPath[i].path);
+      }
+    }
     if(typeof current!='undefined'){
       wx.previewImage({
         current: current, // 当前显示图片的http链接
-        urls: _this.data.imgPath // 需要预览的图片http链接列表
+        urls: urls // 需要预览的图片http链接列表
       }) 
     }
    
   },
   //删除图片
   deleteImage:function(e){
+  var _this = this;
+  var type = e.target.dataset.type;
   var index = e.target.dataset.index;
-  this.data.imgPath.splice(index,1);
-    if (this.data.imgPath.length==0){
+  if(type=="room"){
+    this.data.imgPath.splice(index, 1);
+    if (this.data.imgPath.length == 0) {
       this.setData({
-        showImg:false
+        showImg: false
       })
     }
-  this.setData({
-    imgPath:this.data.imgPath
-  })
+    this.setData({
+      imgPath: this.data.imgPath
+    })
+    console.log(this.data.imgPath);
+  }else if(type=="right"){
+    this.data.rightImgPath.splice(index, 1);
+    if (this.data.rightImgPath.length == 0) {
+      this.setData({
+        showRightImg: false
+      })
+    }
+    this.setData({
+      rightImgPath: this.data.rightImgPath
+    })
+    console.log(this.data.rightImgPath);
+  }else{
+    this.data.idCardImgPath.splice(index, 1);
+    if (this.data.idCardImgPath.length == 0) {
+      this.setData({
+        showIdCardImg: false
+      })
+    }
+    this.setData({
+      idCardImgPath: this.data.idCardImgPath
+    })
+    console.log(this.data.idCardImgPath);
+  }
+  
   },
   //打开上传产权照片和身份证照片窗口
   openRightDialog:function(){
@@ -138,6 +234,18 @@ Page({
       [innerPage]:false
     })
     console.log(this.data.roomFormData)
+  },
+  //提交房源信息
+  formSubmit:function(e){
+    
+    console.log("表单提交...");
+    console.log(e.detail.value);
+    //allImg
+    this.setData({
+      allImg: that.data.imgPath.concat(that.data.rightImgPath,that.data.idCardImgPath)
+    })
+    console.log(this.data.allImg)
+    
   },
   upload: function () { 
     wx.chooseImage({

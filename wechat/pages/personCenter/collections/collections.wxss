@@ -1,1 +1,18 @@
-/* pages/personCenter/collections/collections.wxss */
+@import '../../index/index.wxss';
+.indexContainer{
+  padding: 0 20rpx;
+}
+.tag1{
+  top: 0;
+  left: 0;
+  padding: 5rpx;
+  color: #fff; 
+  background-color: #70C677;
+}
+.tag2{
+  top: 0;
+  left: 0;
+  color: #fff;
+  padding: 5rpx; 
+  background-color: #FB5640;
+}

@@ -1,18 +1,89 @@
-// pages/personCenter/commond/commond.js
-Page({
-
-  /**
-   * 页面的初始数据
-   */
+const app = getApp();
+var that;
+Page({ 
   data: {
-
+    // 组件所需的参数
+    nvabarData: {
+      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
+      title: '推荐房源', //导航栏 中间的标题
+      indexUrl: "../../index/index"
+    },
+    height: app.globalData.height * 2 + 20, 
+    roomList: [
+      {
+        img: '../../../images/index/house1.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "1"
+      },
+      {
+        img: '../../../images/index/house2.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "2"
+      },
+      {
+        img: '../../../images/index/house3.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "3"
+      },
+      {
+        img: '../../../images/index/house4.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "4"
+      },
+      {
+        img: '../../../images/index/house5.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "5"
+      },
+      {
+        img: '../../../images/index/house6.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "6"
+      }
+    ],
+  }, 
+  jumpToDetail:function(e){
+    console.log("跳转到房源详情页......");
+    console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id
+    })
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+ that=this;
   },
 
   /**

@@ -35,6 +35,30 @@ Page({
       url: 'applyHouse/applyHouse'
     })
   },
+  jumpToCollectPage:function(e){
+    console.log("跳转到我的收藏页面......");
+    wx.navigateTo({
+      url: 'collections/collections'
+    })
+  },
+  jumpToRecordsPage:function(){
+    console.log("跳转到历史记录页面......");
+    wx.navigateTo({
+      url: 'records/records'
+    })
+  },
+  jumpToQuestionPage: function () {
+    console.log("跳转到问题反馈页面......");
+    wx.navigateTo({
+      url: 'collections/collections'
+    })
+  },
+  jumpToUsPage: function () {
+    console.log("跳转到关于我们页面......");
+    wx.navigateTo({
+      url: 'aboutUs/aboutUs'
+    })
+  },
   onReady: function () {
     
   },

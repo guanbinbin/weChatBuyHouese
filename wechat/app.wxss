@@ -148,3 +148,6 @@ text-align: right
 .t_center{
 text-align: center
 }
+.middle{
+  margin: 0 auto
+}

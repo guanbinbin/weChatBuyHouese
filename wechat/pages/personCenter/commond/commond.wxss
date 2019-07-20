@@ -1,1 +1,4 @@
-/* pages/personCenter/commond/commond.wxss */
+@import '../../index/index.wxss';
+.indexContainer{
+  padding: 0 20rpx;
+}

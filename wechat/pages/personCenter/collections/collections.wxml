@@ -1,2 +1,28 @@
-<!--pages/personCenter/collections/collections.wxml-->
-<text>pages/personCenter/collections/collections.wxml</text>
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<scroll-view  style='margin-top: {{height}}px;'>
+ 
+<view class='flex-container indexContainer'>
+<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='{{item.status==1?"jumpToDetail":"dontJump"}}'>
+
+<view class='roomImg' style='width:40%'>
+<image class="position_re" src="{{item.img}}">
+<text wx:if="{{item.status==1}}" class='position_ab block font14 tag1' style='top:0;left:0'>已成交</text>
+<text wx:if="{{item.status==0}}" class='position_ab block font14 tag2' style='top:0;left:0'>已停售</text>
+</image>
+</view>
+
+<view class="roomInfo" style='width:60%'>
+<text class='block title'>{{item.title}}</text>
+<text class='block addr'>{{item.addr}}</text>
+<text class='subTitle space' wx:for="{{item.subTitle}}">{{item}}</text>
+<text class='block'>
+<text class='price space'>{{item.price}}</text>
+<text class='room space'>{{item.room}}</text>
+<text class='size space'>{{item.size}}m<text class="sup">2</text></text>
+</text>
+</view>
+
+</view>
+</view>
+</scroll-view >

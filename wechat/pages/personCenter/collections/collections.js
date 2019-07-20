@@ -1,23 +1,105 @@
-// pages/personCenter/collections/collections.js
+const app = getApp();
+var that;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    // 组件所需的参数
+    nvabarData: {
+      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
+      title: '我的收藏', //导航栏 中间的标题
+      indexUrl: "../../index/index"
+    },
+    height: app.globalData.height * 2 + 20,
+    //0 已停售 1 已成交
+    roomList: [
+      {
+        img: '../../../images/index/house1.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "1",
+        status:0
+      },
+      {
+        img: '../../../images/index/house2.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "2",
+        status: 1
+      },
+      {
+        img: '../../../images/index/house3.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "3",
+        status: 0
+      },
+      {
+        img: '../../../images/index/house4.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "4",
+        status: 1
+      },
+      {
+        img: '../../../images/index/house5.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "5",
+        status: 0
+      },
+      {
+        img: '../../../images/index/house6.jpg',
+        title: '首月免租 月月返现 近地铁站',
+        addr: '双流区-茶店子-龙祥佳苑',
+        subTitle: ['合租', '朝南', '近地铁'],
+        price: '820元/月',
+        size: '97.24',
+        room: '三室一厅',
+        id: "6",
+        status: 1
+      }
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    that = this;
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+  jumpToDetail: function (e) {
+    console.log("跳转到房源详情页......");
+    console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id
+    })
+  },
+  dontJump:function(){
+    wx.showToast({ 
+      title:"该房源已停售",
+      image: '../../../images/icons/error.png',
+      duration: 1000
+    }) 
+  },
   onReady: function () {
 
   },

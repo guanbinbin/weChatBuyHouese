@@ -28,15 +28,15 @@
 </view>
 
 <view class="ulList">
-<view>
+<view bindtap='jumpToCollectPage'>
 <image class='center_icon' src="../../images/icons/collect.png"></image>
 <text class="font14" space="nbsp">   我的收藏</text>
 </view>
-<view>
+<view bindtap='jumpToRecordsPage'>
 <image class='center_icon' src="../../images/icons/scan.png"></image>
 <text class="font14" space="nbsp">   浏览记录</text>
 </view>
-<view>
+<view bindtap='jumpToQuestionPage'>
 <image class='center_icon' src="../../images/icons/question.png"></image>
 <text class="font14" space="nbsp">   问题反馈</text>
 </view>
@@ -44,7 +44,7 @@
 <image class='center_icon' src="../../images/icons/contact.png"></image>
 <text class="font14" space="nbsp">   联系客服</text>
 </view>
-<view>
+<view bindtap='jumpToUsPage'>
 <image class='center_icon' src="../../images/icons/us.png"></image>
 <text class="font14" space="nbsp">   关于我们</text>
 </view>

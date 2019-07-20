@@ -12,14 +12,21 @@
 </swiper>
 <view class='detailPart'>
 <view class="flexBox t_left">
-<view style='width:75%'>
+<view style='width:80%'>
 <text class='block price bold font16'>{{houseDetail.price}}</text>
 <text class='block font14'>{{houseDetail.title}}</text>
 </view>
-<view class='collect_icon t_center'>
+
+<view wx:if="{{houseDetail.collect?false:true}}" class='collect_icon t_center' bindtap='collectRoom'>
 <image src='../../../images/icons/collect_icon.png'></image>
 <view class="font12">收藏房源</view>
 </view>
+
+<view wx:if="{{houseDetail.collect?true:false}}" class='collect_icon t_center' bindtap='unCollectRoom'>
+<image src='../../../images/icons/un_collect_icon.png'></image>
+<view class="font12">取消收藏</view>
+</view>
+
 </view>
 <view class='divLine'></view>
 

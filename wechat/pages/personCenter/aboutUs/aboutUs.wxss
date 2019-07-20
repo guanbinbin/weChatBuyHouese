@@ -1,0 +1,16 @@
+.flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.iconBox{ 
+  height: 70vh; 
+}
+.iconBox image{
+  width: 180rpx;
+  height: 180rpx
+}
+.aboutUsInfo{
+  height: 20vh
+}

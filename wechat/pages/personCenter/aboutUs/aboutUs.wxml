@@ -1,0 +1,14 @@
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='flex'  style='margin-top: {{height}}px;'>
+<view class='iconBox flex'>
+<view>
+<image src='../../../images/icons/logo.png'></image>
+</view>
+<view>XXXXX</view>
+</view>
+<view class='aboutUsInfo'>
+<text class='block middle font12' style="width:90%">
+XXX找房为购房者、卖房者提供了交易保障，让您的房产交易更加便捷</text>
+</view>
+</view>

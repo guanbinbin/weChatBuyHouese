@@ -35,6 +35,7 @@ Page({
     }, 
     houseDetail:{
       price:"98万",
+      collect:true,
       title:'开发商直售 | 英郡三期三居室出售', 
       room:"3室1厅1卫",
       floor:"中/6层",
@@ -71,6 +72,21 @@ Page({
   getRoomDetail:function(id){
   console.log("查询房间详情内容");
   },
+  collectRoom:function(){
+  console.log("收藏房源....");
+    var collect = "houseDetail.collect";
+    this.setData({
+      [collect]: true
+    })
+
+  },
+  unCollectRoom: function () {
+  console.log("取消收藏....");
+    var collect = "houseDetail.collect";
+  this.setData({
+    [collect]:false
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -1,8 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/index01/index",
     "pages/personCenter/myHouse/publishInfo/publishInfo",
+    
+    "pages/index01/index",
+    
     "pages/personCenter/applyHouse/applyHouse",
     "pages/personCenter/aboutUs/aboutUs",
     "pages/personCenter/collections/collections",
@@ -27,6 +29,9 @@
     "navigationStyle": "custom"
   },
   "sitemapLocation": "sitemap.json",
+  "networkTimeout":{
+    "request":300000
+  },
   "tabBar": {
     "color": "#a9b7b7",
     "selectedColor": "#11cd6e",

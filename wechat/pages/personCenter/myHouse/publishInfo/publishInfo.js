@@ -29,7 +29,7 @@ Page({
     cityIndex: [0, 0],
     cityArray: [["成都"], ["成华区", "高新区", "天府新区", "郫县", "锦江区", "金牛区", "武侯区", "新都区", "新津县", "青白江"]],
     objectMultiArray:
-    [{ "regid": "2", "parid": "1", "regname": "成都", "regtype": "1", "ageid": "0" }, { "regid": "391", "parid": "2", "regname": "成华区", "regtype": "2", "ageid": "0" }, { "regid": "392", "parid": "2", "regname": "高新区", "regtype": "2", "ageid": "0" }, { "regid": "393", "parid": "2", "regname": "郫县", "regtype": "2", "ageid": "0" }, { "regid": "394", "parid": "2", "regname": "双流区", "regtype": "2", "ageid": "0" }, { "regid": "395", "parid": "2", "regname": "天府新区", "regtype": "2", "ageid": "0" }, { "regid": "396", "parid": "2", "regname": "锦江区", "regtype": "2", "ageid": "0" }, { "regid": "397", "parid": "2", "regname": "金牛区", "regtype": "2", "ageid": "0" }],
+    [{ "regionCode": "2", "parid": "1", "regionName": "成都", "regtype": "1", "ageid": "0" }, { "regionCode": "2451", "parid": "2", "regionName": "成华区", "regtype": "2", "ageid": "0" }, { "regionCode": "392", "parid": "2", "regionName": "高新区", "regtype": "2", "ageid": "0" }, { "regionCode": "393", "parid": "2", "regionName": "郫县", "regtype": "2", "ageid": "0" }, { "regionCode": "394", "parid": "2", "regionName": "双流区", "regtype": "2", "ageid": "0" }, { "regionCode": "395", "parid": "2", "regionName": "天府新区", "regtype": "2", "ageid": "0" }, { "regionCode": "396", "parid": "2", "regionName": "锦江区", "regtype": "2", "ageid": "0" }, { "regionCode": "397", "parid": "2", "regionName": "金牛区", "regtype": "2", "ageid": "0" }],
     //房型信息下拉框数据
     roomInfoIndex:[0,0,0],
     roomInfoArray: [
@@ -238,67 +238,92 @@ Page({
   //提交房源信息
   formSubmit:function(e){
     
-    console.log("表单提交...");
-    console.log(e.detail.value);
+    console.log("表单提交..."); 
+    var formData = e.detail.value;
+    formData["roomTypeInfo"] = that.data.roomInfoArray[0][that.data.roomInfoIndex[0]] + "-" + that.data.roomInfoArray[1][that.data.roomInfoIndex[1]] + "-" + that.data.roomInfoArray[2][that.data.roomInfoIndex[2]];
+    var isLive ;
+    if (this.data.liveInOrnotIndex=="是"){
+      isLive = 0;
+    }else{
+      isLive = 1;
+    }
+    formData["isLive"] = isLive;
+    formData["regionName"] = that.data.cityArray[1][that.data.cityIndex[1]];
+    //objectMultiArray
+    for (let i = 0; i < this.data.objectMultiArray.length;i++){
+      if (this.data.objectMultiArray[i].regionName== formData["regionName"]){
+        formData["regionCode"] = this.data.objectMultiArray[i].regionCode;
+        break;
+      }
+    } 
+    formData["creator"] = app.globalData.userInfo.id;
+    console.log("表单数据：" );
+    console.log(formData);
+
     //allImg
     this.setData({
       allImg: that.data.imgPath.concat(that.data.rightImgPath,that.data.idCardImgPath)
     })
-    console.log(this.data.allImg)
+    console.log("图片数据：");
+    console.log(this.data.allImg);
     
+    //上传表单和图片
+    this.upload(formData);
   },
-  upload: function () { 
-    wx.chooseImage({
-      count: 9, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: res => {
-        wx.showToast({
-          title: '正在上传...',
-          icon: 'loading',
-          mask: true,
-          duration: 1000
-        })
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        let tempFilePaths = res.tempFilePaths;
-
-        that.setData({
-          tempFilePaths: tempFilePaths
-        })
-        /**
-         * 上传完成后把文件上传到服务器
-         */
-        var count = 0;
-        for (var i = 0, h = tempFilePaths.length; i < h; i++) {
-          //上传文件
-          /*  wx.uploadFile({
-              url: HOST + '地址路径',
-              filePath: tempFilePaths[i],
-              name: 'uploadfile_ant',
-              header: {
-                "Content-Type": "multipart/form-data"
-              },
-              success: function (res) {
-                count++;
-                //如果是最后一张,则隐藏等待中  
-                if (count == tempFilePaths.length) {
-                  wx.hideToast();
-                }
-              },
-              fail: function (res) {
-                wx.hideToast();
-                wx.showModal({
-                  title: '错误提示',
-                  content: '上传图片失败',
-                  showCancel: false,
-                  success: function (res) { }
-                })
-              }
-            });*/
+  upload: function (formData) { 
+    wx.request({
+      url: app.globalData.hostUrl +"/houserelease/insert",
+      data:formData,
+      method: 'POST',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res.data);
+        console.log("表单数据新增之后开始传图片....");
+        if(res.data.code==0){
+          that.uploadImg(res.data.data);
         }
-
       }
     })
+
+  },
+  uploadImg:function(id){
+    for (let i = 0; i < this.data.allImg.length;i++){
+      var type ="";
+      if (this.data.allImg[i].type == 'room') {
+        type = "HOUSE";
+      } else if (this.data.allImg[i].type == 'right') {
+        type = "ESTATE";
+      } else {
+        type = "CARD";
+      } 
+      wx.uploadFile({
+        url: app.globalData.hostUrl + "/housepicture/insert",
+        filePath: that.data.allImg[i].path,
+        name: 'file',
+        formData: {type: type,resouceId: id},
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+        success: (resp) => { 
+          console.log("图片上传成功"+i);
+        },
+        fail: (res) => { 
+        },
+        complete: () => { 
+          if (i == this.data.allImg.length-1) {   //当图片传完时，停止调用
+            wx.showToast({
+              title: '上传成功',
+              duration: 1500,
+              mask: 'false'
+            })
+             
+          } 
+        }
+      }); 
+    }
+  
   },
   cityChange: function (e) { 
     that.setData({
@@ -317,25 +342,7 @@ Page({
     this.setData({
       "liveInOrnotIndex": e.detail.value[0],
     })
-  },
- /* bindMultiPickerColumnChange: function (e) {
-    let that = this;
-    switch (e.detail.column) {
-      case 0:
-        list = []
-        for (var i = 0; i < that.data.objectMultiArray.length; i++) {
-          if (that.data.objectMultiArray[i].parid == that.data.objectMultiArray[e.detail.value].regid) {
-            list.push(that.data.objectMultiArray[i].regname)
-          }
-        }
-        that.setData({
-          "multiArray[1]": list,
-          "multiIndex[0]": e.detail.value,
-          "multiIndex[1]": 0
-        })
-
-    }
-  },*/
+  }, 
   onReady: function () {
 
   },

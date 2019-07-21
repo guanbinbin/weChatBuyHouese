@@ -1,12 +1,12 @@
  <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<scroll-view class='container_box' style='margin-top: {{height}}px'>
+<scroll-view wx:if="{{canIuse}}" class='container_box' style='margin-top: {{height}}px'>
 <view class="infoBox flexBox align">
 <view style='width:25%'>
-<image class="userinfo-avatar" src="{{userInfo.image}}" background-size="cover"></image>
+<image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
 </view>
 <view class='userInfo_name' style="width:75%">
-<text class="block font16">Tansy</text>
+<text class="block font16">{{userInfo.nickName}}</text>
 <text class="block font12">点击查看我的个人信息 </text>
 </view>
 </view> 
@@ -49,5 +49,11 @@
 <text class="font14" space="nbsp">   关于我们</text>
 </view>
 </view>
+</view>
+</scroll-view> 
+<scroll-view wx:if="{{!canIuse}}" class='container_box flex' style='margin-top: {{height}}px'>
+<view style="width:50%;background-color:green">
+您还未授权，暂无法使用此功能
+      <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
 </view>
 </scroll-view>

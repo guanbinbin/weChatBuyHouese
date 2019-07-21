@@ -42,6 +42,7 @@ App({
   globalData: {
     height: 0,
     share: false,
-    userInfo: null
+    userInfo: null,
+    hostUrl:'https://weipan.51vip.biz/buyHouseProgram'
   }
 })

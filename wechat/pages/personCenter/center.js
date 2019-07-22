@@ -6,6 +6,9 @@ var SESSION_KEY = ''//储存获取到session_key
 const app = getApp();
 Page({ 
   data: {
+    //授权弹窗
+    showAuthBox:false,
+    authPass:false,
     userInfo:{},
     // 组件所需的参数
     nvabarData: {
@@ -16,15 +19,27 @@ Page({
   }, 
   onLoad: function (options) {
     that = this;
-  },
-  bindGetUserInfo:function(e){
+    //判断有无用户信息
     if (app.globalData.userInfo) {
       console.log(app.globalData.userInfo);
       this.setData({
         userInfo: app.globalData.userInfo,
-        canIuse: true
+        showAuthBox: false,
+        authPass: true
       })
-    }else {
+    }else{
+      this.setData({
+        userInfo:{},
+        showAuthBox: true,
+        authPass: false
+      })
+    }
+  },
+  bindGetUserInfo:function(e){ 
+    if (e.detail.errMsg == "getUserInfo:ok") {
+      this.setData({
+        showAuthBox: false
+      });
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
@@ -32,12 +47,21 @@ Page({
           console.log(app.globalData.userInfo);
           this.setData({
             userInfo: res.userInfo,
-            hasUserInfo: true
+            authPass: true
           })
-        that.getOpenId();
+          that.getOpenId();
         }
+      }) 
+    }else{
+      this.setData({
+        showAuthBox: true,
+        authPass:false
+      });
+      wx.switchTab({
+        url: '../index/index',
       })
     }
+    
   },
   getOpenId:function(){ 
     wx.login({

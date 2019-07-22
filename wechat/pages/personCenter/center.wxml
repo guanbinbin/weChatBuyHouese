@@ -1,8 +1,11 @@
  <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<scroll-view wx:if="{{canIuse}}" class='container_box' style='margin-top: {{height}}px'>
-<view class="infoBox flexBox align">
-<view style='width:25%'>
+<scroll-view wx:if="{{authPass}}" class='container_box position_re' style='margin-top: {{height}}px;height:100vh'>
+<view>
+<image src="../../images/user_bg.png" style="width:100%"/>
+</view>
+<view class="infoBox flexBox align position_ab" style="top:0%;width:80%">
+<view style='width:25%;text-align:center'>
 <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
 </view>
 <view class='userInfo_name' style="width:75%">
@@ -51,9 +54,9 @@
 </view>
 </view>
 </scroll-view> 
-<scroll-view wx:if="{{!canIuse}}" class='container_box flex' style='margin-top: {{height}}px'>
-<view style="width:50%;background-color:green">
-您还未授权，暂无法使用此功能
-      <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-</view>
+<scroll-view wx:if="{{showAuthBox}}" class='position_re' style='height:100vh;margin-top: {{height}}px;'>
+<view class="position_ab authBox font16">
+需要授权才可访问个人中心
+      <button class="authBtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">去授权</button>
+</view> 
 </scroll-view>

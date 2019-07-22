@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/personCenter/center",
     "pages/index/index",
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     
@@ -12,7 +13,7 @@
     "pages/personCenter/commond/commond",
     
     
-    "pages/personCenter/center",
+    
     "pages/personCenter/myHouse/myHouse",
     "pages/map/map",
     "pages/housePart/houseList/houseList",

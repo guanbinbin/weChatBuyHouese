@@ -2,13 +2,12 @@
    
 }
 .infoBox{
-  padding: 40rpx 25rpx;
-  background-color: #70C677;
+  padding: 40rpx 25rpx;  
   height: 13vh;
 }
 .userinfo-avatar{
-  width:150rpx;
-  height:150rpx;
+  width:120rpx;
+  height:120rpx;
 
 }
 .userInfo_name{
@@ -42,8 +41,24 @@ background-color:#fff;
 margin:0 auto;
 border-radius:20rpx;
 height:65vh;
-position:relative;
-bottom:20rpx;
+position:absolute;
+top:250rpx;
 box-shadow:0rpx 10rpx 20rpx rgb(182, 180, 180);
-padding: 10rpx; 
+left:5%;
+}
+.authBox{
+ width:50%;
+ border: 1px solid #E0E3DA;
+ box-shadow:0rpx 10rpx 20rpx rgb(182, 180, 180);
+ padding: 35rpx;
+ border-radius:8px;
+ top:30%;
+ left:22% 
+}
+.authBtn{
+  width: 80%;
+  border: none;
+  background-color: #70C677;
+  color: #fff;
+  margin-top:30rpx
 }

@@ -32,7 +32,7 @@ background-color: #ffffff;
 
 }
 .content-item>scroll-view{
-  padding: 0 15rpx; 
+  /*padding: 0 15rpx; */
 }
 .applyBlock{
   height: 80rpx;
@@ -44,3 +44,22 @@ background-color: #ffffff;
 .indexContainer{
   margin-bottom:120rpx;
 }
+.addr{
+  color: #000
+} 
+.roomImg{
+  text-align: center
+}
+.flex-container>view {
+ flex-wrap: wrap
+}
+.operate_box{
+display:flex;
+justify-content:center;
+border-bottom: 1px solid rgba(0, 0, 0, 0.13)
+}
+.operate_box>view{
+  width:30%;
+ text-align:center;
+ padding:25rpx 0
+ }

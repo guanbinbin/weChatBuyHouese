@@ -21,7 +21,9 @@ Page({
     that = this;
     //判断有无用户信息
     if (app.globalData.userInfo) {
-      console.log(app.globalData.userInfo);
+      console.log("已有用户信息，直接展示...");
+      console.log(app.globalData);
+      console.log(wx.getStorageSync('userId'));
       this.setData({
         userInfo: app.globalData.userInfo,
         showAuthBox: false,
@@ -49,6 +51,7 @@ Page({
             userInfo: res.userInfo,
             authPass: true
           })
+          console.log("获取openid...");
           that.getOpenId();
         }
       }) 
@@ -106,9 +109,8 @@ Page({
           if(res.data.data.length==0){
             console.log("用户不存在进入注册页面...."); 
           }else{
-            console.log("用户存在回到个人中心页面...."); 
-            app.globalData.userInfo.id=res.data.data[0].userId;
-            console.log(app.globalData.userInfo.id)
+            console.log("用户存在回到个人中心页面....");  
+            wx.setStorageSync('userId', res.data.data[0].userId) 
           }
         }
       }

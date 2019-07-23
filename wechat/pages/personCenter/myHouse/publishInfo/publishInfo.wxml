@@ -96,10 +96,10 @@
 <view class="contact font14">
 <view><text class="font16 title ">联系方式</text></view>
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系人</text>
-<input name="contactInformation" placeholder="我们该如何称呼您"></input>
+<input name="contact" placeholder="我们该如何称呼您"></input>
 </view>
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系电话</text>
-<input name="contact" placeholder="方便我们及时与您联系"></input>
+<input name="contactInformation" placeholder="方便我们及时与您联系"></input>
 </view>
 </view>
 </view>
@@ -110,10 +110,11 @@
 
 </scroll-view>
 
-<scroll-view hidden='{{!rightDialog}}' style='margin-top: {{height}}px'>
+<scroll-view class='rightImgPart' hidden='{{!rightDialog}}' style='margin-top: {{height}}px'>
 <!--上传房产证照片-->
-<view class="imgPart">
-<image wx:if="{{!showRightImg}}" bindtap="chooseImg" data-type="right" src="../../../../images/index/apply.png"/>
+<view class="imgPart" style='border-bottom:1px solid #E0E3DA;'>
+<text class='block font14 padding_25'>请上传房产证照片:</text>
+<image wx:if="{{!showRightImg}}" class='rightItem' bindtap="chooseImg" data-type="right" src="../../../../images/index/right.png"/>
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showRightImg}}"> 
 <view wx:for="{{rightImgPath}}" class='img_list'>
 <image class='upload_img' bindtap="previewImage" data-type="right" data-src='{{item.path}}'src="{{item.path}}">
@@ -127,7 +128,8 @@
 </view> 
 <!--上传身份证照片-->
 <view class="imgPart">
-<image wx:if="{{!showIdCardImg}}" bindtap="chooseImg" data-type="idCard" src="../../../../images/index/apply.png"/>
+<text class='block font14 padding_25'>请上传身份证正、反面照片:</text>
+<image wx:if="{{!showIdCardImg}}" class='rightItem'  bindtap="chooseImg" data-type="idCard" src="../../../../images/index/icard.png"/>
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showIdCardImg}}"> 
 <view wx:for="{{idCardImgPath}}" class='img_list'>
 <image class='upload_img' bindtap="previewImage" data-type="idCard" data-src='{{item.path}}'src="{{item.path}}">

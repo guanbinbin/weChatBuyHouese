@@ -10,28 +10,58 @@
  <scroll-view>
  <view wx:if="{{item.name=='全部房源'}}">
  <view class='flex-container indexContainer'>
-<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}">
 
 <view class='roomImg' style='width:40%'>
-<image src="{{item.img}}"/>
+<image src="{{item.imgPath}}"/>
 </view>
 
 <view class="roomInfo" style='width:60%'>
-<text class='block title'>{{item.title}}</text>
-<text class='block addr'>{{item.addr}}</text>
-<text class='subTitle space' wx:for="{{item.subTitle}}" wx:key="index">{{item}}</text>
-<text class='block'>
-<text class='price space'>{{item.price}}</text>
-<text class='room space'>{{item.room}}</text>
-<text class='size space'>{{item.size}}m<text class="sup">2</text></text>
-</text>
+<text class='block title'>{{item.vilageName}}</text>
+<text class='block addr font14'>房屋地址：{{item.residential}}</text>
+<!--<text class='block addr'>所在区域：{{item.regionName}}</text> 
+<text class='block addr'>户型：{{item.roomTypeInfo}}</text> -->
+<text class='block addr font14'>面积：{{item.houseArea}}m<text class="sup">2</text></text> 
+<text class='block addr font14'>期望售价：<text class='price'>{{item.price}}万</text></text> 
+<text class='block addr font14'>当前状态：<text class='price'>{{item.status}}</text></text> 
+<!--<text class='block'>
+<text class='price space'>{{item.price}}万</text>
+<text class='room space'>{{item.roomTypeInfo}}</text>
+<text class='size space'>{{item.houseArea}}m<text class="sup">2</text></text>
+</text>-->
 </view>
+
+<view wx:if="{{item.status=='已上架'}}" class='operate_box' style='width:100%;'>
+<view >修改</view> 
+<view >改价</view>
+<view >执行下架</view>
+</view>
+<view wx:if="{{item.status=='待审核'}}" class='operate_box' style='width:100%;'>
+<view data-id="{{item.id}}" bindtap='jumpToDetail'>修改</view>  
+</view>
+<view wx:if="{{item.status=='审核未通过'}}" class='operate_box' style='width:100%;'>
+<view>修改</view>  
+<view >查看原因</view> 
+</view>
+<view wx:if="{{item.status=='勘察未通过'}}" class='operate_box' style='width:100%;'>
+<view >修改</view>  
+<view >查看原因</view> 
+</view>
+<view wx:if="{{item.status=='已下架'}}" class='operate_box' style='width:100%;'> 
+<view >重新上架</view> 
+</view>
+<view wx:if="{{item.status=='待勘察'}}" class='operate_box' style='width:100%;'>
+<view >修改</view>  
+<view style='width:30%'>改价</view>
+</view>
+
+
 </view>
 </view>
  </view>
   <view wx:if="{{item.name=='已审核房源'}}">
   <view class='flex-container indexContainer'>
-<view  wx:for="{{roomList}}" wx:key="index" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+<view  wx:for="{{roomList}}" wx:key="index" class="roombox" style='width:100%' data-id="{{item.id}}" >
 
 <view class='roomImg' style='width:40%'>
 <image src="{{item.img}}"/>

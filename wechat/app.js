@@ -43,6 +43,8 @@ App({
     height: 0,
     share: false,
     userInfo: null,
-    hostUrl:'https://weipan.51vip.biz/buyHouseProgram'
+    hostUrl:'https://weipan.51vip.biz/buyHouseProgram',
+    userId:"",
+    openId:""
   }
 })

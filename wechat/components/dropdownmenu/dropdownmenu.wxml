@@ -16,7 +16,7 @@
     <view class="icon"></view>
   </view>
 </view>
-
+<!---->
 <view class="district {{district_open ? 'show' : 'disappear'}} ">
   <view class="half half-left">
     <view class="{{district_left_select == item.id ? 'current_left_select' : ''}}" wx:for="{{dropDownMenuDistrictData}}" bindtap="selectDistrictLeft" data-model='{{item}}' wx:key="unique">
@@ -29,7 +29,7 @@
     </view>
   </view>
 </view>
-
+<!---->
 <view class="container container_hd {{source_open ? 'show' : 'disappear'}} ">
   <view class='z-height'>
     <view>
@@ -39,6 +39,7 @@
     </view>
   </view>
 </view>
+<!---->
 <view class="container container_hd {{style_open ? 'show' : 'disappear'}} ">
   <view class='z-height'>
     <view>
@@ -48,12 +49,49 @@
     </view>
   </view>
 </view>
+<!---->
 <view class="container container_hd {{filter_open ? 'show' : 'disappear'}} ">
-  <view class='z-height'>
+  <view class='z-height more_box'>
     <view>
-      <block wx:for="{{dropDownMenuFilterData}}" wx:key="unique">
-        <view class="sortitem {{selected_filter_id==item.id ? ' active ' : ' '}}" data-model='{{item}}' bindtap='selectFilterItem'> {{item.title}}</view>
-      </block>
+    <view>
+    <text class="block title">排序</text>
+    <view class='itemBox'>
+    <text class='subTitle01 space' style='width:42%' wx:for="{{dropDownMenuFilterData}}" data-model='{{item}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    </view>
+    </view>
+
+    <view class='tags'>
+    <text class="block title">标签</text>
+    <view class='itemBox' >
+    <text class=' space subTitle01 {{clickId==item.id&&!isTwice?"isActive":""}}' wx:for="{{dropDownMenuTags}}" data-model='{{item}}' data-active='{{clickId==item.id?true:false}}' data-type="tag" wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    </view>
+    </view>
+
+    <view class='tags'>
+    <text  class="block title">面积（平米）</text>
+    <view class='itemBox'>
+    <text class='subTitle01 space' wx:for="{{dropDownMenuSizeData}}" data-model='{{item}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    </view>
+    </view>
+
+    <view class='tags'>
+    <text class="block title">房屋类型</text>
+    <view class='itemBox'>
+    <text class='subTitle01 space' wx:for="{{dropDownMenuTypeData}}" data-model='{{index}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    </view>
+    </view>
+
+    <view class='tags'>
+    <text class="block title">房龄</text>
+    <view class='itemBox'>
+    <text class='subTitle01 space' wx:for="{{dropDownMenuAge}}" data-model='{{item}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    </view>
+    </view> 
+  
+   <view class='buttonBox'>
+   <button type="primary" bindtap="search"> 确定 </button>
+   <button type="default" bindtap="cancel"> 取消 </button>
+   </view>
     </view>
   </view>
 </view>

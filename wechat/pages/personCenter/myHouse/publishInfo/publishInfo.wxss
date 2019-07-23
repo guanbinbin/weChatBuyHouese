@@ -70,3 +70,9 @@
   background-color: transparent;
   width: 100%;
 }
+.rightImgPart .imgPart{
+  padding: 25rpx
+}
+.padding_25{
+  padding:25rpx
+}

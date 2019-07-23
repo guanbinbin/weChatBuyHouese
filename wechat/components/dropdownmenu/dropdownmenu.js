@@ -18,10 +18,7 @@ Component({
       type: Array,
       value: []
     },
-    dropDownMenuFilterData: {
-      type: Array,
-      value: []
-    },
+    
   },
   data: {
     // private properity
@@ -39,7 +36,13 @@ Component({
     selected_source_id: 0,
     selected_source_name:'',
     selected_filter_id: 0,
-    selected_filter_name: ''
+    selected_filter_name: '',
+    dropDownMenuTags: [{ id: 0, title: "近地铁" }, { id: 1, title: "近地铁" }, { id: 2, title: "近地铁" }, { id: 3, title: "近地铁" }, { id: 4, title: "近地铁" },],
+    dropDownMenuFilterData: [{ id: "1", title: "价格从高到低" }, { id: "2", title: "价格从低到高" }, { id: "3", title: "面积从大到小" }, { id: "3", title: "面积从小到大" }],
+    dropDownMenuSizeData: [{ id: "1", title: "50以下" }, { id: "2", title: "50-70" }, { id: "3", title: "70-90" }, { id: "3", title: "90-120" }, { id: "3", title: "120-150" }, { id: "3", title: "150-200" }, { id: "3", title: "200-300" }, { id: "3", title: "300以上" }],
+    dropDownMenuTypeData: [{ id: "1", title: "普通住宅" }, { id: "2", title: "公寓" }, { id: "3", title: "别墅" }, { id: "3", title: "平房" }, { id: "3", title: "其他" }], 
+    dropDownMenuAge: [{ id: "1", title: "两年内" }, { id: "2", title: "2-5年" }, { id: "3", title: "5-7年" }, { id: "3", title: "7年以上" }],
+    clickId:''
   },
   methods: {
     
@@ -160,14 +163,30 @@ Component({
     },
 
     selectFilterItem: function (e) {
-      var selectedId = e.target.dataset.model.id
+      if (e.target.dataset.type=="tag"){
+        if (e.target.dataset.active){
+          this.setData({
+            isTwice:true,
+            clickId: 99999999
+          })
+          e.target.dataset.active=false
+        }else{
+          this.setData({
+            isTwice: false,
+            clickId: e.target.dataset.model.id
+          }) 
+        }
+       
+      }
+    /*  var selectedId = e.target.dataset.model.id
       var selectedTitle = e.target.dataset.model.title;
       this.closeHyFilter();
       this.setData({
         selected_filter_id: selectedId,
         selected_filter_name:selectedTitle
       })
-      this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })
+      this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })*/
+      console.log(e)
     },
 
     selectStyleItem: function (e) {

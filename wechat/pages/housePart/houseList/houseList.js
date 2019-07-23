@@ -74,7 +74,7 @@ Page({
     },
     height: app.globalData.height * 2 + 20,
     //下拉组件参数
-    dropDownMenuTitle: ['区域', '来源', '租售', '排序'],//['区域','价格','户型','排序'],
+    dropDownMenuTitle: ['区域', '价格', '房型', '更多'],//['区域','价格','户型','排序'],
     data1: [
       {
         id: 0, title: '不限',
@@ -104,9 +104,7 @@ Page({
     data3: [
       { id: 1, title: '出租' },
       { id: 2, title: '出售' }],
-    data4: [
-      { id: 1, title: '智能排序' }, { id: 2, title: '发布时间' }, { id: 3, title: '距离优先' }
-    ]
+     
   }, 
   onLoad: function (options) {
   console.log("获取上一页面传来的参数......");

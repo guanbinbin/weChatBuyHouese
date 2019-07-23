@@ -1,4 +1,5 @@
 const app = getApp();
+var that;
 // pages/personCenter/myHouse/myHouse.js
 Page({ 
   data: {
@@ -20,70 +21,10 @@ Page({
     currentTab: 0,
     windowHeight: '',
     windowWidth: '',
-    roomList: [
-      {
-        img: '../../../images/index/house1.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "1"
-      },
-      {
-        img: '../../../images/index/house2.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "2"
-      },
-      {
-        img: '../../../images/index/house3.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "3"
-      },
-      {
-        img: '../../../images/index/house4.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "4"
-      },
-      {
-        img: '../../../images/index/house5.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "5"
-      },
-      {
-        img: '../../../images/index/house6.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "6"
-      }
-    ]
+    roomList: []
   }, 
   onLoad: function (options) {
+    that = this;
     wx.getSystemInfo({  // 获取当前设备的宽高
       success: (res) => {
         this.setData({
@@ -91,7 +32,90 @@ Page({
           windowWidth: res.windowWidth
         })
       },
-    })
+    });
+    console.log("查询所有房源信息...");
+    that.getMyhouseList(1,5)
+  },
+  getMyhouseList:function(page,size){
+    this.loading = true;
+    var type = "";
+    var status = "";
+    that.getList(type,status,page,size);
+ },
+  getList: (type, status,page, size)=>{
+    wx.request({
+      url: app.globalData.hostUrl + '/housereleasemanagement/queryListWithPage',
+      data: {
+        type:type,
+        status:status,
+        pageNum:page,
+        size:size,
+        isEffective:0,
+        creator: wx.getStorageSync('userId')
+      },
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res.data); 
+        if (res.data.code == 0) {
+         if(res.data.data.length>0){
+           that.createRoomListData(res.data.data);
+         }else{
+           console.log("无房源信息展示...");
+         }
+        }
+      }
+    });
+  },
+  createRoomListData:function(data){
+    var roomList = [];
+    var roomItem = {};
+  for(let i=0;i<data.length;i++){
+    roomItem={};
+    if(data[i].type==0){
+      if (data[i].status==0){
+        roomItem.status="待审核";
+      } else if (data[i].status == 2){
+        roomItem.status = "审核不通过";
+      }
+    } else if (data[i].type==1){
+      if (data[i].status == 0) {
+        roomItem.status = "待勘察";
+      } else if (data[i].status == 2) {
+        roomItem.status = "勘察不通过";
+      } else if (data[i].status==3){
+        roomItem.status = "勘察数据修改申请中";
+      }
+    } else if (data[i].type==2){
+      if (data[i].status == 1) {
+        roomItem.status = "已上架";
+      } else if (data[i].status == 3) {
+        roomItem.status = "上架数据修改申请中";
+      }
+    }else{
+      if (data[i].status == 1) {
+        roomItem.status = "已下架";
+      } else if (data[i].status == 4) {
+        roomItem.status = "下架申请中";
+      } 
+    }
+    var imgPath = data[i].houseResources.houseFilePath.split(";");
+    roomItem.imgPath = imgPath[0];
+    roomItem.regionName = "成都市 - " + data[i].houseResources.regionName;
+    roomItem.residential = data[i].houseResources.residential;//房屋地址
+    roomItem.roomTypeInfo = data[i].houseResources.roomTypeInfo;
+    roomItem.vilageName = data[i].houseResources.vilageName;
+    roomItem.price = data[i].houseResources.price;
+    roomItem.houseArea = data[i].houseResources.houseArea;
+    roomItem.id = data[i].houseResources.id;
+    roomList.push(roomItem)
+  }
+  that.setData({
+    roomList: roomList
+  })
+  console.log(that.data.roomList);
   },
   clickMenu: function (e) {
     var current = e.currentTarget.dataset.current //获取当前tab的index 
@@ -117,7 +141,7 @@ Page({
   },
   jumpToDetail:function(e){
     wx.navigateTo({
-      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id
+      url: './publishInfo/publishInfo?id=' + e.currentTarget.dataset.id
     })
   },
   /**

@@ -11,6 +11,7 @@ Page({
       innerPage:false,//是否是该页面的第二个页面
     },
     height: app.globalData.height * 2 + 20,
+    isUpdate:false, 
     //图片预览
     showImg:false,
     showRightImg:false,
@@ -46,9 +47,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    that = this;
+    that=this
+    if(typeof options.id !='undefined'){
+      var id = options.id;
+      console.log("id：" + id);
+      this.getMyRoomDetail(id);
+    }else{
+      console.log("没有参数，新增房源")
+    }
+    
   },
-
+  getMyRoomDetail(id){
+    wx.request({
+      url: app.globalData.hostUrl + '/houserelease/queryListWithNoPage',
+      data: {
+        id:id
+      },
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res.data.data[0].houseFilePath.split(";"));
+        
+        if (res.data.code == 0) {
+          that.setData({
+            showImg:true,
+            imgPath: res.data.data[0].houseFilePath.split(";")
+          })
+        }
+      }
+    });
+  },
   chooseImg:function(e){
     var _this = this;
     var type = e.target.dataset.type;
@@ -256,7 +286,7 @@ Page({
         break;
       }
     } 
-    formData["creator"] = app.globalData.userInfo.id;
+    formData["creator"] = wx.getStorageSync('userId');
     console.log("表单数据：" );
     console.log(formData);
 

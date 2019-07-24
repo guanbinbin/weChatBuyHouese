@@ -234,9 +234,10 @@
 background-color:rgba(0, 0, 0, 0.05);
 padding:15rpx 25rpx;
 border-radius:5rpx; 
-width:40%;
+width:30%;
 text-align:center;
 margin-bottom:10rpx;
+margin-right:5rpx
  
 }
 .more_box{
@@ -249,9 +250,8 @@ margin-bottom:10rpx;
 .itemBox{
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content:space-between;
-  font-size: 14px;
+  flex-wrap: wrap; 
+  font-size: 24rpx;
 }
 .block{
   display: block
@@ -272,11 +272,28 @@ margin-bottom: 25rpx
   font-size: 14px
 }
 .isActive{
-  background-color: #9b9b9b;
+background-color: #fff;
+border: 1px solid #70C677;
+color: #70C677;
 padding:15rpx 25rpx;
-border-radius:5rpx; 
-width: 15%;
+border-radius:5rpx;  
 margin-right: 15rpx;
 margin-bottom: 25rpx;
 text-align:center; 
+}
+
+.tagItem{
+background-color:rgba(0, 0, 0, 0.05);
+padding:15rpx 25rpx;
+border-radius:5rpx; 
+width:15%;
+text-align:center;
+margin-bottom:10rpx;
+margin-right:5rpx
+}
+.tagItemActive{
+background-color: #fff;
+border: 1px solid #70C677;
+color: #70C677;
+
 }

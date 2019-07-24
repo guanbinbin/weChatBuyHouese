@@ -63,7 +63,7 @@
     <view class='tags'>
     <text class="block title">标签</text>
     <view class='itemBox' >
-    <text class=' space subTitle01 {{clickId==item.id&&!isTwice?"isActive":""}}' wx:for="{{dropDownMenuTags}}" data-model='{{item}}' data-active='{{clickId==item.id?true:false}}' data-type="tag" wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    <text class=' space tagItem {{item.check&&!isTwice?"tagItemActive":""}}' wx:for="{{dropDownMenuTags}}" data-model='{{item}}' data-index="{{index}}"  data-type="tag" wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
     </view>
     </view>
 

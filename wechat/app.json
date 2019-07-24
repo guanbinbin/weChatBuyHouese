@@ -1,26 +1,18 @@
 {
   "pages": [
-    "pages/personCenter/myHouse/myHouse",
     "pages/housePart/houseList/houseList",
-      "pages/index/index",
+    "pages/personCenter/myHouse/myHouse",
+    "pages/index/index",
     "pages/personCenter/myHouse/publishInfo/publishInfo",
-   
     "pages/personCenter/center",
-  
-    
-    
     "pages/index01/index",
-    
     "pages/personCenter/applyHouse/applyHouse",
     "pages/personCenter/aboutUs/aboutUs",
     "pages/personCenter/collections/collections",
     "pages/personCenter/records/records",
     "pages/personCenter/commond/commond", 
-    
     "pages/map/map",
-    
     "pages/housePart/houseDetail/houseDetail",
-    
     "pages/index/search/search"
     
   ],

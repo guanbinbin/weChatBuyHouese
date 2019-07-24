@@ -28,9 +28,8 @@ Page({
     roomFormData:{},
     //城市-区域下拉框数据
     cityIndex: [0, 0],
-    cityArray: [["成都"], ["成华区", "高新区", "天府新区", "郫县", "锦江区", "金牛区", "武侯区", "新都区", "新津县", "青白江"]],
-    objectMultiArray:
-    [{ "regionCode": "2", "parid": "1", "regionName": "成都", "regtype": "1", "ageid": "0" }, { "regionCode": "2451", "parid": "2", "regionName": "成华区", "regtype": "2", "ageid": "0" }, { "regionCode": "392", "parid": "2", "regionName": "高新区", "regtype": "2", "ageid": "0" }, { "regionCode": "393", "parid": "2", "regionName": "郫县", "regtype": "2", "ageid": "0" }, { "regionCode": "394", "parid": "2", "regionName": "双流区", "regtype": "2", "ageid": "0" }, { "regionCode": "395", "parid": "2", "regionName": "天府新区", "regtype": "2", "ageid": "0" }, { "regionCode": "396", "parid": "2", "regionName": "锦江区", "regtype": "2", "ageid": "0" }, { "regionCode": "397", "parid": "2", "regionName": "金牛区", "regtype": "2", "ageid": "0" }],
+    cityArray: [["成都市"], ["锦江区", "青羊区", "高新区", "天府新区", "金牛区", "武侯区", "成华区", "龙泉驿区", "青白江区", "新都区", "温江区", "金堂县", "双流县", "郫县", "大邑县", "蒲江县", "新津县", "都江堰市", "彭州市", "邛崃市", "崇州市"]],
+    objectMultiArray:[],
     //房型信息下拉框数据
     roomInfoIndex:[0,0,0],
     roomInfoArray: [
@@ -41,13 +40,16 @@ Page({
     //在住情况下拉数据
     liveInOrnotIndex: 0,
     liveInOrnotArray: ["是", "否"],
+    houseDetail:{},
   },
    
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    that=this
+    that=this;
+    //获取区域数据
+    that.getRegionData();
     if(typeof options.id !='undefined'){
       var id = options.id;
       console.log("id：" + id);
@@ -57,7 +59,34 @@ Page({
     }
     
   },
+  getRegionData(){
+    console.log("获取区域数据...");
+    wx.request({
+      url: app.globalData.hostUrl + '/area/hierarchicalArea',
+      data: {},
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+         console.log(res);
+        if(res.data.code==0){
+         var obj = res.data.data[0].list[0];
+         var arr = [];
+          arr.push(obj.area);
+          var newarr = arr.concat(obj.list);
+          that.setData({
+            objectMultiArray:newarr
+          });
+          console.log(that.data.objectMultiArray)
+        }else{
+          console.log("区域获取失败");
+        }
+      }
+    });
+  },
   getMyRoomDetail(id){
+    console.log("获取id房源信息...");
     wx.request({
       url: app.globalData.hostUrl + '/houserelease/queryListWithNoPage',
       data: {
@@ -68,13 +97,97 @@ Page({
         "Content-Type": "application/json"
       },
       success(res) {
-        console.log(res.data.data[0].houseFilePath.split(";"));
-        
-        if (res.data.code == 0) {
+       if (res.data.code == 0) {
+         var obj = res.data.data;
+         console.log(obj);
+         var item = {}
+         var houseImgPath = obj[0].houseFilePath.split(";");
+         var rightImgPath = obj[0].estateFilePath.split(";");
+         var cardImgPath = obj[0].cardFilePath.split(";");
+         for (let i = 0; i < houseImgPath.length-1; i++) {
+            item={};
+            item.type = 'room';
+           item.path = houseImgPath[i];
+           that.data.imgPath.push(item);
+         }
           that.setData({
             showImg:true,
-            imgPath: res.data.data[0].houseFilePath.split(";")
+            imgPath: that.data.imgPath
+          }) 
+          //
+         for (let j = 0; j < rightImgPath.length - 1; j++) {
+           item = {};
+           item.type = 'right';
+           item.path = rightImgPath[j];
+           that.data.rightImgPath.push(item);
+         }
+         that.setData({
+           showIdCardImg: true,
+           rightImgPath: that.data.rightImgPath
+         }) 
+         //
+         for (let k = 0; k < cardImgPath.length - 1; k++) {
+           item = {};
+           item.type = 'idCard';
+           item.path = cardImgPath[k];
+           that.data.idCardImgPath.push(item);
+         }
+         that.setData({
+           showRightImg: true,
+           idCardImgPath: that.data.idCardImgPath
+         }) 
+
+         // 除图片之外的input数据回填
+         that.setData({
+           houseDetail: obj[0]
+         });
+         //picker数据回填
+         //区域
+         for (let i = 0; i < that.data.cityArray[1].length; i++) {
+           if (obj[0].regionName == that.data.cityArray[1][i]) {
+             that.setData({
+               cityIndex: [0,i]
+             })
+             break;
+           }
+         }
+         //房型
+         var roomType = obj[0].roomTypeInfo.split("-");
+         console.log(roomType)
+         var roomInfoArray = that.data.roomInfoArray;
+         var a,b,c;
+         for (let m = 0; m < roomInfoArray[0].length;m++){
+           if (roomInfoArray[0][m]==roomType[0]){
+             a = m;
+             break;
+           }
+         }
+         for (let n = 0; n < roomInfoArray[1].length; n++) {
+           if (roomInfoArray[1][n] == roomType[1]) {
+             b = n;
+             break;
+           }
+         }
+         for (let k = 0; k < roomInfoArray[2].length; k++) {
+           if (roomInfoArray[2][k] == roomType[2]) {
+             c = k;
+             break;
+           }
+         }
+         that.setData({
+           roomInfoIndex:[a,b,c]
+         })
+         //是否在住
+         if (obj[0].isLive==1){
+          that.setData({
+            liveInOrnotIndex:[0]
           })
+         }else{
+           that.setData({
+             liveInOrnotIndex: [1]
+           })
+         }
+         
         }
       }
     });
@@ -120,15 +233,59 @@ Page({
       }
     })
   },
-  continueUpload:function(){
+  //表单输入值
+  getInput:function(e){
+    if (e.target.dataset.options =="vilageName"){
+      var vilageName = "houseDetail.vilageName"
+    that.setData({
+      [vilageName]:e.detail.value
+    })
+  }
+    if (e.target.dataset.options =="residential"){
+      var residential ="houseDetail.residential"
+      that.setData({
+        [residential]:e.detail.value
+      })
+    }
+
+    if (e.target.dataset.options == "houseArea") {
+      var houseArea = "houseDetail.houseArea"
+      that.setData({
+        [houseArea]: e.detail.value
+      })
+    }
+
+    if (e.target.dataset.options == "price") {
+      var price = "houseDetail.price"
+      that.setData({
+        [price]: e.detail.value
+      })
+    }
+
+    if (e.target.dataset.options == "contact") {
+      var contact = "houseDetail.contact"
+      that.setData({
+        [contact]: e.detail.value
+      })
+    }
+
+    if (e.target.dataset.options == "contactInformation") {
+      var contactInformation = "houseDetail.contactInformation"
+      that.setData({
+        [contactInformation]: e.detail.value
+      })
+    }
+  console.log(that.data.houseDetail)
+  },
+  continueUpload:function(e){
   var _this = this;
   var type = e.target.dataset.type;
     if (type == "room") {
-    num = 9-this.data.imgPath.length;
+    var num = 9-this.data.imgPath.length;
     }else if(type=="right"){
-      num = 9 - this.data.rightImgPath.length;
+     var num = 9 - this.data.rightImgPath.length;
     }else{
-      num = 9 - this.data.idCardImgPath.length;
+    var  num = 9 - this.data.idCardImgPath.length;
     }
   console.log(num)
     wx.chooseImage({
@@ -145,21 +302,24 @@ Page({
           item.path = res.tempFilePaths[i];
           tempFilePaths.push(item);
         } 
-        var newarr =  _this.data.imgPath.concat(tempFilePaths);
+        
         //这里要条件判断
         if (type == "room") {
-          _this.setData({
+          var newarr = _this.data.imgPath.concat(tempFilePaths);
+          that.setData({
             showImg: true,
             imgPath: newarr
           })
           console.log(_this.data.imgPath);
         } else if (type == "right") {
+          var newarr = _this.data.rightImgPath.concat(tempFilePaths);
           _this.setData({
             showRightImg: true,
             rightImgPath: newarr
           })
           console.log(_this.data.rightImgPath);
         } else {
+          var newarr = _this.data.idCardImgPath.concat(tempFilePaths);
           _this.setData({
             showIdCardImg: true,
             idCardImgPath: newarr
@@ -296,7 +456,7 @@ Page({
     })
     console.log("图片数据：");
     console.log(this.data.allImg);
-    
+    return
     //上传表单和图片
     this.upload(formData);
   },

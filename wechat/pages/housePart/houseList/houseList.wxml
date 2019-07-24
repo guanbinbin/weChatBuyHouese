@@ -14,7 +14,7 @@
   placeholder='请输入小区名称'>
  </input></view> 
  </view>
-</view>
+</view> 
 
 <view class="{{top? 'position_f topNav' : ''}}" style="{{topStyle}}">
 <dropdownmenu  style="margin-top: {{height}}px" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuDistrictData='{{data1}}' dropDownMenuSourceData='{{data2}}' dropDownMenuStyleData='{{data3}}' dropDownMenuFilterData='{{data4}}'

@@ -297,3 +297,7 @@ border: 1px solid #70C677;
 color: #70C677;
 
 }
+.price_box{
+  padding:25rpx;
+  padding-left:35rpx
+} 

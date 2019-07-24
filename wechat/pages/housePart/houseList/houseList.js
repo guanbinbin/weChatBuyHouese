@@ -1,4 +1,5 @@
 const app = getApp();
+var that;
 // pages/housePart/houseList/houseList.js
 Page({
   data: {
@@ -78,25 +79,7 @@ Page({
     data1: [
       {
         id: 0, title: '不限',
-      },
-      {
-        id: 1, title: '道里区',
-        childModel: [
-          { id: '1-1', title: '中央大街' },
-          { id: '1-2', title: '埃德蒙顿路' }]
-      },
-      {
-        id: 2, title: '南岗区',
-        childModel: [
-          { id: '2-1', title: '果戈里' },
-          { id: '2-2', title: '通达街' }]
-      },
-      {
-        id: 3, title: '松北区',
-        childModel: [
-          { id: '3-1', title: '世茂大道' },
-          { id: '3-2', title: '市政府' }]
-      }
+      } 
     ],
     data2: [
       { id: 1, title: '个人房源' },
@@ -104,19 +87,59 @@ Page({
     data3: [
       { id: 1, title: '出租' },
       { id: 2, title: '出售' }],
+      //查询条件对象
+      searchObj:{},
      
   }, 
   onLoad: function (options) {
+  that = this;
   console.log("获取上一页面传来的参数......");
   var content = options.content;
   console.log("content:"+content);
   this.getRoomList(content);
+  this.getArea();
+  },
+  getArea:function(){
+    console.log("获取区域数据...");
+    wx.request({
+      url: app.globalData.hostUrl + '/area/hierarchicalArea',
+      data: {},
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res); 
+        if (res.data.code == 0) {
+          var obj = res.data.data[0].list[0]; 
+          var regionObj = {};
+          regionObj.childModel=[{
+            id:'',title:'不限'
+          }];
+          regionObj.id=obj.area.id;
+          regionObj.title=obj.area.name;
+          for(let i=0;i<obj.list.length;i++){
+            var item = {};
+            item.id = obj.list[i].id;
+            item.title = obj.list[i].name;
+            regionObj.childModel.push(item);
+          }
+          that.data.data1.push(regionObj)
+          that.setData({
+            data1: that.data.data1
+          })
+          console.log(that.data.data1);
+        } else {
+          console.log("区域获取失败");
+        }
+      }
+    });
   },
   getRoomList:function(params){
   console.log("获取房源列表......");
   },
   selectedItem: function (e) {
-    console.log('id --' + e.detail.selectedId + "cityname = " + e.detail.selectedTitle);
+    console.log(e);
   },
   //跳转到房源详情页
   jumpToDetail: function (e) {

@@ -139,7 +139,7 @@ Page({
   console.log("获取房源列表......");
   },
   selectedItem: function (e) {
-    console.log(e);
+    console.log(e.detail);
   },
   //跳转到房源详情页
   jumpToDetail: function (e) {

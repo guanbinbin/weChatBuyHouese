@@ -33,12 +33,7 @@
 </view>
 <!---->
 <view class="container container_hd {{source_open ? 'show' : 'disappear'}} ">
-  <view class='z-height price_box'>
-    <!--<view>
-      <block wx:for="{{dropDownMenuSourceData}}" wx:key="unique">
-        <view class="sortitem {{selected_source_id==item.id ? ' active ' : ' '}}" data-model='{{item}}' bindtap='selectSourceItem'> {{item.title}}</view>
-      </block>
-    </view>-->
+  <view class='z-height price_box'> 
      <view class='tags'> 
     <view class='itemBox'>
     <text class='tagItem space {{clickPriceId==item.id&&!priceTwice?"tagItemActive":""}}' style="font-size:20rpx" wx:for="{{dropDownMenuPrice}}" data-model='{{item}}' data-active="{{clickPriceId==item.id?true:false}}" wx:key="unique" bindtap='selectSourceItem'> {{item.title}}</text>
@@ -49,11 +44,18 @@
 <!---->
 <view class="container container_hd {{style_open ? 'show' : 'disappear'}} ">
   <view class='z-height'>
-    <view>
+   <!-- <view>
       <block wx:for="{{dropDownMenuStyleData}}" wx:key="unique">
         <view class="sortitem {{selected_style_id==item.id ? ' active ' : ' '}}" data-model='{{item}}' bindtap='selectStyleItem'> {{item.title}}</view>
       </block>
+    </view>-->
+    <view class="room1 roomLeft">
+    <view class='{{clickRoom1Id==item.id?"roomActive":""}}' wx:for="{{dropDownMenuRoomData1}}" data-type="room1" data-model="{{item}}" bindtap='selectRoomItem'>{{item.title}}</view>
     </view>
+    <view class="room1 roomMiddle">
+    <view class='{{clickRoom2Id==item.id?"roomActive":""}}' wx:for="{{dropDownMenuRoomData2}}" data-type="room2" data-model="{{item}}" bindtap='selectRoomItem'>{{item.title}}</view></view>
+    <view class="room1 roomRight">
+     <view class='{{clickRoom3Id==item.id?"roomActive":""}}' wx:for="{{dropDownMenuRoomData3}}" data-type="room3" data-model="{{item}}" bindtap='selectRoomItem'>{{item.title}}</view></view>
   </view>
 </view>
 <!---->
@@ -63,7 +65,7 @@
     <view>
     <text class="block title">排序</text>
     <view class='itemBox'>
-    <text class='subTitle01 space' style='width:42%' wx:for="{{dropDownMenuFilterData}}" data-model='{{item}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    <text class='subTitle01 space {{filterCheckId==item.id&&!filterIsTwice?"tagItemActive":""}}' style='width:42%' wx:for="{{dropDownMenuFilterData}}" data-model='{{item}}' wx:key="unique"  data-type="filter" data-active='{{filterCheckId==item.id?true:false}}' bindtap='selectFilterItem'> {{item.title}}</text>
     </view>
     </view>
 
@@ -77,21 +79,21 @@
     <view class='tags'>
     <text  class="block title">面积（平米）</text>
     <view class='itemBox'>
-    <text class='subTitle01 space' wx:for="{{dropDownMenuSizeData}}" data-model='{{item}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    <text class='tagItem space {{sizeCheckId==item.id&&!sizeIsTwice?"tagItemActive":""}}' wx:for="{{dropDownMenuSizeData}}" data-type='size' data-model='{{item}}'  data-active='{{sizeCheckId==item.id?true:false}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
     </view>
     </view>
 
     <view class='tags'>
     <text class="block title">房屋类型</text>
     <view class='itemBox'>
-    <text class='subTitle01 space' wx:for="{{dropDownMenuTypeData}}" data-model='{{index}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    <text class='tagItem space {{item.check&&!typeIsTwice?"tagItemActive":""}}' wx:for="{{dropDownMenuTypeData}}" data-type="roomType" data-model='{{item}}' data-index="{{index}}" wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
     </view>
     </view>
 
     <view class='tags'>
     <text class="block title">房龄</text>
     <view class='itemBox'>
-    <text class='subTitle01 space' wx:for="{{dropDownMenuAge}}" data-model='{{item}}' wx:key="unique" bindtap='selectFilterItem'> {{item.title}}</text>
+    <text class='tagItem space {{ageCheckId==item.id&&!ageIsTwice?"tagItemActive":""}}' wx:for="{{dropDownMenuAge}}" data-model='{{item}}' data-type="age" wx:key="unique" data-active='{{ageCheckId==item.id?true:false}}' bindtap='selectFilterItem'> {{item.title}}</text>
     </view>
     </view> 
   

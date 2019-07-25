@@ -173,6 +173,15 @@ text-align: center
   width: 45%;
   font-size: 14px
 }
+.subTitle01{ 
+background-color:rgba(0, 0, 0, 0.05);
+padding:15rpx 25rpx;
+border-radius:5rpx; 
+width:30%;
+text-align:center;
+margin-bottom:10rpx;
+margin-right:5rpx
+}
 .tagItem{
 background-color:rgba(0, 0, 0, 0.05);
 padding:15rpx 25rpx;

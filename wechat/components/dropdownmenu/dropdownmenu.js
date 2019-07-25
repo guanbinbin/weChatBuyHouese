@@ -37,15 +37,38 @@ Component({
     selected_source_name:'',
     selected_filter_id: 0,
     selected_filter_name: '',
+    //
     dropDownMenuTags: [{ id: 0, title: "近地铁", check: false }, { id: 1, title: "学区房", check: false }, { id: 2, title: "精装修", check: false }, { id: 3, title: "清水房", check: false }, { id: 4, title: "普通装修", check: false }, { id: 5, title: "有电梯", check: false }, { id: 6, title: "无电梯", check: false }, { id: 7, title: "随时看房", check: false }, { id: 8, title: "有车位", check: false }, { id: 9, title: "无车位", check: false }],
-    dropDownMenuFilterData: [{ id: "1", title: "价格从高到低" }, { id: "2", title: "价格从低到高" }, { id: "3", title: "面积从大到小" }, { id: "3", title: "面积从小到大" }],
+
+    dropDownMenuFilterData: [{ id: "1", title: "价格从高到低" }, { id: "2", title: "价格从低到高" }, { id: "3", title: "面积从大到小" }, { id: "4", title: "面积从小到大" }],
+    filterIsTwice:false,
+    filterCheckId:999,
+
     dropDownMenuSizeData: [{ id: "1", title: "50以下" }, { id: "2", title: "50-70" }, { id: "3", title: "70-90" }, { id: "4", title: "90-120" }, { id: "5", title: "120-150" }, { id: "6", title: "150-200" }, { id: "7", title: "200-300" }, { id: "8", title: "300以上" }],
-    dropDownMenuTypeData: [{ id: "1", title: "普通住宅" }, { id: "2", title: "公寓" }, { id: "3", title: "别墅" }, { id: "3", title: "平房" }, { id: "3", title: "其他" }], 
-    dropDownMenuAge: [{ id: "1", title: "两年内" }, { id: "2", title: "2-5年" }, { id: "3", title: "5-7年" }, { id: "3", title: "7年以上" }],
+    sizeCheckId: 999,
+    sizeIsTwice: false,
+
+    dropDownMenuTypeData: [{ id: "1", title: "普通住宅", check: false }, { id: "2", title: "公寓", check: false }, { id: "3", title: "别墅", check: false }, { id: "4", title: "平房", check: false }, { id: "5", title: "其他", check: false }], 
+    typeIsTwice:false,
+
+    dropDownMenuAge: [{ id: "0", title: "两年内" }, { id: "1", title: "2-5年" }, { id: "2", title: "5-7年" }, { id: "3", title: "7年以上" }],
+    ageCheckId: 999,
+    ageIsTwice: false,
+    //
     dropDownMenuPrice: [{ id: "1", title: "20万以内" }, { id: "2", title: "20-40万" }, { id: "3", title: "40-70万" }, { id: "4", title: "70-100万" }, { id: "5", title: "100-120万" }, { id: "6", title: "120-150万" }, { id: "7", title: "150-200万" }, { id: "8", title: "200万以上" }],
-    //价格的选中id
+     //价格的选中id
     clickPriceId:999,
-    priceTwice:false
+    priceTwice:false,
+    //
+    dropDownMenuRoomData1: [{ id: 0, title: "1室" }, { id: 1, title: "2室" }, { id: 2, title: "3室" }, { id: 3, title: "4室" }, { id: 4, title: "5室" }, { id: 5, title: "6室" }, { id: 6, title: "7室" }, { id: 7, title: "8室" }, { id: 8, title: "9室" }, { id: 9, title: "10室" }],
+    dropDownMenuRoomData2: [{ id: 0, title: "1厅" }, { id: 1, title: "2厅" }, { id: 2, title: "3厅" }, { id: 3, title: "4厅" }, { id: 4, title: "5厅" }, { id: 5, title: "6厅" }, { id: 6, title: "7厅" }, { id: 7, title: "8厅" }, { id: 8, title: "9厅" }, { id: 9, title: "10厅" }],
+    dropDownMenuRoomData3: [{ id: 0, title: "1卫" }, { id: 1, title: "2卫" }, { id: 2, title: "3卫" }, { id: 3, title: "4卫" }, { id: 4, title: "5卫" }, { id: 5, title: "6卫" }, { id: 6, title: "7卫" }, { id: 7, title: "8卫" }, { id: 8, title: "9卫" }, { id: 9, title: "10卫" }],
+    clickRoom1Id:999,
+    clickRoom2Id: 999,
+    clickRoom3Id: 999,
+    selectedroom1:'',
+    selectedroom2: '',
+    selectedroom3: ''
   },
   methods: {
     
@@ -142,7 +165,37 @@ Component({
         this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })
       }
     },
-
+    //
+    selectRoomItem:function(e){
+     if(e.target.dataset.type=="room1"){
+       this.setData({
+         clickRoom1Id: e.target.dataset.model.id,
+         selectedroom1: e.target.dataset.model.title,
+       })
+     }
+      if (e.target.dataset.type == "room2") {
+        this.setData({
+          clickRoom2Id: e.target.dataset.model.id,
+          selectedroom2: e.target.dataset.model.title,
+        })
+      }
+      if (e.target.dataset.type == "room3") {
+        this.setData({
+          clickRoom3Id: e.target.dataset.model.id,
+          selectedroom3: e.target.dataset.model.title,
+        });
+        
+      }
+      if (this.data.clickRoom1Id != 999 && this.data.clickRoom2Id != 999 && this.data.clickRoom3Id != 999 ){
+        this.closeHyFilter();
+        var selectedTitle = this.data.selectedroom1 + "-" + this.data.selectedroom2 + "-" + this.data.selectedroom3
+        this.setData({
+          selected_style_name: selectedTitle
+        })
+        this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: "", selectedTitle: selectedTitle })
+      }
+      
+    },
     selectDistrictRight: function (e) {
       var selectedId = e.target.dataset.model.id
       var selectedTitle = e.target.dataset.model.title;
@@ -193,7 +246,60 @@ Component({
             [check]: true
           }) 
       }
-        console.log(this.data.dropDownMenuTags[index])}
+        console.log(this.data.dropDownMenuTags[index])
+        }
+      else if (e.target.dataset.type =="filter"){
+        if(e.target.dataset.active){
+         this.setData({
+           filterIsTwice:true,
+           filterCheckId:999
+         })
+        }else{
+          this.setData({
+            filterIsTwice: false,
+            filterCheckId:e.target.dataset.model.id
+          })
+        }
+      } else if (e.target.dataset.type == "roomType"){
+        var item = e.target.dataset.model;
+        var index = e.target.dataset.index;
+        if (e.target.dataset.model.check) {
+          var check = 'dropDownMenuTypeData[' + index + '].check'
+          this.setData({
+            [check]: false
+          })
+        } else {
+          var check = 'dropDownMenuTypeData[' + index + '].check'
+          this.setData({
+            [check]: true
+          })
+        }
+        console.log(this.data.dropDownMenuTypeData[index])
+      } else if (e.target.dataset.type == "age"){
+        if (e.target.dataset.active) {
+          this.setData({
+            ageIsTwice: true,
+            ageCheckId: 999
+          })
+        } else {
+          this.setData({
+            ageIsTwice: false,
+            ageCheckId: e.target.dataset.model.id
+          })
+        }
+      } else if (e.target.dataset.type == "size"){
+        if (e.target.dataset.active) {
+          this.setData({
+            sizeIsTwice: true,
+            sizeCheckId: 999
+          })
+        } else {
+          this.setData({
+            sizeIsTwice: false,
+            sizeCheckId: e.target.dataset.model.id
+          })
+        }
+      }
     /*  var selectedId = e.target.dataset.model.id
       var selectedTitle = e.target.dataset.model.title;
       this.closeHyFilter();

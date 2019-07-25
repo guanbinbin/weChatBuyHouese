@@ -238,8 +238,8 @@ width:30%;
 text-align:center;
 margin-bottom:10rpx;
 margin-right:5rpx
- 
 }
+
 .more_box{
   padding:0 25rpx;
   height: 60vh;
@@ -301,3 +301,16 @@ color: #70C677;
   padding:25rpx;
   padding-left:35rpx
 } 
+.room1{
+  overflow-y:scroll;
+float:left;
+width:33.3%;
+height:600rpx;
+line-height:80rpx;
+box-sizing:border-box;
+font-size:14px;
+text-align: center;
+}
+.roomActive{
+  color:#70C677;
+}

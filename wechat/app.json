@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/housePart/houseList/houseList",
     "pages/personCenter/myHouse/myHouse",
-    "pages/index/index",
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     "pages/personCenter/center",
     "pages/index01/index",
@@ -10,11 +10,11 @@
     "pages/personCenter/aboutUs/aboutUs",
     "pages/personCenter/collections/collections",
     "pages/personCenter/records/records",
-    "pages/personCenter/commond/commond", 
+    "pages/personCenter/commond/commond",
     "pages/map/map",
     "pages/housePart/houseDetail/houseDetail",
-    "pages/index/search/search"
-    
+    "pages/index/search/search",
+    "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,8 +24,8 @@
     "navigationStyle": "custom"
   },
   "sitemapLocation": "sitemap.json",
-  "networkTimeout":{
-    "request":300000
+  "networkTimeout": {
+    "request": 300000
   },
   "tabBar": {
     "color": "#a9b7b7",

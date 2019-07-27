@@ -93,6 +93,8 @@ Page({
         roomItem.status = "已上架";
       } else if (data[i].status == 3) {
         roomItem.status = "上架数据修改申请中";
+      } else if (data[i].status == 0){
+        roomItem.status = "勘察通过,待上架";
       }
     }else{
       if (data[i].status == 1) {
@@ -141,7 +143,7 @@ Page({
   },
   jumpToDetail:function(e){
     wx.navigateTo({
-      url: './publishInfo/publishInfo?id=' + e.currentTarget.dataset.id
+      url: './publishInfoUpdate/publishInfoUpdate?id=' + e.currentTarget.dataset.id
     })
   },
   /**

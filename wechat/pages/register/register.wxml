@@ -1,0 +1,50 @@
+ <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+ <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view wx:if="{{!pass}}" style='margin-top: {{height}}px;'>
+<view class="registerBox">
+<view >
+<text class="block title1" space="nbsp"> 快速注册</text> 
+</view>
+
+<view class="item item1">
+<text class="block">手机号码</text>
+<input bindinput="telephoneInput" class="inputbox" placeholder="请输入您的手机号码" />
+</view>
+
+<view class="item item2">
+<text class="block">验证码</text>
+<view class="flex vilidateCode">
+<input bindinput="validateInput" class="inputbox" placeholder="请输入您收到的验证码" />
+<text style="font-size:12px" bindtap="sendCode" class="block font12 vilidateBox">发送验证码</text>
+</view>
+</view>
+
+<view>
+<button type="primary" bindtap="validate">下一步</button>
+</view>
+
+</view>
+</view>
+
+<view wx:if="{{pass}}" style='margin-top: {{height}}px;'>
+<view class="registerBox">
+<view >
+<text class="block title1" space="nbsp"> 设置密码</text> 
+</view>
+
+<view class="item item1">
+<text class="block">密码</text>
+<input type="password" bindinput="passwordInput" class="inputbox" placeholder="请输入您的密码" />
+</view>
+
+<view class="item item2">
+<text class="block">确认密码</text>
+<input type="password" bindinput="confirmPassInput"  class="inputbox" placeholder="请再次输入密码" />
+</view> 
+
+<view>
+<button type="primary" bindtap="register">注册</button>
+</view>
+
+</view>
+</view>

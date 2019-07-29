@@ -2,6 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/housePart/houseList/houseList",
+   
+    "pages/register/register",
+    
+    
     "pages/personCenter/myHouse/myHouse",
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     "pages/personCenter/center",
@@ -15,6 +19,7 @@
     "pages/housePart/houseDetail/houseDetail",
     "pages/index/search/search",
     "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

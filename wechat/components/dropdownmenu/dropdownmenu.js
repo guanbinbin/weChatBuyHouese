@@ -1,5 +1,4 @@
-
-Component({
+ Component({
   properties: {
     dropDownMenuTitle: {
       type: Array,
@@ -68,7 +67,22 @@ Component({
     clickRoom3Id: 999,
     selectedroom1:'',
     selectedroom2: '',
-    selectedroom3: ''
+    selectedroom3: '',
+    //search
+    searchData:{
+      regionCode:'',
+      priceMin:'',
+      priceMax:'',
+
+      roomTypeInfo:'',
+
+      roomAreaMin:'',
+      roomAreaMax:'',
+      roomAgeMin:'',
+      roomAgeMax:'',
+      propertyType:'',
+      labelId:'',
+   }
   },
   methods: {
     
@@ -150,23 +164,27 @@ Component({
         })
       }
     },
-
+  //quyu1
     selectDistrictLeft: function (e) {
+      var that = this;
+      var regionCode = "searchData.regionCode";
       var model = e.target.dataset.model.childModel;
-      var selectedId = e.target.dataset.model.id
+      var selectedId = e.target.dataset.model.id;
       var selectedTitle = e.target.dataset.model.title;
       this.setData({
         dropDownMenuDistrictDataRight: model==null?"":model,
         district_left_select: selectedId,
         district_right_select: '',
       })
-      if (model == null || model.length == 0) {
+      if (model == null || model.length == 0) { 
         this.closeHyFilter();
-        this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })
+        this.triggerEvent("selectedItem", that.data.searchData)
       }
     },
-    //
+    //fangxing
     selectRoomItem:function(e){
+    var that = this;
+      var roomTypeInfo = "searchData.roomTypeInfo";
      if(e.target.dataset.type=="room1"){
        this.setData({
          clickRoom1Id: e.target.dataset.model.id,
@@ -190,41 +208,64 @@ Component({
         this.closeHyFilter();
         var selectedTitle = this.data.selectedroom1 + "-" + this.data.selectedroom2 + "-" + this.data.selectedroom3
         this.setData({
-          selected_style_name: selectedTitle
+          selected_style_name: selectedTitle,
+          [roomTypeInfo]: selectedTitle,
         })
-        this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: "", selectedTitle: selectedTitle })
+        this.triggerEvent("selectedItem", that.data.searchData);
       }
       
     },
+    //quyu2
     selectDistrictRight: function (e) {
+      var that = this;
+      var regionCode = "searchData.regionCode";
       var selectedId = e.target.dataset.model.id
       var selectedTitle = e.target.dataset.model.title;
       this.closeHyFilter();
       this.setData({
+        [regionCode]:selectedId,
         district_right_select: selectedId,
         district_right_select_name:selectedTitle
       })
-      this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })
+      this.triggerEvent("selectedItem", that.data.searchData)
     },
-
+   //jiage
     selectSourceItem: function (e) {
       var selectedId = e.target.dataset.model.id
       var selectedTitle = e.target.dataset.model.title;
+      var priceMin = "searchData.priceMin";
+      var priceMax = "searchData.priceMax";
+      var min="";
+      var max="";
+      if (selectedId == 1){ 
+        max = selectedTitle.slice(0, selectedTitle.length-3);
+      }else if (selectedId == 8){
+        min = selectedTitle.slice(0, selectedTitle.length - 3);
+      }else{
+        var arr = selectedTitle.split("-");
+        min = arr[0];
+        max = arr[1].slice(0, arr[1].length-1);
+      }
+
       if(e.target.dataset.active){
         this.setData({
           clickPriceId:999,
           priceTwice:true,
           selected_source_id: '',
-          selected_source_name: ''
+          selected_source_name: '',
+          [priceMax]:"",
+          [priceMin]:""
         })
       }else{
         this.setData({
           clickPriceId: selectedId,
           priceTwice: false,
           selected_source_id: selectedId,
-          selected_source_name: selectedTitle
+          selected_source_name: selectedTitle,
+          [priceMax]: max,
+          [priceMin]: min
         }) 
-        this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })
+        this.triggerEvent("selectedItem", this.data.searchData)
       }
       this.closeHyFilter();
       

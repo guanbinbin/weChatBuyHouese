@@ -1,0 +1,311 @@
+const app = getApp();
+var that;
+Page({ 
+  data: {
+    // 组件所需的参数
+    nvabarData: {
+      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
+      title: '快速注册', //导航栏 中间的标题
+      indexUrl: '../../index/index'
+    },
+    register:{
+      telephone:'',
+      validateCode:'',
+      password:'',
+      confirmPass:'',
+      
+    },
+    openid:'',
+    userName: '',
+    height: app.globalData.height * 2 + 20,
+    pass:false,
+  },
+  sendCode(){
+  //验证手机号码
+    if (!(/^1[34578]\d{9}$/.test(that.data.register.telephone))) {
+
+      wx.showToast({
+
+        title: '手机号码格式有误',
+
+        duration: 2000,
+
+        icon: 'none'
+
+      });
+
+      return 
+
+    }
+    console.log("发动验证码接口...");
+    wx.request({
+      url: app.globalData.hostUrl + '/userinfo/verificationCode',
+      data: {phone:that.data.register.telephone},
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res);
+        wx.showLoading({
+          title: '验证码发送中...',
+        });
+        wx.hideLoading();
+        if (res.data.code == 0) {
+          wx.showToast({
+
+            title: '发送成功，请留意短信',
+
+            duration: 2000,
+
+            icon: 'none'
+
+          }); 
+        } else {
+          wx.showToast({
+
+            title: res.data.msg,
+
+            duration: 2000,
+
+            icon: 'none'
+
+          });
+        }
+      }
+    });
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+  that = this;
+  that.setData({
+    openid:options.openid,
+    userName:options.userName
+  })
+  },
+ //yanzheng
+  validate(){
+  if(that.data.register.telephone==""){
+    wx.showToast({
+
+      title: '请输入手机号码',
+
+      duration: 2000,
+
+      icon: 'none'
+
+    });
+    return
+  }else{
+    if (!(/^1[34578]\d{9}$/.test(that.data.register.telephone))) {
+
+      wx.showToast({
+
+        title: '手机号码格式有误',
+
+        duration: 2000,
+
+        icon: 'none'
+
+      });
+
+      return
+
+    }
+  }
+   if(that.data.register.validateCode==""){
+    wx.showToast({
+
+      title: '请输入验证码',
+
+      duration: 2000,
+
+      icon: 'none'
+
+    });
+    return 
+  }
+  //开始调用后台验证接口
+    wx.request({
+      url: app.globalData.hostUrl + '/userinfo/verification',
+      data: {   
+        phone: that.data.register.telephone,
+        code:that.data.register.validateCode
+
+      },
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res);
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '验证成功',
+            duration: 1500,
+            mask: 'false'
+          });
+          console.log("进入输入密码页面....");
+          that.setData({
+            pass: true
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            duration: 1500,
+            icon: 'none'
+          });
+           }
+      }
+    });
+  },
+  validateInput(e) {
+    var validate = "register.validateCode"
+    this.setData({
+      [validate]:e.detail.value
+    })
+  },
+  telephoneInput(e){
+    var telephone = "register.telephone"
+    this.setData({
+      [telephone]: e.detail.value
+    })
+  },
+  passwordInput(e){
+    var password = "register.password"
+    this.setData({
+      [password]: e.detail.value
+    })
+  }, 
+  confirmPassInput(e){
+    var confirmPass = "register.confirmPass"
+    this.setData({
+      [confirmPass]: e.detail.value
+    })
+  },
+  register(){
+    if(that.data.register.password==""){
+      wx.showToast({
+
+        title: '请输入密码',
+
+        duration: 2000,
+
+        icon: 'none'
+
+      });
+      return
+    }
+    if (that.data.register.confirmPass == "") {
+      wx.showToast({
+
+        title: '请确认密码',
+
+        duration: 2000,
+
+        icon: 'none'
+
+      });
+      return
+    }
+    if (that.data.register.confirmPass != that.data.register.password){
+      wx.showToast({
+
+        title: '两次输入的密码不一致！',
+
+        duration: 2000,
+
+        icon: 'none'
+
+      });
+      return
+    }
+  console.log("用户注册.....");
+    wx.request({
+      url: app.globalData.hostUrl + '/userinfo/insert',
+      data: {
+        acountType:0,
+        password:that.data.register.password,
+        openId:that.data.openid,
+        telePhone:that.data.register.telephone,
+        userName: that.data.userName,
+       },
+      method: 'POST',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res);
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '注册成功',
+            duration: 1500,
+            mask: 'false'
+          });
+        wx.switchTab({
+          url: '../personCenter/center',
+          success: function (e) {
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          } 
+        });
+        } else {
+          wx.showToast({
+            title: '注册失败',
+            duration: 1500,
+            icon: 'none'
+          });
+
+        }
+      }
+    });
+  },
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

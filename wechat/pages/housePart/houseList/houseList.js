@@ -139,7 +139,26 @@ Page({
   console.log("获取房源列表......");
   },
   selectedItem: function (e) {
+    console.log("搜索参数返回：");
     console.log(e.detail);
+    var data= {};
+
+    /*wx.request({
+      url: app.globalData.hostUrl + '/area/hierarchicalArea',
+      data: data,
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      success(res) {
+        console.log(res);
+        if (res.data.code == 0) {
+           
+        } else {
+          console.log("区域获取失败");
+        }
+      }
+    });*/
   },
   //跳转到房源详情页
   jumpToDetail: function (e) {

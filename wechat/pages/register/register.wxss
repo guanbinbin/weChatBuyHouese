@@ -1,0 +1,45 @@
+.registerBox{
+  padding: 45rpx 40rpx;
+}
+.registerBox view:first-child{
+  height: 10vh;
+}
+.title1{
+  font-size: 48rpx;
+  border-left:3px solid #4EBC59;
+}
+.vilidateBox{
+background-color: #4EBC59;
+border-radius: 25rpx;
+width: 25%;
+text-align: center;
+line-height: 70rpx;
+color: #fff;
+}
+.vilidateCode>input{
+width: 70%;
+}
+button{
+  background-color:#4EBC59!important;
+  border: none!important;
+  color:#fff;
+}
+.item text{
+font-size: 36rpx
+}
+.item text:first-child{
+margin-bottom: 20rpx
+}
+.item input{
+font-size: 26rpx
+}
+.inputbox{
+  padding: 5rpx 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+}
+.item1{
+  margin-bottom: 45rpx;
+}
+.item2{
+  margin-bottom: 70rpx;
+}

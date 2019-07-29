@@ -12,6 +12,7 @@ Page({
     },
     //
     isRoomUpdate: false,
+    resouceId:'',
     height: app.globalData.height * 2 + 20,
     isUpdate: false,
     //图片预览
@@ -55,13 +56,14 @@ Page({
     that = this;
     //获取区域数据
     that.getRegionData();
-    if (typeof options.id != 'undefined') {
-      that.isRoomUpdate = true;
+    if (typeof options.id != 'undefined') { 
       var id = options.id;
-      console.log("id：" + id);
+      that.setData({
+        isRoomUpdate:true,
+        resouceId:id
+      })  
       this.getMyRoomDetail(id);
-    } else {
-      that.isRoomUpdate = false;
+    } else { 
       console.log("没有参数，新增房源")
     }
 
@@ -221,22 +223,22 @@ Page({
           tempFilePaths.push(item);
         }
         //这里要条件判断
-        if (type == "room") {
+        if (type == "room") { 
           _this.setData({
             showImg: true,
-            imgPath: _this.imgPath.concat(tempFilePaths)
+            imgPath: _this.data.imgPath.concat(tempFilePaths)
           })
           console.log(_this.data.imgPath);
         } else if (type == "right") {
           _this.setData({
             showRightImg: true,
-            rightImgPath: _this.rightImgPath.concat(tempFilePaths)
+            rightImgPath: _this.data.rightImgPath.concat(tempFilePaths)
           })
           console.log(_this.data.rightImgPath);
         } else {
           _this.setData({
             showIdCardImg: true,
-            idCardImgPath: _this.idCardImgPath.concat(tempFilePaths)
+            idCardImgPath: _this.data.idCardImgPath.concat(tempFilePaths)
           })
           console.log(_this.data.idCardImgPath);
         }
@@ -489,65 +491,123 @@ Page({
       newImg.push(allImg[i])
     }
   }
-    console.log(newImg);
-    console.log(oldImg);
-    //老图能不能一张一张的传
+    //先传老图
+    that.uploadOldImg(oldImg,newImg);
   },
-  upload: function (formData) {
+  //传旧图
+  uploadOldImg(oldImg, newImg) {
+  var homeImg = [];
+  var estateImg = [];
+  var cardImg = [];
+  for(let i=0;i<oldImg.length;i++){
+    if(oldImg[i].type=="room"){
+      homeImg.push(oldImg[i].path);
+    } else if (oldImg[i].type == "right"){
+      estateImg.push(oldImg[i].path);
+    }else{
+      cardImg.push(oldImg[i].path);
+    }
+  }
+    var type = ['HOUSE', 'ESTATE','CARD']
+    for(let j=0;j<type.length;j++){ 
+      if(type[j]=='HOUSE'){
+        var oldPath = homeImg.toString();
+      } else if (type[j] == 'ESTATE'){
+        var oldPath = estateImg.toString();
+      }else{
+        var oldPath = cardImg.toString();
+      }
+      console.log(oldPath)
+      wx.request({
+        url: app.globalData.hostUrl + "/housepicture/wxInsertJson",
+        data: {
+          resouceId:that.data.resouceId,
+          type:type[j],
+          oldPath: oldPath
+        },
+        method: 'POST',
+        header: {
+          "Content-Type": "application/json"
+        },
+        success(res) {
+          console.log(res.data); 
+          if(res.data.code==0){
+            if(j==type.length-1){
+              console.log("传新的图片。。。");
+              that.uploadImg(newImg);
+            }
+          }
+        }
+      })
+    }
+  },
+  //修改房源信息
+  upload: function () {
     wx.request({
-      url: app.globalData.hostUrl + "/houserelease/insert",
-      data: formData,
+      url: app.globalData.hostUrl + "/houserelease/update",
+      data: that.data.formData,
       method: 'POST',
       header: {
         "Content-Type": "application/json"
       },
       success(res) {
-        console.log(res.data);
-        console.log("表单数据新增之后开始传图片....");
+        console.log(res.data); 
         if (res.data.code == 0) {
-          that.uploadImg(res.data.data);
+          wx.showToast({
+            title: '修改成功！',
+            duration: 1500,
+            mask: 'false'
+          }) 
         }
       }
     })
 
   },
-  uploadImg: function (id) {
-    for (let i = 0; i < this.data.allImg.length; i++) {
-      var type = "";
-      if (this.data.allImg[i].type == 'room') {
-        type = "HOUSE";
-      } else if (this.data.allImg[i].type == 'right') {
-        type = "ESTATE";
-      } else {
-        type = "CARD";
-      }
-      wx.uploadFile({
-        url: app.globalData.hostUrl + "/housepicture/wxInsert",
-        filePath: that.data.allImg[i].path,
-        name: 'file',
-        formData: { type: type, resouceId: id },
-        header: {
-          "Content-Type": "multipart/form-data",
-        },
-        success: (resp) => {
-          console.log("图片上传成功" + i);
-        },
-        fail: (res) => {
-        },
-        complete: () => {
-          if (i == this.data.allImg.length - 1) {   //当图片传完时，停止调用
-            wx.showToast({
-              title: '上传成功',
-              duration: 1500,
-              mask: 'false'
-            })
-
-          }
+  //传新图
+  uploadImg: function (data) {
+    if(data.length>0){
+      for (let i = 0; i < this.data.length; i++) {
+        var type = "";
+        if (this.data[i].type == 'room') {
+          type = "HOUSE";
+        } else if (this.data[i].type == 'right') {
+          type = "ESTATE";
+        } else {
+          type = "CARD";
         }
-      });
-    }
+        wx.uploadFile({
+          url: app.globalData.hostUrl + "/housepicture/wxInsertFormData",
+          filePath: that.data[i].path,
+          name: 'file',
+          formData: { type: type, resouceId: that.data.resouceId },
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+          success: (resp) => {
+            console.log("图片上传成功" + i);
+          },
+          fail: (res) => {
+          },
+          complete: () => {
+            if (i == this.data.length - 1) {   //当图片传完时，停止调用
+              /*wx.showToast({
+               title: '上传成功',
+               duration: 1500,
+               mask: 'false'
+             }) */
+              console.log("修改房源信息......");
+              that.upload();
 
-  },
+            }
+          }
+        });
+      }
+    }else{
+      console.log("没有新图，直接保存数据......");
+      that.upload();
+    }
+ },
+ 
   cityChange: function (e) {
     that.setData({
       "cityIndex[0]": e.detail.value[0],

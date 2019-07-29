@@ -45,11 +45,10 @@ Page({
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          app.globalData.userInfo = res.userInfo;
-          console.log(app.globalData.userInfo);
+          //app.globalData.userInfo = res.userInfo;
+          //console.log(app.globalData.userInfo);
           this.setData({
-            userInfo: res.userInfo,
-            authPass: true
+            userInfo: res.userInfo
           })
           console.log("获取openid...");
           that.getOpenId();
@@ -108,9 +107,30 @@ Page({
         if(res.data.code==0){
           if(res.data.data.length==0){
             console.log("用户不存在进入注册页面...."); 
-          }else{
-            console.log("用户存在回到个人中心页面....");  
-            wx.setStorageSync('userId', res.data.data[0].userId) 
+            wx.showModal({
+              title: '提示',
+              content: '我们没有找到您，您需要注册才能加入我们的用户哦',
+              confirmText:'去注册',
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../register/register?openid=' + openId + "&userName=" + that.data.userInfo.nickName,
+                  })
+                } else {
+                  wx.switchTab({
+                    url: '../index/index',
+                  })
+                }
+              }
+            }) 
+           
+          }else{ 
+            console.log("用户存在回到个人中心页面...."); 
+            app.globalData.userInfo = that.data.userInfo;
+            that.setData({ 
+              authPass: true
+            })
+            wx.setStorageSync('userId', res.data.data[0].userId); 
           }
         }
       }
@@ -118,10 +138,9 @@ Page({
   
   },
   jumpToMyhouse:function(e){
-    console.log("跳转到我的房源......");
-    //console.log(e.currentTarget.dataset.id);
+    console.log("跳转到我的房源......"); 
     wx.navigateTo({
-      url: 'myHouse/myHouse'
+      url: 'myHouse/myHouse?'
     })
   },
   jumpToCommond: function (e) {

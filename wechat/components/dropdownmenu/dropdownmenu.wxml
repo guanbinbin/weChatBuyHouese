@@ -18,7 +18,7 @@
     <view class="icon"></view>
   </view>
 </view>
-<!---->
+<!--区域-->
 <view class="district {{district_open ? 'show' : 'disappear'}} ">
   <view class="half half-left">
     <view class="{{district_left_select == item.id ? 'current_left_select' : ''}}" wx:for="{{dropDownMenuDistrictData}}" bindtap="selectDistrictLeft" data-model='{{item}}' wx:key="unique">
@@ -31,7 +31,7 @@
     </view>
   </view>
 </view>
-<!---->
+<!--价格-->
 <view class="container container_hd {{source_open ? 'show' : 'disappear'}} ">
   <view class='z-height price_box'> 
      <view class='tags'> 
@@ -41,7 +41,7 @@
     </view>
   </view>
 </view>
-<!---->
+<!--房型-->
 <view class="container container_hd {{style_open ? 'show' : 'disappear'}} ">
   <view class='z-height'>
    <!-- <view>
@@ -58,7 +58,7 @@
      <view class='{{clickRoom3Id==item.id?"roomActive":""}}' wx:for="{{dropDownMenuRoomData3}}" data-type="room3" data-model="{{item}}" bindtap='selectRoomItem'>{{item.title}}</view></view>
   </view>
 </view>
-<!---->
+<!--更多-->
 <view class="container container_hd {{filter_open ? 'show' : 'disappear'}} ">
   <view class='z-height more_box'>
     <view>

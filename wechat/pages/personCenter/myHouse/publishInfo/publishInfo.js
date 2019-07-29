@@ -493,7 +493,7 @@ Page({
         type = "CARD";
       } 
       wx.uploadFile({
-        url: app.globalData.hostUrl + "/housepicture/wxInsert",
+        url: app.globalData.hostUrl + "/housepicture/wxInsertFormData",
         filePath: that.data.allImg[i].path,
         name: 'file',
         formData: {type: type,resouceId: id},

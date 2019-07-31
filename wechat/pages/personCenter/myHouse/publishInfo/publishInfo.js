@@ -184,11 +184,11 @@ Page({
          //是否在住
          if (obj[0].isLive==1){
           that.setData({
-            liveInOrnotIndex:[0]
+            liveInOrnotIndex:0
           })
          }else{
            that.setData({
-             liveInOrnotIndex: [1]
+             liveInOrnotIndex:1
            })
          }
          
@@ -433,10 +433,15 @@ Page({
   formSubmit:function(e){
     
     console.log("表单提交..."); 
-    var formData = e.detail.value;
+    wx.showToast({
+      title: '提交中...',
+      icon:'loading',
+      duration:15000
+    }); 
+    var formData = e.detail.value; 
     formData["roomTypeInfo"] = that.data.roomInfoArray[0][that.data.roomInfoIndex[0]] + "-" + that.data.roomInfoArray[1][that.data.roomInfoIndex[1]] + "-" + that.data.roomInfoArray[2][that.data.roomInfoIndex[2]];
     var isLive ;
-    if (this.data.liveInOrnotIndex=="是"){
+    if (this.data.liveInOrnotArray[this.data.liveInOrnotIndex]=="是"){
       isLive = 0;
     }else{
       isLive = 1;
@@ -453,16 +458,90 @@ Page({
     formData["creator"] = wx.getStorageSync('userId');
     console.log("表单数据：" );
     console.log(formData);
-    
-    
-    //allImg
-    this.setData({
-      allImg: that.data.imgPath.concat(that.data.rightImgPath,that.data.idCardImgPath)
-    })
-    console.log("图片数据：");
-    console.log(this.data.allImg); 
-    //上传表单和图片
-    this.upload(formData);
+    if(that.validate(formData)){
+      if (that.data.imgPath.length==0){
+        wx.showToast({
+          title: '请上传房源照片',
+          icon:'none',
+          duration:1500
+        })
+        return
+      }
+      if (that.data.rightImgPath.length == 0) {
+        wx.showToast({
+          title: '请上传房产证照片',
+          icon: 'none',
+          duration: 1500
+        })
+        return
+      }
+      if (that.data.idCardImgPath.length == 0) {
+        wx.showToast({
+          title: '请上传身份证照片',
+          icon: 'none',
+          duration: 1500
+        })
+        return
+      }
+      //allImg
+      this.setData({
+        allImg: that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath)
+      })
+      console.log("图片数据：");
+      console.log(this.data.allImg);
+      //上传表单和图片
+      this.upload(formData);
+    }
+   },
+  validate(formData){
+    if (formData.vilageName==""){
+      wx.showToast({
+        title: '请输入小区名称',
+        duration:1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.houseArea==""){
+      wx.showToast({
+        title: '请输入产权面积',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.price == "") {
+      wx.showToast({
+        title: '请输入期望售价',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.contact == "") {
+      wx.showToast({
+        title: '请输入联系人',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.contactInformation == "") {
+      wx.showToast({
+        title: '请输入联系方式',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    } else if (!(/^1[34578]\d{9}$/.test(formData.contactInformation))) {
+      wx.showToast({
+        title: '手机号码格式有误',
+        duration: 1500,
+        icon: 'none'
+      });
+      return false
+   }
+    return true
   },
   upload: function (formData) { 
     wx.request({
@@ -477,6 +556,13 @@ Page({
         console.log("表单数据新增之后开始传图片....");
         if(res.data.code==0){
           that.uploadImg(res.data.data);
+        }else{
+          wx.hideToast();
+          wx.showToast({
+            title: '新增失败',
+            icon:'none',
+            duration:2000
+          })
         }
       }
     })
@@ -507,12 +593,18 @@ Page({
         },
         complete: () => { 
           if (i == this.data.allImg.length-1) {   //当图片传完时，停止调用
+            wx.hideToast();
             wx.showToast({
-              title: '上传成功',
-              duration: 1500,
-              mask: 'false'
-            })
-             
+              title: '发布成功',
+              duration: 1500, 
+              icon:'success'
+            });
+            console.log("跳转到我的房源列表...");
+            setTimeout(function(){
+              wx.navigateTo({
+                url: '../myHouse',
+              })
+            },1500) 
           } 
         }
       }); 

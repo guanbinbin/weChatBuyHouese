@@ -99,7 +99,7 @@
   
    <view class='buttonBox'>
    <button type="primary" bindtap="search"> 确定 </button>
-   <button type="default" bindtap="cancel"> 取消 </button>
+   <button type="default" bindtap="cancel"> 取消 </button> 
    </view>
     </view>
   </view>

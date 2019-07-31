@@ -39,6 +39,11 @@ Page({
   },
   bindGetUserInfo:function(e){ 
     if (e.detail.errMsg == "getUserInfo:ok") {
+      wx.showToast({
+        title: '',
+        duration: 15000,
+        icon: 'loading'
+      })
       this.setData({
         showAuthBox: false
       });
@@ -82,8 +87,9 @@ Page({
             console.log(res.data)
             OPEN_ID = res.data.openid;//获取到的openid  
             SESSION_KEY = res.data.session_key;//获取到session_key  
-            console.log(OPEN_ID)
-            console.log(SESSION_KEY.length)
+            console.log(OPEN_ID);
+            console.log(SESSION_KEY.length);
+            
             that.isOurUser(OPEN_ID);
           }
         })
@@ -105,6 +111,7 @@ Page({
         console.log(res.data);
         console.log("根据openid判断是否是我们的用户...."); 
         if(res.data.code==0){
+          wx.hideToast();
           if(res.data.data.length==0){
             console.log("用户不存在进入注册页面...."); 
             wx.showModal({
@@ -114,7 +121,7 @@ Page({
               success: function (res) {
                 if (res.confirm) {
                   wx.navigateTo({
-                    url: '../register/register?openid=' + openId + "&userName=" + that.data.userInfo.nickName,
+                    url: '../register/register?openid=' + openId + "&userName=" + that.data.userInfo.nickName + "&userInfo=" + that.data.userInfo,
                   })
                 } else {
                   wx.switchTab({

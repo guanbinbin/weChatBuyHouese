@@ -19,6 +19,7 @@ Page({
     userName: '',
     height: app.globalData.height * 2 + 20,
     pass:false,
+    userInfo:{},
   },
   sendCode(){
   //验证手机号码
@@ -37,6 +38,11 @@ Page({
       return 
 
     }
+    wx.showToast({
+      title: '正在发送中...',
+      duration: 15000,
+      icon: 'loading'
+    });
     console.log("发动验证码接口...");
     wx.request({
       url: app.globalData.hostUrl + '/userinfo/verificationCode',
@@ -46,11 +52,8 @@ Page({
         "Content-Type": "application/json"
       },
       success(res) {
-        console.log(res);
-        wx.showLoading({
-          title: '验证码发送中...',
-        });
-        wx.hideLoading();
+        console.log(res); 
+        wx.hideToast();
         if (res.data.code == 0) {
           wx.showToast({
 
@@ -80,10 +83,15 @@ Page({
    */
   onLoad: function (options) {
   that = this;
-  that.setData({
+  /*that.setData({
     openid:options.openid,
     userName:options.userName
-  })
+    userInfo:options.userInfo
+  })*/
+    that.setData({
+      openid: 'oHLc75ICRFekIMvTI4hTs6DIppOc',
+      userName: 777
+    })
   },
  //yanzheng
   validate(){
@@ -241,12 +249,16 @@ Page({
         if (res.data.code == 0) {
           wx.showToast({
             title: '注册成功',
-            duration: 1500,
-            mask: 'false'
+            duration: 15000,
+            icon: 'loading'
           });
+        app.globalData.userInfo = that.data.userInfo;
+        wx.setStorageSync('userId', res.data.data[0].userId); 
+        return
         wx.switchTab({
           url: '../personCenter/center',
           success: function (e) {
+            wx.hideToast();
             var page = getCurrentPages().pop();
             if (page == undefined || page == null) return;
             page.onLoad();

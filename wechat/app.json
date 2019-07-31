@@ -1,12 +1,13 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/housePart/houseList/houseList",
-   
-    "pages/register/register",
-    
-    
     "pages/personCenter/myHouse/myHouse",
+    "pages/index/index",
+    "pages/register/register",
+    "pages/housePart/houseList/houseList",
+    
+    
+    
+    
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     "pages/personCenter/center",
     "pages/index01/index",
@@ -26,7 +27,9 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": true 
+
   },
   "sitemapLocation": "sitemap.json",
   "networkTimeout": {

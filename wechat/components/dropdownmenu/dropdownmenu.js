@@ -1,3 +1,4 @@
+ const app = getApp();
  Component({
   properties: {
     dropDownMenuTitle: {
@@ -37,7 +38,8 @@
     selected_filter_id: 0,
     selected_filter_name: '',
     //
-    dropDownMenuTags: [{ id: 0, title: "近地铁", check: false }, { id: 1, title: "学区房", check: false }, { id: 2, title: "精装修", check: false }, { id: 3, title: "清水房", check: false }, { id: 4, title: "普通装修", check: false }, { id: 5, title: "有电梯", check: false }, { id: 6, title: "无电梯", check: false }, { id: 7, title: "随时看房", check: false }, { id: 8, title: "有车位", check: false }, { id: 9, title: "无车位", check: false }],
+    dropDownMenuTags: [],
+    tagIds:[],
 
     dropDownMenuFilterData: [{ id: "1", title: "价格从高到低" }, { id: "2", title: "价格从低到高" }, { id: "3", title: "面积从大到小" }, { id: "4", title: "面积从小到大" }],
     filterIsTwice:false,
@@ -49,6 +51,7 @@
 
     dropDownMenuTypeData: [{ id: "1", title: "普通住宅", check: false }, { id: "2", title: "公寓", check: false }, { id: "3", title: "别墅", check: false }, { id: "4", title: "平房", check: false }, { id: "5", title: "其他", check: false }], 
     typeIsTwice:false,
+    checkTypes:[],
 
     dropDownMenuAge: [{ id: "0", title: "两年内" }, { id: "1", title: "2-5年" }, { id: "2", title: "5-7年" }, { id: "3", title: "7年以上" }],
     ageCheckId: 999,
@@ -271,8 +274,10 @@
       
       
     },
-  //
+  //gengduo
     selectFilterItem: function (e) {
+      var that = this;
+      //选择标签
       if (e.target.dataset.type=="tag"){
         var item = e.target.dataset.model;
         var index = e.target.dataset.index;
@@ -281,14 +286,23 @@
           this.setData({ 
             [check]: false
           }) 
-        }else{
+          var index = that.data.tagIds.indexOf(item.id);
+          that.data.tagIds.splice(index,1);
+        }else{ 
           var check = 'dropDownMenuTags[' + index + '].check'
           this.setData({
             [check]: true
-          }) 
+          })
+          that.data.tagIds.push(item.id);
+          
       }
+        var labelId = "searchData.labelId";
+        that.setData({
+          [labelId]: that.data.tagIds.toString()
+        })
         console.log(this.data.dropDownMenuTags[index])
         }
+        //排序
       else if (e.target.dataset.type =="filter"){
         if(e.target.dataset.active){
          this.setData({
@@ -301,7 +315,8 @@
             filterCheckId:e.target.dataset.model.id
           })
         }
-      } else if (e.target.dataset.type == "roomType"){
+      }//类型 
+      else if (e.target.dataset.type == "roomType"){ 
         var item = e.target.dataset.model;
         var index = e.target.dataset.index;
         if (e.target.dataset.model.check) {
@@ -309,26 +324,59 @@
           this.setData({
             [check]: false
           })
+          var index = that.data.checkTypes.indexOf(item.title);
+          that.data.checkTypes.splice(index, 1);
         } else {
           var check = 'dropDownMenuTypeData[' + index + '].check'
           this.setData({
             [check]: true
           })
+          that.data.checkTypes.push(item.title);
         }
+        var propertyType = "searchData.propertyType";
+        that.setData({
+          [propertyType]: that.data.checkTypes.toString()
+        })
         console.log(this.data.dropDownMenuTypeData[index])
-      } else if (e.target.dataset.type == "age"){
+      }//房龄
+       else if (e.target.dataset.type == "age"){
+        var roomAgeMin = "searchData.roomAgeMin";
+        var roomAgeMax = "searchData.roomAgeMax";
+        var min = 0, max =999;
+        var selectedTitle = e.target.dataset.model.title;
+        var selectedId = e.target.dataset.model.id;
         if (e.target.dataset.active) {
           this.setData({
             ageIsTwice: true,
             ageCheckId: 999
-          })
+          });
         } else {
           this.setData({
             ageIsTwice: false,
             ageCheckId: e.target.dataset.model.id
           })
+          if (selectedId == 0) {
+            max = 2;
+          } else if (selectedId == 3) {
+            min =7;
+          } else {
+            var arr = selectedTitle.split("-");
+            min = arr[0];
+            max = arr[1].slice(0, arr[1].length-1);
+          }
         }
-      } else if (e.target.dataset.type == "size"){
+        that.setData({
+          [roomAgeMin]: min,
+          [roomAgeMax]: max,
+        })
+        
+      }//面积
+       else if (e.target.dataset.type == "size"){
+        var roomAreaMin = "searchData.roomAreaMin";
+        var roomAreaMax = "searchData.roomAreaMax";
+        var min = 0, max =9999;
+        var selectedTitle =  e.target.dataset.model.title;
+        var selectedId = e.target.dataset.model.id;
         if (e.target.dataset.active) {
           this.setData({
             sizeIsTwice: true,
@@ -338,18 +386,22 @@
           this.setData({
             sizeIsTwice: false,
             sizeCheckId: e.target.dataset.model.id
-          })
+          });
+          if (selectedId == 1) {
+            max = selectedTitle.slice(0, selectedTitle.length - 2);
+          } else if (selectedId == 8) {
+            min = selectedTitle.slice(0, selectedTitle.length - 2);
+          } else {
+            var arr = selectedTitle.split("-");
+            min = arr[0];
+            max = arr[1];
+          }
         }
-      }
-    /*  var selectedId = e.target.dataset.model.id
-      var selectedTitle = e.target.dataset.model.title;
-      this.closeHyFilter();
-      this.setData({
-        selected_filter_id: selectedId,
-        selected_filter_name:selectedTitle
-      })
-      this.triggerEvent("selectedItem", { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle })*/
-     
+        that.setData({
+          [roomAreaMin]: min,
+          [roomAreaMax]: max,
+        })
+      }  
     },
 
     selectStyleItem: function (e) {
@@ -397,11 +449,44 @@
         })
       }
     },
+    //search
+    search() {
+      this.closeHyFilter();
+      this.triggerEvent("selectedItem", this.data.searchData)
+    },
+    //cancel
+    cancel() {
+      this.closeHyFilter();
+    },
+    getTags(){
+      var that = this;
+      console.log("获取tags");
+      wx.request({
+        url: app.globalData.hostUrl + "/basiclabel/queryListWithNoPage",
+        method:'GET',
+        data:{},
+        success:(res)=>{
+        if(res.data.code==0){
+          console.log(res.data.data);
+          var tags = res.data.data;
+          for (let i = 0; i < tags.length;i++){
+            tags[i].check=false;
+            tags[i].title = tags[i].name;
+            that.data.dropDownMenuTags.push(tags[i]);
+          }
+          that.setData({
+            dropDownMenuTags: that.data.dropDownMenuTags
+          });
+          console.log(that.data.dropDownMenuTags)
+        }
+        }
+      })
+    }
   },
+  
   //组件生命周期函数，在组件实例进入页面节点树时执行
-  attached: function () {
-    
-    
-  },
+  attached: function () { 
+    this.getTags();  
+   },
 
 })

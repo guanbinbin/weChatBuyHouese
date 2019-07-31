@@ -12,19 +12,51 @@ Page({
     height: app.globalData.height * 2 + 20, 
     menuList: [{
       name: "全部房源"
-    }, {
+    }/*, {
       name: "已审核房源"
     }, {
       name: "未审核房源"
-    }],
+    }*/],
     tabScroll: 0,
+    currentPage:0,
+    //每个tab定义不一样的currentPage
+
+
     currentTab: 0,
     windowHeight: '',
     windowWidth: '',
-    roomList: []
+    roomList: [],
+    deleteUrl:'../../../images/icons/delete.png',
+    editUrl: '../../../images/icons/edit.png',
+    priceUrl: '../../../images/icons/price.png',
+    checkUrl: '../../../images/icons/check.png',
+    onsaleUrl: '../../../images/icons/onsale.png',
+    offsaleUrl: '../../../images/icons/offsale.png',
+    showDialog: false,
+    price:'',
+    price01:'',
+    showReasonDialog:false,
+    showPriceDialog:false,
+    showApplyDialog:false,
+    remarks:'',
+    remarksInputValue:'',
   }, 
   onLoad: function (options) {
     that = this;
+    that.setData({
+      showDialog:false,
+      showPriceDialog:false,
+      showReasonDialog:false,
+      price01:'',
+      currentPage:0,
+      roomList:[],
+      remarksInputValue: ''
+    })
+    wx.showToast({
+      title: '',
+      duration: 15000,
+      icon: 'loading'
+    })
     wx.getSystemInfo({  // 获取当前设备的宽高
       success: (res) => {
         this.setData({
@@ -42,7 +74,7 @@ Page({
     var status = "";
     that.getList(type,status,page,size);
  },
-  getList: (type, status,page, size)=>{
+  getList: (type, status,page, size,isPage)=>{
     wx.request({
       url: app.globalData.hostUrl + '/housereleasemanagement/queryListWithPage',
       data: {
@@ -58,11 +90,30 @@ Page({
         "Content-Type": "application/json"
       },
       success(res) {
+        wx.hideToast();
         console.log(res.data); 
         if (res.data.code == 0) {
+        
          if(res.data.data.length>0){
            that.createRoomListData(res.data.data);
+           that.setData({
+             currentPage: that.data.currentPage + 1
+           })
          }else{
+           if(isPage){
+             wx.showToast({
+               title: '没有更多啦',
+               duration: 2000,
+               icon: 'none'
+             })
+           }else{
+             wx.showToast({
+               title: '没有房源信息',
+               duration: 2000,
+               icon: 'none'
+             })
+           }
+          
            console.log("无房源信息展示...");
          }
         }
@@ -74,11 +125,16 @@ Page({
     var roomItem = {};
   for(let i=0;i<data.length;i++){
     roomItem={};
+  if(data[i].status == 3) {
+    roomItem.status = '修改申请中'; 
+   }
     if(data[i].type==0){
       if (data[i].status==0){
         roomItem.status="待审核";
       } else if (data[i].status == 2){
-        roomItem.status = "审核不通过";
+        roomItem.status = "审核未通过";
+      } else if (data[i].status == 3) {
+        roomItem.status = '修改申请中';
       }
     } else if (data[i].type==1){
       if (data[i].status == 0) {
@@ -94,7 +150,7 @@ Page({
       } else if (data[i].status == 3) {
         roomItem.status = "上架数据修改申请中";
       } else if (data[i].status == 0){
-        roomItem.status = "勘察通过,待上架";
+        roomItem.status = "勘察通过";
       }
     }else{
       if (data[i].status == 1) {
@@ -112,10 +168,12 @@ Page({
     roomItem.price = data[i].houseResources.price;
     roomItem.houseArea = data[i].houseResources.houseArea;
     roomItem.id = data[i].houseResources.id;
+    roomItem.remarks = data[i].remarks;
+    roomItem.statusId = data[i].id;
     roomList.push(roomItem)
   }
   that.setData({
-    roomList: roomList
+    roomList: that.data.roomList.concat(roomList)
   })
   console.log(that.data.roomList);
   },
@@ -145,6 +203,170 @@ Page({
     wx.navigateTo({
       url: './publishInfoUpdate/publishInfoUpdate?id=' + e.currentTarget.dataset.id
     })
+  },
+  //
+  checkReason(e){
+    that.setData({
+      remarks: e.target.dataset.remarks, 
+      showReasonDialog: true
+    }) 
+  },
+  //
+  openDialog(e){
+    var type = e.target.dataset.type;
+    that.setData({
+      showDialog: true
+    });
+  if(type=="price"){
+    that.setData({
+      price: e.target.dataset.price,
+      id: e.target.dataset.id,
+      showPriceDialog: true,
+      showReasonDialog:false,
+      showApplyDialog:false,
+    }) 
+  }else if(type=="remarks"){
+    that.setData({
+      remarks: e.target.dataset.remarks,
+      id: e.target.dataset.id,
+      showPriceDialog: false,
+      showReasonDialog: true,
+      showApplyDialog:false,
+    }) 
+  }else if(type=="apply"){
+    that.setData({ 
+      statusId: e.target.dataset.id,
+      showPriceDialog: false,
+      showReasonDialog: false,
+      showApplyDialog:true,
+    }) 
+  }
+  
+  },
+  //
+  priceInput(e){
+ that.setData({
+   price01: e.detail.value
+ })
+  },
+  //
+  remarksInput(e){
+    that.setData({
+      remarksInputValue: e.detail.value
+    })
+  },
+  //
+  submitPrice(){
+  wx.showToast({
+    title: '',
+    icon:'loading',
+    duration:15000
+  })
+  if(that.data.price01==""){
+    wx.showToast({
+      title: '请输入修改后的价格',
+      icon:'none',
+      duration:1500
+    });
+    return
+  }
+  wx.request({
+    url: app.globalData.hostUrl + '/houserelease/update',
+    data:{
+    id:that.data.id,
+    price:that.data.price01
+    },
+    method: 'POST',
+    success:(res)=>{
+     console.log(res);
+     wx.hideToast();
+     if(res.data.code==0){
+       wx.showToast({
+         title: '修改成功',
+         duration:1500,
+         icon:'success'
+       });
+      setTimeout(function(){
+        that.onLoad();
+      },2000);
+     }else{
+       wx.showToast({
+         title: '修改失败',
+         duration: 1500,
+         icon: 'none'
+       });
+     }
+    }
+  })
+  },
+  //
+  submitApply(){
+    wx.showToast({
+      title: '',
+      icon: 'loading',
+      duration: 15000
+    })
+    if (that.data.remarksInputValue == "") {
+      wx.showToast({
+        title: '请输入您想修改的内容',
+        icon: 'none',
+        duration: 1500
+      });
+      return
+    }
+    wx.request({
+      url: app.globalData.hostUrl + '/housereleasemanagement/update',
+      data: {
+        id: that.data.statusId,
+        remarks: that.data.remarksInputValue,
+        status:3
+      },
+      method: 'POST',
+      success: (res) => {
+        console.log(res);
+        wx.hideToast();
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '申请成功',
+            duration: 1500,
+            icon: 'success'
+          });
+          setTimeout(function () {
+            that.onLoad();
+          }, 2000);
+        } else {
+          wx.showToast({
+            title: '申请失败',
+            duration: 1500,
+            icon: 'none'
+          });
+        }
+      }
+    })
+  },
+  //
+  closeDialog(e){
+    var type = e.target.dataset.type
+    that.setData({ 
+      showDialog: false
+    })
+    if (type=="price"){
+    that.setData({
+      price01:'',
+      showPriceDialog:false
+    })
+  }else if(type=="remarks"){
+      that.setData({ 
+        showReasonDialog: false
+      })
+  }else if(type=="apply"){
+      that.setData({
+        remarksInputValue: ''
+      })
+  }
+  },
+  scroll(e){
+    console.log(e.detail.scrollTop)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -178,14 +400,22 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    console.log("下拉刷新...");
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+   console.log("上拉翻页...");
+   var type,status,page;
+   var size=5;
+   if(that.data.currentTab==0){
+   type="";
+   status="";
+   page=that.data.currentPage+1;
+   }
+  that.getList(type, status, page, size,true);
   },
 
   /**

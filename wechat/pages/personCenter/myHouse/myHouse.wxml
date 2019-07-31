@@ -1,15 +1,15 @@
  <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class="position_re" style='margin-top: {{height}}px'>
-<view class="tab" style="top:{{height}}px">
+<!--<view class="tab" style="top:{{height}}px">
  <block wx:for="{{menuList}}" wx:key="index">
   <view class="tab-item {{currentTab == index ? 'active' : ''}}" data-current="{{index}}" bindtap='clickMenu'>{{item.name}}</view>
- </block></view>
- <swiper class="content" style='height: {{windowHeight-height}}px' duration="1000" current="{{currentTab}}" bindchange="changeContent">
- <swiper-item class="content-item" wx:for="{{menuList}}" wx:key="index">
- <scroll-view>
- <view wx:if="{{item.name=='全部房源'}}">
- <view class='flex-container indexContainer'>
+ </block></view> -->
+
+ <scroll-view style='margin-top: {{height}}px'>
+
+ <scroll-view >
+ <view  class='flex-container indexContainer'>
 <view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}">
 
 <view class='roomImg' style='width:40%'>
@@ -31,34 +31,50 @@
 </text>-->
 </view>
 
+<view wx:if="{{item.status=='修改申请中'}}" class='operate_box' style='width:100%;'> 
+<view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看申请内容</view>  
+</view>
 <view wx:if="{{item.status=='已上架'}}" class='operate_box' style='width:100%;'>
-<view >修改</view> 
-<view >改价</view>
-<view >执行下架</view>
+<view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view> 
+<view data-id="{{item.id}}" data-price="{{item.price}}" bindtap='changePrice' space="nbsp" ><image class='icon_img' src="{{priceUrl}}"></image> 改价</view>
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{offsaleUrl}}"></image> 下架</view>
 </view>
 <view wx:if="{{item.status=='待审核'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.id}}" bindtap='jumpToDetail'>修改</view>  
+<view data-id="{{item.id}}" space="nbsp" bindtap='jumpToDetail'><image class='icon_img' src="{{editUrl}}"></image> 修改</view>
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>  
 </view>
+
 <view wx:if="{{item.status=='审核未通过'}}" class='operate_box' style='width:100%;'>
-<view>修改</view>  
-<view >查看原因</view> 
+<view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
+<view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view> 
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
 </view>
+
 <view wx:if="{{item.status=='勘察未通过'}}" class='operate_box' style='width:100%;'>
-<view >修改</view>  
-<view >查看原因</view> 
+<view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view>
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> 
 </view>
 <view wx:if="{{item.status=='已下架'}}" class='operate_box' style='width:100%;'> 
-<view >重新上架</view> 
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image> 改价</view> 
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{onsaleUrl}}"></image> 重新上架</view> 
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
 </view>
 <view wx:if="{{item.status=='待勘察'}}" class='operate_box' style='width:100%;'>
-<view >修改</view>  
-<view style='width:30%'>改价</view>
+<view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image> 改价</view>
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
+</view>
+<view wx:if="{{item.status=='勘察通过'}}" class='operate_box' style='width:100%;'>
+<view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
+<view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image> 改价</view>
+<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
 </view>
 
-
 </view>
 </view>
- </view>
+ </scroll-view>
+ 
   <view wx:if="{{item.name=='已审核房源'}}">
   <view class='flex-container indexContainer'>
 <view  wx:for="{{roomList}}" wx:key="index" class="roombox" style='width:100%' data-id="{{item.id}}" >
@@ -100,10 +116,53 @@
 </view>
 </view>
    </view>
- </scroll-view>
- </swiper-item>
- </swiper>
+ </scroll-view>  
  <view bindtap="jumpToPublish" class="font14 position_f applyBlock flexBox align" style="bottom:0">
  发布房源
  </view>
 </view>
+
+<view wx-if="{{showDialog}}" class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" bindtap="toggleDialog" />
+  <view class="zan-dialog__container">
+    <view style='padding:30rpx;font-size:14px'>
+
+    <view wx-if="{{showPriceDialog}}">
+    <view class='item1'><text>初始价格：</text>
+    <text style='color:#FFCD33'>{{price}}万</text>
+    </view>
+    <view style='margin-bottom:25rpx' class='flex'><text>修改价格：</text>
+    <input value='{{price01}}' bindinput="priceInput" class='input_item'> </input><text>万</text>
+    </view>
+    <view class='flex font14 btnbox'>
+    <button style='width:30%' bindtap='submitPrice' type='primary'>确认</button>
+    <button style='width:30%' bindtap='closeDialog' data-type='price' type='default'>取消</button>
+    </view>
+    </view> 
+    <!---->
+    <view wx-if="{{showReasonDialog}}">
+    <!--<view class='item1'><text>未通过原因：</text></view>-->
+    <view style='margin-bottom:25rpx' class='flex'><text>{{remarks}}</text> 
+    </view>
+    <view class='flex font14 btnbox'> 
+    <button style='width:30%' bindtap='closeDialog' data-type='remarks' type='default'>关闭</button>
+    </view>
+    </view> 
+    <!---->
+    <view wx-if="{{showApplyDialog}}">
+    <view class='item1'><text>修改申请：</text></view>
+    <view style='margin-bottom:25rpx' class='flex'>
+    <textarea bindinput='remarksInput' placeholder='请输入你想修改的内容'></textarea> 
+    </view>
+    <view class='flex font14 btnbox'>
+    <button style='width:30%' bindtap='submitApply' type='primary'>确认</button>
+    <button style='width:30%' bindtap='closeDialog' data-type='apply' type='default'>取消</button>
+    </view>
+    </view>
+    <!---->
+    </view>
+  </view>
+</view>
+
+
+ 

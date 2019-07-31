@@ -54,6 +54,11 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    wx.showToast({
+      title: '',
+      duration: 15000,
+      icon: 'loading'
+    })
     //获取区域数据
     that.getRegionData();
     if (typeof options.id != 'undefined') { 
@@ -106,6 +111,7 @@ Page({
         "Content-Type": "application/json"
       },
       success(res) {
+        wx.hideToast();
         if (res.data.code == 0) {
           var obj = res.data.data;
           console.log(obj);
@@ -192,14 +198,20 @@ Page({
           //是否在住
           if (obj[0].isLive == 1) {
             that.setData({
-              liveInOrnotIndex: [0]
+              liveInOrnotIndex: 1
             })
           } else {
             that.setData({
-              liveInOrnotIndex: [1]
+              liveInOrnotIndex: 0
             })
           }
 
+        }else{
+          wx.showToast({
+            title: '加载失败',
+            icon:'none',
+            duration:2000
+          })
         }
       }
     });
@@ -301,7 +313,7 @@ Page({
       var num = 9 - this.data.idCardImgPath.length;
     }
     console.log(num)
-    wx.chooseImage({
+    wx.chooseImage({ 
       count: num,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
@@ -441,12 +453,16 @@ Page({
   },
   //提交房源信息
   formSubmit: function (e) {
-
+    wx.showToast({
+      title: '',
+      icon:'loading',
+      duration:20000
+    })
     console.log("表单提交...");
     var formData = e.detail.value;
     formData["roomTypeInfo"] = that.data.roomInfoArray[0][that.data.roomInfoIndex[0]] + "-" + that.data.roomInfoArray[1][that.data.roomInfoIndex[1]] + "-" + that.data.roomInfoArray[2][that.data.roomInfoIndex[2]];
     var isLive;
-    if (this.data.liveInOrnotIndex == "是") {
+    if (this.data.liveInOrnotArray[this.data.liveInOrnotIndex] == "是") {
       isLive = 0;
     } else {
       isLive = 1;
@@ -463,11 +479,14 @@ Page({
     formData["creator"] = wx.getStorageSync('userId');
     console.log("表单数据：");
     console.log(formData);
-    that.setData({
-      formData: formData
-    })
-    console.log("图片分类......");
-    that.tellImages();
+    if(that.validate(formData)){
+      that.setData({
+        formData: formData
+      })
+      console.log("图片分类......");
+      that.tellImages();
+    }
+    
     //allImg
   /*  this.setData({
       allImg: that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath)
@@ -477,10 +496,84 @@ Page({
     //上传表单和图片
     this.upload(formData);*/
   },
+  validate(formData) {
+    if (formData.vilageName == "") {
+      wx.showToast({
+        title: '请输入小区名称',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.houseArea == "") {
+      wx.showToast({
+        title: '请输入产权面积',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.price == "") {
+      wx.showToast({
+        title: '请输入期望售价',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.contact == "") {
+      wx.showToast({
+        title: '请输入联系人',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.contactInformation == "") {
+      wx.showToast({
+        title: '请输入联系方式',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    } else if (!(/^1[34578]\d{9}$/.test(formData.contactInformation))) {
+      wx.showToast({
+        title: '手机号码格式有误',
+        duration: 1500,
+        icon: 'none'
+      });
+      return false
+    }
+    return true
+  },
   tellImages(){
     console.log(that.data.imgPath);
     console.log(that.data.rightImgPath);
     console.log(that.data.idCardImgPath);
+    if (that.data.imgPath.length == 0) {
+      wx.showToast({
+        title: '请上传房源照片',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    if (that.data.rightImgPath.length == 0) {
+      wx.showToast({
+        title: '请上传房产证照片',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    if (that.data.idCardImgPath.length == 0) {
+      wx.showToast({
+        title: '请上传身份证照片',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
     var allImg = that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath);
     var newImg = [];
     var oldImg = [];
@@ -536,6 +629,13 @@ Page({
               console.log("传新的图片。。。");
               that.uploadImg(newImg);
             }
+          }else{
+            wx.showToast({
+              title: '操作失败',
+              duration:15000,
+              icon:'none'
+            })
+            return
           }
         }
       })
@@ -543,6 +643,10 @@ Page({
   },
   //修改房源信息
   upload: function () {
+    var id = "formData.id";
+    that.setData({
+      [id]:that.data.resouceId
+    })
     wx.request({
       url: app.globalData.hostUrl + "/houserelease/update",
       data: that.data.formData,
@@ -556,8 +660,14 @@ Page({
           wx.showToast({
             title: '修改成功！',
             duration: 1500,
-            mask: 'false'
-          }) 
+            mask: 'false',
+            icon:'success'
+          });
+          setTimeout(function(){
+           wx.navigateTo({
+             url: '../myHouse',
+           })
+          },2000)
         }
       }
     })
@@ -565,19 +675,20 @@ Page({
   },
   //传新图
   uploadImg: function (data) {
+    console.log(data);
     if(data.length>0){
-      for (let i = 0; i < this.data.length; i++) {
+      for (let i = 0; i <data.length; i++) {
         var type = "";
-        if (this.data[i].type == 'room') {
+        if (data[i].type == 'room') {
           type = "HOUSE";
-        } else if (this.data[i].type == 'right') {
+        } else if (data[i].type == 'right') {
           type = "ESTATE";
         } else {
           type = "CARD";
         }
         wx.uploadFile({
           url: app.globalData.hostUrl + "/housepicture/wxInsertFormData",
-          filePath: that.data[i].path,
+          filePath: data[i].path,
           name: 'file',
           formData: { type: type, resouceId: that.data.resouceId },
           header: {
@@ -587,9 +698,15 @@ Page({
             console.log("图片上传成功" + i);
           },
           fail: (res) => {
+            wx.showToast({
+              title: '操作失败',
+              duration: 15000,
+              icon: 'none'
+            })
+            return
           },
           complete: () => {
-            if (i == this.data.length - 1) {   //当图片传完时，停止调用
+            if (i == data.length - 1) {   //当图片传完时，停止调用
               /*wx.showToast({
                title: '上传成功',
                duration: 1500,

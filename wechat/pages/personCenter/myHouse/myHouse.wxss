@@ -29,6 +29,7 @@ background-color: #ffffff;
 }
 .content-item{
  overflow-y: scroll;
+ height: auto!important
 
 }
 .content-item>scroll-view{
@@ -42,7 +43,7 @@ background-color: #ffffff;
   justify-content:center;
 }
 .indexContainer{
-  margin-bottom:120rpx;
+  padding-bottom:120rpx;
 }
 .addr{
   color: #000
@@ -56,10 +57,55 @@ background-color: #ffffff;
 .operate_box{
 display:flex;
 justify-content:center;
-border-bottom: 1px solid rgba(0, 0, 0, 0.13)
+border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+font-size: 30rpx
 }
 .operate_box>view{
   width:30%;
  text-align:center;
  padding:25rpx 0
  }
+ .icon_img{
+   width: 35rpx;
+   height: 35rpx
+ }
+ .zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.39);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.zan-dialog__container {
+  position: fixed;
+  bottom: 500rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  
+  margin-left: 50rpx;
+  background: #f8f8f8;
+  transform: translateY(300%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 20rpx; 
+}
+
+.zan-dialog--show .zan-dialog__container {
+  transform: translateY(0);
+}
+
+.zan-dialog--show .zan-dialog__mask {
+  display: block;
+}
+.item1{
+  margin-bottom: 25rpx
+}
+.input_item{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.13)
+}
+.btnbox{
+  margin-bottom: 30rpx
+}

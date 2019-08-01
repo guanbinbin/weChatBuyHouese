@@ -133,23 +133,27 @@ Page({
         roomItem.status="待审核";
       } else if (data[i].status == 2){
         roomItem.status = "审核未通过";
-      } else if (data[i].status == 3) {
-        roomItem.status = '修改申请中';
-      }
+      } 
+      // else if (data[i].status == 3) {
+      //   roomItem.status = '修改申请中';
+      // }
     } else if (data[i].type==1){
       if (data[i].status == 0) {
         roomItem.status = "待勘察";
       } else if (data[i].status == 2) {
         roomItem.status = "勘察不通过";
-      } else if (data[i].status==3){
-        roomItem.status = "勘察数据修改申请中";
-      }
+      } 
+      // else if (data[i].status==3){
+      //   roomItem.status = "勘察数据修改申请中";
+      // }
     } else if (data[i].type==2){
       if (data[i].status == 1) {
         roomItem.status = "已上架";
-      } else if (data[i].status == 3) {
-        roomItem.status = "上架数据修改申请中";
-      } else if (data[i].status == 0){
+      } 
+      // else if (data[i].status == 3) {
+      //   roomItem.status = "上架数据修改申请中";
+      // } 
+      else if (data[i].status == 0){
         roomItem.status = "勘察通过";
       }
     }else{

@@ -459,30 +459,30 @@ Page({
     console.log("表单数据：" );
     console.log(formData);
     if(that.validate(formData)){
-      if (that.data.imgPath.length==0){
-        wx.showToast({
-          title: '请上传房源照片',
-          icon:'none',
-          duration:1500
-        })
-        return
-      }
-      if (that.data.rightImgPath.length == 0) {
-        wx.showToast({
-          title: '请上传房产证照片',
-          icon: 'none',
-          duration: 1500
-        })
-        return
-      }
-      if (that.data.idCardImgPath.length == 0) {
-        wx.showToast({
-          title: '请上传身份证照片',
-          icon: 'none',
-          duration: 1500
-        })
-        return
-      }
+      // if (that.data.imgPath.length==0){
+      //   wx.showToast({
+      //     title: '请上传房源照片',
+      //     icon:'none',
+      //     duration:1500
+      //   })
+      //   return
+      // }
+      // if (that.data.rightImgPath.length == 0) {
+      //   wx.showToast({
+      //     title: '请上传房产证照片',
+      //     icon: 'none',
+      //     duration: 1500
+      //   })
+      //   return
+      // }
+      // if (that.data.idCardImgPath.length == 0) {
+      //   wx.showToast({
+      //     title: '请上传身份证照片',
+      //     icon: 'none',
+      //     duration: 1500
+      //   })
+      //   return
+      // }
       //allImg
       this.setData({
         allImg: that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath)
@@ -578,6 +578,8 @@ Page({
       } else {
         type = "CARD";
       } 
+      var total = this.data.allImg.length;
+      var num =0;
       wx.uploadFile({
         url: app.globalData.hostUrl + "/housepicture/wxInsertFormData",
         filePath: that.data.allImg[i].path,
@@ -588,11 +590,13 @@ Page({
         },
         success: (resp) => { 
           console.log("图片上传成功"+i);
+          num++
+          console.log(num);
         },
         fail: (res) => { 
         },
         complete: () => { 
-          if (i == this.data.allImg.length-1) {   //当图片传完时，停止调用
+          if (this.data.allImg.length==num) {   //当图片传完时，停止调用
             wx.hideToast();
             wx.showToast({
               title: '发布成功',

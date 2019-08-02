@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/personCenter/myHouse/myHouse",
     "pages/index/index",
+    "pages/personCenter/myHouse/myHouse",
+    
     "pages/register/register",
     "pages/housePart/houseList/houseList",
     

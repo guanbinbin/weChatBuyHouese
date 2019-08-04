@@ -5,18 +5,19 @@
 <swiper class='houseSwiper' indicator-dots="{{swiper.indicatorDots}}"
   autoplay="{{swiper.autoplay}}" interval="{{swiper.interval}}" duration="{{swiper.duration}}">
   <block wx:for="{{swiper.imgUrls}}" wx:key="that">
-    <swiper-item class="swiper_box">
-      <image src="{{item}}" class="slide-image swiper_img" width="100%" height="150"/>
+    <swiper-item class="swiper_box" >
+      <image src="{{item}}" data-src="item" bindtap="previewImage" class="slide-image swiper_img" width="100%" height="150"/>
     </swiper-item>
   </block>
 </swiper>
 <view class='detailPart'>
 <view class="flexBox t_left">
 <view style='width:80%'>
-<text class='block price bold font16'>{{houseDetail.price}}</text>
+<text class='block price bold font16'>{{houseDetail.price}}万</text>
 <text class='block font14'>{{houseDetail.title}}</text>
 </view>
 
+<view wx:if="{{isLogin}}">
 <view wx:if="{{houseDetail.collect?false:true}}" class='collect_icon t_center' bindtap='collectRoom'>
 <image src='../../../images/icons/collect_icon.png'></image>
 <view class="font12">收藏房源</view>
@@ -26,32 +27,73 @@
 <image src='../../../images/icons/un_collect_icon.png'></image>
 <view class="font12">取消收藏</view>
 </view>
+</view>
+
+<view wx:if="{{!isLogin}}">
+<button class='collect_icon t_center userBtn' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+<image src='../../../images/icons/collect_icon.png'></image>
+<view class="font12">收藏房源</view> 
+</button>
+</view>
 
 </view>
 <view class='divLine'></view>
 
 <view class='flexBox justify'>
-<view><text class='block font14'>{{houseDetail.room}}</text>
+<view><text class='block font14'>{{houseDetail.roomTypeInfo}}</text>
 <text class='block font12 gray'>房型</text></view>
 <view><text class='block font14'>{{houseDetail.floor}}</text>
 <text class='block font12 gray'>楼层</text></view>
-<view><text class='block font14'>{{houseDetail.size}}m<text class="sup">2</text></text>
+<view><text class='block font14'>{{houseDetail.houseArea}}m<text class="sup">2</text></text>
 <text class='block font12 gray'>面积</text></view>
-<view><text class='block font14'>{{houseDetail.right}}</text>
+<view><text class='block font14'>{{houseDetail.propertyRights}}</text>
 <text class='block font12 gray'>房产权属</text></view>
 </view>
 <view class='divLine'></view>
-<view class='tag flexBox wrap' style='width:70%'>
-<text class='subTitle space m_b_10' wx:for="{{houseDetail.subTitle}}">{{item}}</text>
+
+<view class='' style="height:12vh">
+
+<view class="font14" style="width:50%;float:left">
+<view>单价:<text>{{houseDetail.unitPrice}}元/平</text></view>
+<view>朝向:<text>{{houseDetail.oriented}}</text></view>
+<view>装修:<text>{{houseDetail.decoration}}</text></view>
+<view>用途:<text>{{houseDetail.application}}</text></view>
+</view>
+
+<view class="font14" style="width:50%;float:left">
+<view>挂牌:<text>{{houseDetail.lastUpdateTime}}</text></view>
+<view>车位:<text>{{houseDetail.parkingLot}}</text></view>
+<view>房屋地址:<text>{{houseDetail.residential}}</text></view>
+<view>权属:<text>{{houseDetail.ownership}}</text></view>
+</view> 
+
 </view>
 <view class='divLine'></view>
+<view class='tag flexBox wrap' style='width:70%'>
+<text class='subTitle space m_b_10' wx:for="{{subTitle}}">{{item}}</text>
+</view>
+<view class='divLine'></view>
+<view class='distribution' style="margin-bottom:1vh">
+<text class='block font14 m_b_10 bold'>房屋介绍</text>
+<view style="line-height:50rpx"> 
+<text class='block font12'>{{houseDetail.householdIntroduction}}</text>
+</view>
+</view>
+
+<view class='distribution' style="margin-bottom:1vh">
+<text class='block font14 m_b_10 bold'>核心卖点</text>
+<view style="line-height:50rpx"> 
+<text class='block font12'>{{houseDetail.coreSellPoint}}</text>
+</view>
+</view>
+
 <view class='distribution' style="margin-bottom:{{contactHeight}}vh">
-<text class='block font14 m_b_10 bold'>房屋描述</text>
-<view wx:for="{{houseDetail.distribution}}" style="line-height:50rpx">
-<text class='block font12 gray1' style='color:#70C677'>{{item.title}}</text>
-<text class='block font12'>{{item.content}}</text>
+<text class='block font14 m_b_10 bold'>周边配套</text>
+<view style="line-height:50rpx"> 
+<text class='block font12'>{{houseDetail.surroundingInformation}}</text>
 </view>
 </view>
+
 </view>
 </view>
 <view class='position_f contact flexBox align' style="height:{{contactHeight}}vh">

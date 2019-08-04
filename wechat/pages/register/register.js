@@ -1,5 +1,6 @@
 const app = getApp();
 var that;
+var resourceId,id;
 Page({ 
   data: {
     // 组件所需的参数
@@ -20,6 +21,7 @@ Page({
     height: app.globalData.height * 2 + 20,
     pass:false,
     userInfo:{},
+    type:""
   },
   sendCode(){
   //验证手机号码
@@ -41,7 +43,8 @@ Page({
     wx.showToast({
       title: '正在发送中...',
       duration: 15000,
-      icon: 'loading'
+      icon: 'loading',
+      mask:true
     });
     console.log("发动验证码接口...");
     wx.request({
@@ -83,15 +86,24 @@ Page({
    */
   onLoad: function (options) {
   that = this;
-  /*that.setData({
+    console.log(options.userInfo);
+    options.userInfo = JSON.parse(options.userInfo);
+    console.log(options.userInfo);
+    if (options.type =="collect"){
+      console.log("收藏页面跳转而来...");
+      resourceId = options.resourceId;
+      id = options.id;
+    }
+  that.setData({
     openid:options.openid,
-    userName:options.userName
-    userInfo:options.userInfo
-  })*/
-    that.setData({
-      openid: 'oHLc75ICRFekIMvTI4hTs6DIppOc',
-      userName: 777
-    })
+    userName:options.userName,
+    userInfo:options.userInfo,
+    type:options.type
+  })
+    // that.setData({
+    //   openid: 'oHLc75ICRFekIMvTI4hTs6DIppOc',
+    //   userName: 777
+    // })
   },
  //yanzheng
   validate(){
@@ -250,20 +262,27 @@ Page({
           wx.showToast({
             title: '注册成功',
             duration: 15000,
-            icon: 'loading'
+            icon: 'loading',
+            mask:true
           });
-        app.globalData.userInfo = that.data.userInfo;
-        wx.setStorageSync('userId', res.data.data[0].userId); 
-        return
-        wx.switchTab({
-          url: '../personCenter/center',
-          success: function (e) {
-            wx.hideToast();
-            var page = getCurrentPages().pop();
-            if (page == undefined || page == null) return;
-            page.onLoad();
-          } 
-        });
+        app.globalData.userInfo = that.data.userInfo; 
+        wx.setStorageSync('userId', res.data.data.userId); 
+        if(that.data.type=="collect"){
+          wx.navigateTo({
+            url: '../housePart/houseDetail/houseDetail?id=' + id + "&resourceId=" + resourceId
+          })
+        }else{
+          wx.switchTab({
+            url: '../personCenter/center',
+            success: function (e) {
+              wx.hideToast();
+              var page = getCurrentPages().pop();
+              if (page == undefined || page == null) return;
+              page.onLoad();
+            }
+          });
+        }
+        
         } else {
           wx.showToast({
             title: '注册失败',

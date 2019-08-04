@@ -1,13 +1,15 @@
 {
   "pages": [
+    "pages/housePart/houseList/houseList",
     "pages/index/index",
+   
+    
+   
+    "pages/index/search/search",
+    
     "pages/personCenter/myHouse/myHouse",
     
     "pages/register/register",
-    "pages/housePart/houseList/houseList",
-    
-    
-    
     
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     "pages/personCenter/center",
@@ -19,7 +21,6 @@
     "pages/personCenter/commond/commond",
     "pages/map/map",
     "pages/housePart/houseDetail/houseDetail",
-    "pages/index/search/search",
     "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate"
     
   ],

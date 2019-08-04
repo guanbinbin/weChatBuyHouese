@@ -57,7 +57,8 @@ Page({
     wx.showToast({
       title: '',
       duration: 15000,
-      icon: 'loading'
+      icon: 'loading',
+      mask:true,
     })
     //获取区域数据
     that.getRegionData();
@@ -272,7 +273,12 @@ Page({
         [residential]: e.detail.value
       })
     }
-
+    if (e.target.dataset.options == "floor") {
+      var floor = "houseDetail.floor"
+      that.setData({
+        [floor]: e.detail.value
+      })
+    }
     if (e.target.dataset.options == "houseArea") {
       var houseArea = "houseDetail.houseArea"
       that.setData({
@@ -456,7 +462,8 @@ Page({
     wx.showToast({
       title: '',
       icon:'loading',
-      duration:20000
+      duration:20000,
+      mask: true,
     })
     console.log("表单提交...");
     var formData = e.detail.value;
@@ -505,6 +512,23 @@ Page({
       })
       return false
     }
+    if (formData.residential == "") {
+      wx.showToast({
+        title: '请输入房屋地址',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.floor == "") {
+      wx.showToast({
+        title: '请输入所在楼层',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+
     if (formData.houseArea == "") {
       wx.showToast({
         title: '请输入产权面积',

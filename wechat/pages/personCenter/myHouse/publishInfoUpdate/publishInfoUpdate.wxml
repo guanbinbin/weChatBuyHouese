@@ -45,6 +45,9 @@
     </view>
   </picker> 
 </view>
+<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>所在楼层</text>
+<input bindinput="getInput" data-options='floor' value="{{houseDetail.floor}}" name="floor" ></input>
+</view>
 <view class="flexBox align"><text class=" space block">房屋地址</text>
 <input bindinput="getInput" data-options='residential' value="{{houseDetail.residential}}" name="residential" placeholder="如:1栋1单元702室"></input>
 </view>

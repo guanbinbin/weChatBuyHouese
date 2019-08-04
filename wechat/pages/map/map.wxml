@@ -1,5 +1,5 @@
 <view class="page-body">
 <view class="page-section page-section-gap">
-<web-view src="https://weipan.51vip.biz/download/map.html"></web-view>
+<web-view src="https://map.yangtai0703.com/"></web-view>
 </view>
 </view>

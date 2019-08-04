@@ -1,6 +1,6 @@
 var that;
-const APP_ID = 'wxe7a351c39c76c81d';//输入小程序appid  
-const APP_SECRET = '8485584ecaf79325df005ba07108b7ab';//输入小程序app_secret  
+const APP_ID = 'wxe5fa3487aa7ea615';//输入小程序appid  
+const APP_SECRET = '8ffa0fc438544af6c728c8b050f97034';//输入小程序app_secret  
 var OPEN_ID = ''//储存获取到openid  
 var SESSION_KEY = ''//储存获取到session_key  
 const app = getApp();
@@ -22,7 +22,7 @@ Page({
     //判断有无用户信息
     if (app.globalData.userInfo) {
       console.log("已有用户信息，直接展示...");
-      console.log(app.globalData);
+      console.log(app.globalData.userInfo);
       console.log(wx.getStorageSync('userId'));
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -121,7 +121,7 @@ Page({
               success: function (res) {
                 if (res.confirm) {
                   wx.navigateTo({
-                    url: '../register/register?openid=' + openId + "&userName=" + that.data.userInfo.nickName + "&userInfo=" + that.data.userInfo,
+                    url: '../register/register?openid=' + openId + "&userName=" + that.data.userInfo.nickName + "&userInfo=" + JSON.stringify(that.data.userInfo)+"&type=center",
                   })
                 } else {
                   wx.switchTab({

@@ -11,7 +11,7 @@
   confirm-type="search" 
   bindconfirm="searchConfirm"   
   bindinput='getInput' 
-  placeholder='请输入小区名称'>
+  placeholder='请输入商圈或小区名称'>
  </input></view> 
  </view>
 </view> 
@@ -22,7 +22,7 @@ bind:selectedItem='selectedItem' />
 </view>
 
 <view class='flex-container indexContainer'>
-<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" data-resourceId="{{item.resourceId}}" bindtap='jumpToDetail'>
 
 <view class='roomImg' style='width:40%'>
 <image src="{{item.img}}"/>

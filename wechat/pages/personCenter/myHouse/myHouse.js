@@ -163,8 +163,14 @@ Page({
         roomItem.status = "下架申请中";
       } 
     }
-    var imgPath = data[i].houseResources.houseFilePath.split(";");
-    roomItem.imgPath = imgPath[0];
+    if (data[i].houseResources.houseFilePath!=null){
+      var imgPath = data[i].houseResources.houseFilePath.split(";");
+      roomItem.imgPath = imgPath[0];
+    }else{
+      var imgPath = "../../../images/index/noImg.png"; 
+      roomItem.imgPath = imgPath;
+    }
+    
     roomItem.regionName = "成都市 - " + data[i].houseResources.regionName;
     roomItem.residential = data[i].houseResources.residential;//房屋地址
     roomItem.roomTypeInfo = data[i].houseResources.roomTypeInfo;

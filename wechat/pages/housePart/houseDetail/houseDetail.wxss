@@ -52,3 +52,12 @@ text-align: right
 .t_center{
 text-align: center
 }
+.userBtn{
+  background-color:transparent;
+  border: 0px;
+  position: static;
+  line-height: 1.6;
+  padding: 0;
+
+
+}

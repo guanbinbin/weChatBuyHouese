@@ -252,6 +252,13 @@ Page({
       })
     }
 
+    if (e.target.dataset.options == "floor") {
+      var floor = "houseDetail.floor"
+      that.setData({
+        [floor]: e.detail.value
+      })
+    }
+
     if (e.target.dataset.options == "houseArea") {
       var houseArea = "houseDetail.houseArea"
       that.setData({
@@ -436,7 +443,8 @@ Page({
     wx.showToast({
       title: '提交中...',
       icon:'loading',
-      duration:15000
+      duration:15000,
+      mask: true,
     }); 
     var formData = e.detail.value; 
     formData["roomTypeInfo"] = that.data.roomInfoArray[0][that.data.roomInfoIndex[0]] + "-" + that.data.roomInfoArray[1][that.data.roomInfoIndex[1]] + "-" + that.data.roomInfoArray[2][that.data.roomInfoIndex[2]];
@@ -502,6 +510,23 @@ Page({
       })
       return false
     }
+    if (formData.residential==""){
+      wx.showToast({
+        title: '请输入房屋地址',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+    if (formData.floor == "") {
+      wx.showToast({
+        title: '请输入所在楼层',
+        duration: 1500,
+        icon: 'none',
+      })
+      return false
+    }
+
     if (formData.houseArea==""){
       wx.showToast({
         title: '请输入产权面积',
@@ -594,6 +619,12 @@ Page({
           console.log(num);
         },
         fail: (res) => { 
+          wx.hideToast();
+          wx.showToast({
+            title: '图片上传失败',
+            duration: 1500,
+            icon: 'success'
+          });
         },
         complete: () => { 
           if (this.data.allImg.length==num) {   //当图片传完时，停止调用

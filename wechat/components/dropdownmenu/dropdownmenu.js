@@ -73,6 +73,7 @@
     selectedroom3: '',
     //search
     searchData:{
+      title:'',
       regionCode:'',
       priceMin:'',
       priceMax:'',

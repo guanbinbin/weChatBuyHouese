@@ -1,9 +1,7 @@
 {
   "pages": [
-    "pages/housePart/houseList/houseList",
     "pages/index/index",
-   
-    
+    "pages/housePart/houseList/houseList",
    
     "pages/index/search/search",
     

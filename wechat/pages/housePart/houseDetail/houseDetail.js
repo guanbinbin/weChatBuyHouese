@@ -67,15 +67,16 @@ Page({
       console.log("没有用户信息，状态还是未收藏");
     }
    },
-  getCollect(resourceId){
+  getCollect(resourceId,userId){
   wx.request({
-    url: app.globalData.hostUrl + '/housereleasemanagement/queryListWithPage',
+    url: app.globalData.hostUrl + '/housecollection/queryListWithNoPage',
     data:{
-
+      resourcesId: resourceId,
+      userId: userId
     },
     method:'GET',
-    success:function(){
-
+    success:function(res){
+    console.log(res.data)
     }
   })
   },
@@ -262,7 +263,7 @@ Page({
        console.log(res.data);
        if(res.data.code==0){
         var collect = "houseDetail.collect";
-        this.setData({
+        that.setData({
         [collect]: true
         })
          wx.showToast({
@@ -277,7 +278,7 @@ Page({
            duration: 1500,
          })
          var collect = "houseDetail.collect";
-         this.setData({
+         that.setData({
            [collect]: false
          })
        }

@@ -7,6 +7,7 @@
 <view class="flex-view-item"><i class="fa fa-search " style="color:rgba(170,170,170,.5)"></i></view>
 <view class="flex-view-item">
 <input name="search" 
+  value="{{searchData.title}}"
   type='text' 
   confirm-type="search" 
   bindconfirm="searchConfirm"   

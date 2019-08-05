@@ -197,3 +197,9 @@ border: 1px solid #70C677;
 color: #70C677;
 
 }
+.backBtn{
+  margin-left: 20rpx;
+  margin-right: 0rpx;
+  margin-top: 20rpx;
+  width: 30%;
+}

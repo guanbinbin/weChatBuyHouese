@@ -8,6 +8,7 @@ Page({
     },
     height: app.globalData.height * 2 + 20, 
     historyData: ["仁和春天", "火车南站", "中德英伦联邦", "伊藤洋华堂", "高新区", "郫县", "仁和春天", "火车南站", "中德英伦联邦", "伊藤洋华堂", "高新区", "郫县"],
+    searchContent:''
   },
 
   /**
@@ -26,6 +27,7 @@ Page({
   //手机键盘输入确认
   searchConfirm: function () {
     console.log("跳转到房源列表页......");
+    console.log(this.data.searchContent)
     wx.navigateTo({
       url: '../../housePart/houseList/houseList?content=' + this.data.searchContent
     })

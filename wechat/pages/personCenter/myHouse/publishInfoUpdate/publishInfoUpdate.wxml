@@ -65,7 +65,7 @@
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>产权面积</text>
 <input bindinput="getInput" data-options='houseArea' value="{{houseDetail.houseArea}}" name="houseArea" placeholder="请输入产权面积"></input>m<text class="sup">2</text> 
 </view>
-<view bindtap='openRightDialog' class="flexBox align"><text class=" space block"><text style="color:red">*</text>房产权属</text>
+<view bindtap='openRightDialog' class="flexBox align"><text class=" space block">房产权属</text>
 <image class='delete_icon' src="../../../../images/icons/add.png"></image>
 <text>上传产权、身份证照片</text>
 </view>
@@ -117,7 +117,15 @@
 <!--上传房产证照片-->
 <view class="imgPart" style='border-bottom:1px solid #E0E3DA;'>
 <text class='block font14 padding_25'>请上传房产证照片:</text>
+<view wx:if="{{!showRightImg}}">
 <image wx:if="{{!showRightImg}}" class='rightItem' bindtap="chooseImg" data-type="right" src="../../../../images/index/right.png"/>
+<view><text class="font14">示例图：</text>
+<view wx:for="{{rightExamplePath}}" class='img_list'>
+<image class='upload_img' bindtap="previewImage" data-type="yangban01" data-src='{{item.path}}'src="{{item.path}}"></image>
+</view>
+</view>
+</view> 
+
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showRightImg}}"> 
 <view wx:for="{{rightImgPath}}" class='img_list'>
 <image class='upload_img' bindtap="previewImage" data-type="right" data-src='{{item.path}}'src="{{item.path}}">
@@ -129,10 +137,18 @@
 </view>
  </view>
 </view> 
-<!--上传身份证照片-->
+<!--上传身份证照片cardExamplePath-->
 <view class="imgPart">
 <text class='block font14 padding_25'>请上传身份证正、反面照片:</text>
-<image wx:if="{{!showIdCardImg}}" class='rightItem'  bindtap="chooseImg" data-type="idCard" src="../../../../images/index/icard.png"/>
+<view wx:if="{{!showIdCardImg}}">
+<image wx:if="{{!showIdCardImg}}" class='rightItem' bindtap="chooseImg" data-type="idCard" src="../../../../images/index/icard.png"/>
+<view><text class="font14">示例图：</text>
+<view wx:for="{{cardExamplePath}}" class='img_list'>
+<image class='upload_img' bindtap="previewImage" data-type="yangban02" data-src='{{item.path}}'src="{{item.path}}"></image>
+</view>
+</view>
+</view> 
+ 
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showIdCardImg}}"> 
 <view wx:for="{{idCardImgPath}}" class='img_list'>
 <image class='upload_img' bindtap="previewImage" data-type="idCard" data-src='{{item.path}}'src="{{item.path}}">

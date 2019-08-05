@@ -18,12 +18,12 @@
 </view>
 
 <view wx:if="{{isLogin}}">
-<view wx:if="{{houseDetail.collect?false:true}}" class='collect_icon t_center' bindtap='collectRoom'>
+<view wx:if="{{collect?false:true}}" class='collect_icon t_center' bindtap='collectRoom'>
 <image src='../../../images/icons/collect_icon.png'></image>
 <view class="font12">收藏房源</view>
 </view>
 
-<view wx:if="{{houseDetail.collect?true:false}}" class='collect_icon t_center' bindtap='unCollectRoom'>
+<view wx:if="{{collect?true:false}}" class='collect_icon t_center' bindtap='unCollectRoom'>
 <image src='../../../images/icons/un_collect_icon.png'></image>
 <view class="font12">取消收藏</view>
 </view>

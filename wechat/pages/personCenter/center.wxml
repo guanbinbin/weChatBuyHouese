@@ -16,9 +16,9 @@
 
 <view class='left_part'>
 <view class="iconBox middle flexBox align justify">
-<view bindtap='jumpToMyhouse'>
+<view bindtap='jumpToPublishHouse'>
 <image src="../../images/icons/house.png"/>
-<text class='block font12'>我的房源</text>
+<text class='block font12'>发布房源</text>
 </view>
 <view bindtap='jumpToCommond'>
 <image src="../../images/icons/commond.png"/>
@@ -26,11 +26,15 @@
 </view>
 <view bindtap='jumpToApplyhouse'>
 <image src="../../images/icons/apply.png"/>
-<text class='block font12'>购房申请</text>
+<text class='block font12'>申请签约</text>
 </view>
 </view>
 
 <view class="ulList">
+<view bindtap='jumpToMyhouse'>
+<image class='center_icon' src="../../images/icons/home01.png"></image>
+<text class="font14" space="nbsp">   我的房源</text>
+</view>
 <view bindtap='jumpToCollectPage'>
 <image class='center_icon' src="../../images/icons/collect.png"></image>
 <text class="font14" space="nbsp">   我的收藏</text>

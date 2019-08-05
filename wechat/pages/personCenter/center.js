@@ -150,6 +150,12 @@ Page({
       url: 'myHouse/myHouse?'
     })
   },
+  jumpToPublishHouse(e){
+    console.log("跳转到发布房源......");
+    wx.navigateTo({
+      url: 'myHouse/publishInfo/publishInfo?'
+    })
+  },
   jumpToCommond: function (e) {
     console.log("跳转到推荐房源......");
     //console.log(e.currentTarget.dataset.id);

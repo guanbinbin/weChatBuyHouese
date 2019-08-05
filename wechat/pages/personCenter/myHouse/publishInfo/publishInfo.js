@@ -43,6 +43,13 @@ Page({
     liveInOrnotIndex: 0,
     liveInOrnotArray: ["是", "否"],
     houseDetail:{},
+    cardExamplePath:[
+      {
+        path: "https://buy-house-program.oss-cn-chengdu.aliyuncs.com/images/sample/bd37790e7b1c3d6016184af1bf589c2.jpg?Expires=1565063433&OSSAccessKeyId=TMP.hY29Mc94C2CgeQ2uZdm7wsPkdqWELoLx19KThMse4nbQ4UZxaimAreKwbh1EXvJoUYwxw4kqs6JrxmXs3BEQ1Cs7dqzTVL9tES7aNeAAAN3zYrDLF9KCv4swqTtRmG.tmp&Signature=GB9AbhYTiDwkSUC48RYY4K96EBw%3D"}
+    ],
+    rightExamplePath: [//rightExamplePath
+      { path: "https://buy-house-program.oss-cn-chengdu.aliyuncs.com/images/sample/2c9ff7964419087a852e050c6081f8a.jpg?Expires=1565063457&OSSAccessKeyId=TMP.hY29Mc94C2CgeQ2uZdm7wsPkdqWELoLx19KThMse4nbQ4UZxaimAreKwbh1EXvJoUYwxw4kqs6JrxmXs3BEQ1Cs7dqzTVL9tES7aNeAAAN3zYrDLF9KCv4swqTtRmG.tmp&Signature=YKDDkcXjcZavt6yRVkcsscT8YRY%3D" }
+    ],
   },
    
   /**
@@ -354,11 +361,20 @@ Page({
       for (let i = 0; i < _this.data.rightImgPath.length; i++) {
         urls.push(_this.data.rightImgPath[i].path);
       }
-    }else{
+    } else if (type == "idCard") {
       for (let i = 0; i < _this.data.idCardImgPath.length; i++) {
         urls.push(_this.data.idCardImgPath[i].path);
       }
+    } else if (type == "yangban01") {
+      for (let i = 0; i < _this.data.rightExamplePath.length; i++) {
+        urls.push(_this.data.rightExamplePath[i].path);
+      }
+    } else {
+      for (let i = 0; i < _this.data.cardExamplePath.length; i++) {
+        urls.push(_this.data.cardExamplePath[i].path);
+      }
     }
+    //rightExamplePath
     if(typeof current!='undefined'){
       wx.previewImage({
         current: current, // 当前显示图片的http链接
@@ -467,14 +483,14 @@ Page({
     console.log("表单数据：" );
     console.log(formData);
     if(that.validate(formData)){
-      // if (that.data.imgPath.length==0){
-      //   wx.showToast({
-      //     title: '请上传房源照片',
-      //     icon:'none',
-      //     duration:1500
-      //   })
-      //   return
-      // }
+      if (that.data.imgPath.length==0){
+        wx.showToast({
+          title: '请上传房源照片',
+          icon:'none',
+          duration:1500
+        })
+        return
+      }
       // if (that.data.rightImgPath.length == 0) {
       //   wx.showToast({
       //     title: '请上传房产证照片',
@@ -664,6 +680,11 @@ Page({
       "liveInOrnotIndex": e.detail.value[0],
     })
   }, 
+  gobackPage(){
+  this.setData({
+    rightDialog:false
+  })
+  },
   onReady: function () {
 
   },

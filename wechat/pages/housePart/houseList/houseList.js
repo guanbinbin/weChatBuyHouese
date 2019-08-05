@@ -44,8 +44,8 @@ Page({
   that = this;
   console.log("获取上一页面传来的参数......");
 
-  //var content = options.content;
-    var content = "";
+  var content = options.content;
+    //var content = "";
   console.log("content:"+content);
   var title = 'searchData.title';
   that.setData({
@@ -142,9 +142,13 @@ Page({
             wx.hideToast();
             wx.showToast({
               title: '暂无房源信息',
-              duration: 15000, 
+              duration: 1500, 
+              icon:'none',
               mask: true
             });
+            that.setData({
+              roomList: []
+            })
           }
         }  
       }

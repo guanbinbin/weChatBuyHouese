@@ -35,7 +35,8 @@ Page({
     }, 
     houseDetail:{},
     subTitle:[],
-    isLogin:false
+    isLogin:false,
+    collect:false,
   },
 
   /**
@@ -77,6 +78,16 @@ Page({
     method:'GET',
     success:function(res){
     console.log(res.data)
+    if(res.data.code==0){
+      if(res.data.data.length>0){
+        console.log("该用户已收藏该房源")
+        //var collect = "collect";
+        that.setData({
+          collect: true
+        }) 
+          collectionId=res.data.data[0].id; 
+      }
+    }
     }
   })
   },
@@ -119,7 +130,6 @@ Page({
           wx.showToast({
 
             title: res.data.msg,
-
             duration: 2000,
 
             icon: 'none'
@@ -138,7 +148,7 @@ Page({
       var userId = wx.getStorageSync('userId');
      this.insertCollect(userId);
 
-      // var collect = "houseDetail.collect";
+      // var collect = "collect";
       // this.setData({
       //   [collect]: true
       // })
@@ -262,9 +272,10 @@ Page({
     success:function(res){
        console.log(res.data);
        if(res.data.code==0){
-        var collect = "houseDetail.collect";
+        //var collect = "collect";
+         collectionId = res.data.data.id;
         that.setData({
-        [collect]: true
+        collect: true
         })
          wx.showToast({
            title: '收藏成功',
@@ -277,9 +288,9 @@ Page({
            icon: "",
            duration: 1500,
          })
-         var collect = "houseDetail.collect";
+         //var collect = "collect";
          that.setData({
-           [collect]: false
+           collect: false
          })
        }
     }
@@ -287,42 +298,33 @@ Page({
   },
   unCollectRoom: function () {
   console.log("取消收藏....");
-    // wx.request({
-    //   url: app.globalData.hostUrl + '/housecollection/delete',
-    //   method: "POST",
-    //   data: {
-    //     resourcesId: resourceId,
-    //     userId: userId
-    //   },
-    //   success: function (res) {
-    //     console.log(res.data);
-    //     if (res.data.code == 0) {
-    //       var collect = "houseDetail.collect";
-    //       this.setData({
-    //         [collect]: true
-    //       })
-    //       wx.showToast({
-    //         title: '收藏成功',
-    //         icon: "success",
-    //         duration: 1500,
-    //       })
-    //     } else {
-    //       wx.showToast({
-    //         title: '收藏失败',
-    //         icon: "",
-    //         duration: 1500,
-    //       })
-    //       var collect = "houseDetail.collect";
-    //       this.setData({
-    //         [collect]: false
-    //       })
-    //     }
-    //   }
-    // })
-    var collect = "houseDetail.collect";
-  this.setData({
-    [collect]:false
-  })
+    wx.request({
+      url: app.globalData.hostUrl + '/housecollection/delete',
+      method: "POST",
+      data: {
+        id: collectionId
+      },
+      success: function (res) {
+        console.log(res.data);
+        if (res.data.code == 0) {
+          
+          that.setData({
+            collect: false 
+          })
+          wx.showToast({
+            title: '取消收藏成功',
+            icon: "success",
+            duration: 1500,
+          })
+        } else {
+          wx.showToast({
+            title: '取消收藏失败',
+            icon: "none",
+            duration: 1500,
+          }) 
+        }
+      }
+    })  
 },
   //图片预览
   previewImage: function (e) {

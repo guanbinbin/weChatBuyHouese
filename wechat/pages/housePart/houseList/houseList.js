@@ -144,7 +144,7 @@ Page({
               title: '暂无房源信息',
               duration: 1500, 
               icon:'none',
-              mask: true
+              mask: false
             });
             that.setData({
               roomList: []
@@ -159,7 +159,7 @@ Page({
     this.setData({
       [title]: e.detail.value,
     });
-    console.log("搜索框输入内容：" + this.data.searchContent)
+    console.log("搜索框输入内容：" + this.data.searchData.title)
   },
   searchConfirm(){
   that.getRoomList();

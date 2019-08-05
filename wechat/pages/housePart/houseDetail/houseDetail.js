@@ -117,15 +117,18 @@ Page({
              subTitle.push(labels[i].labelName);
             }
            } 
-          var imgUrls = [];
-          imgUrls = res.data.data[0].houseResources.houseFilePath.substr(0, res.data.data[0].houseResources.houseFilePath.length-1).split(";");
-          var imgUrls01 = "swiper.imgUrls";
-          //swiper.imgUrls
-          that.setData({
-            houseDetail: res.data.data[0].houseResources,
-            subTitle: subTitle,
-            [imgUrls01]: imgUrls
-          }) 
+           if(res.data.data.length>0){
+             var imgUrls = [];
+             imgUrls = res.data.data[0].houseResources.houseFilePath.substr(0, res.data.data[0].houseResources.houseFilePath.length - 1).split(";");
+             var imgUrls01 = "swiper.imgUrls";
+             //swiper.imgUrls
+             that.setData({
+               houseDetail: res.data.data[0].houseResources,
+               subTitle: subTitle,
+               [imgUrls01]: imgUrls
+             }) 
+           }
+          
         } else {
           wx.showToast({
 

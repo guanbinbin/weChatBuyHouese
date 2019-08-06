@@ -51,7 +51,7 @@
 </view>
 <view class='divLine'></view>
 
-<view class='' style="height:12vh">
+<view class='' style="height:200rpx">
 
 <view class="font14" style="width:50%;float:left">
 <view>单价:<text>{{houseDetail.unitPrice}}元/平</text></view>
@@ -61,7 +61,7 @@
 </view>
 
 <view class="font14" style="width:50%;float:left">
-<view>挂牌:<text>{{houseDetail.lastUpdateTime}}</text></view>
+<view>挂牌时间:<text>{{houseDetail.lastUpdateTime}}</text></view>
 <view>车位:<text>{{houseDetail.parkingLot}}</text></view>
 <view>房屋地址:<text>{{houseDetail.residential}}</text></view>
 <view>权属:<text>{{houseDetail.ownership}}</text></view>
@@ -96,17 +96,28 @@
 
 </view>
 </view>
-<view class='position_f contact flexBox align' style="height:{{contactHeight}}vh">
+
+<view  wx-if="{{onsale}}" class='position_f contact flexBox align' style="height:{{contactHeight}}vh">
 <view style='width:15%'>
 <image class="userinfo-avatar" src="{{salerInfo.image}}" background-size="cover"></image>
 </view>
+
 <view style='width:30%;text-align:left'>
 <text class='block font14'>{{salerInfo.name}}</text>
 <text class='block font12 gray'>{{salerInfo.name}}</text>
 </view>
+
 <view style='width:55%;'>
 <button class='font14 btn inline' style="margin-right:10rpx" size="20" type='primary'>在线咨询</button>
 <button class='font14 btn inline' type='primary'>电话咨询</button>
 </view>
 </view>
+
+<view  wx-if="{{deal}}" class='position_f contact flexBox align finalPart' style="height:{{contactHeight}}vh"> 
+<view style="width:100%;padding-right:25rpx">
+<text class="font16">成交价格：{{houseDetail.finalPrice}}万</text>
+</view>
+</view>
+
+
 </scroll-view>

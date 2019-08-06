@@ -11,72 +11,50 @@ Page({
     height: app.globalData.height * 2 + 20,
     //0 已停售 1 已成交
     roomList: [
-      {
-        img: '../../../images/index/house1.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "1",
-        status:0
-      },
-      {
-        img: '../../../images/index/house2.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "2",
-        status: 1
-      },
-      {
-        img: '../../../images/index/house3.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "3",
-        status: 0
-      },
-      {
-        img: '../../../images/index/house4.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "4",
-        status: 1
-      },
-      {
-        img: '../../../images/index/house5.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "5",
-        status: 0
-      },
-      {
-        img: '../../../images/index/house6.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "6",
-        status: 1
-      }
+      // {
+      //   img: '../../../images/index/house1.jpg',
+      //   title: '首月免租 月月返现 近地铁站',
+      //   addr: '双流区-茶店子-龙祥佳苑',
+      //   subTitle: ['合租', '朝南', '近地铁'],
+      //   price: '820元/月',
+      //   size: '97.24',
+      //   room: '三室一厅',
+      //   id: "1",
+      //   status:0
+      // },
+      // {
+      //   img: '../../../images/index/house2.jpg',
+      //   title: '首月免租 月月返现 近地铁站',
+      //   addr: '双流区-茶店子-龙祥佳苑',
+      //   subTitle: ['合租', '朝南', '近地铁'],
+      //   price: '820元/月',
+      //   size: '97.24',
+      //   room: '三室一厅',
+      //   id: "2",
+      //   status: 1
+      // },
+      // {
+      //   img: '../../../images/index/house3.jpg',
+      //   title: '首月免租 月月返现 近地铁站',
+      //   addr: '双流区-茶店子-龙祥佳苑',
+      //   subTitle: ['合租', '朝南', '近地铁'],
+      //   price: '820元/月',
+      //   size: '97.24',
+      //   room: '三室一厅',
+      //   id: "3",
+      //   status: 0
+      // },
+      // {
+      //   img: '../../../images/index/house4.jpg',
+      //   title: '首月免租 月月返现 近地铁站',
+      //   addr: '双流区-茶店子-龙祥佳苑',
+      //   subTitle: ['合租', '朝南', '近地铁'],
+      //   price: '820元/月',
+      //   size: '97.24',
+      //   room: '三室一厅',
+      //   id: "4",
+      //   status: 1
+      // },  
     ],
   },
 
@@ -85,17 +63,92 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    that.getMyCollection();
+  },
+  getMyCollection(){
+  console.log("获取我收藏的房源...");
+  wx.request({
+    url: app.globalData.hostUrl +'/housecollection/queryListWithPage',
+    data:{
+      userId:wx.getStorageSync("userId")
+    },
+    method:"GET",
+    success(res){
+      console.log(res.data);
+      if(res.data.code==0){
+        if(res.data.data.length>0){
+          that.setData({
+            roomList: []
+          })
+          for (let i = 0; i < res.data.data.length; i++) {
+            var item = {};
+            item.img = res.data.data[i].houseFilePath.split(";")[0];
+            //item.id = res.data.data[i].id;
+            item.id = res.data.data[i].id;
+            item.title = res.data.data[i].title;
+            item.addr = "成都市-" + res.data.data[i].regionName + "-" + res.data.data[i].vilageName;
+
+            item.subTitle = [];
+            var labels = res.data.data[i].houseLabelList;
+            if (labels.length > 0) {
+              if (labels.length > 4) {
+                labels.length = 4;
+              }
+              for (let i = 0; i < labels.length; i++) {
+                item.subTitle.push(labels[i].labelName);
+              }
+            }
+            //已成交
+            if (res.data.data[i].type==3){
+              item.status=1
+            }else if(res.data.data[i].type==2){
+              if (res.data.data[i].status==1){
+                //已上架
+                item.status=2
+              } else if (res.data.data[i].status == 2){
+                //已下架
+                item.status=0
+              }
+
+            }
+            item.price = res.data.data[i].price + "万";
+            item.room = res.data.data[i].roomTypeInfo;
+            item.size = res.data.data[i].houseArea;
+            item.id = res.data.data[i].id;
+            item.resourceid = res.data.data[i].resourcesId;
+            that.data.roomList.push(item);
+          }
+          that.setData({
+            roomList: that.data.roomList
+          })
+          console.log(that.data.roomList) 
+        }else{
+          wx.showToast({
+            title: '您还没有收藏的房源哦',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      }else{
+        wx.showToast({
+          title: '获取房源失败',
+          icon:'none',
+          duration:1000
+        })
+      }
+    }
+  })
   },
   jumpToDetail: function (e) {
     console.log("跳转到房源详情页......");
     console.log(e.currentTarget.dataset.id);
     wx.navigateTo({
-      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id
+      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id + "&resourceId=" + e.currentTarget.dataset.resourceid
     })
   },
   dontJump:function(){
     wx.showToast({ 
-      title:"该房源已停售",
+      title:"该房源已下架",
       image: '../../../images/icons/error.png',
       duration: 1000
     }) 

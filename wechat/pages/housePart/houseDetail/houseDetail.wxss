@@ -61,3 +61,7 @@ text-align: center
 
 
 }
+.finalPart{
+  background-color: #FF8C1C;
+  color: #fff
+}

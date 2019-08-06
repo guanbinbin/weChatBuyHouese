@@ -3,7 +3,7 @@
 <scroll-view  style='margin-top: {{height}}px;'>
  
 <view class='flex-container indexContainer'>
-<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='{{item.status==1?"jumpToDetail":"dontJump"}}'>
+<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" data-resourceid='{{item.resourceid}}' bindtap='{{item.status==0?"dontJump":"jumpToDetail"}}'>
 
 <view class='roomImg' style='width:40%'>
 <image class="position_re" src="{{item.img}}">

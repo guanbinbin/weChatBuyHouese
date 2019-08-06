@@ -110,6 +110,9 @@ Page({
         wx.hideToast();
         if (res.data.code == 0) {
           if(res.data.data.length>0){
+            that.setData({
+              roomList: []
+            })
             for (let i = 0; i < res.data.data.length;i++){
             var item = {};
               item.img = res.data.data[i].houseResources.houseFilePath.split(";")[0];

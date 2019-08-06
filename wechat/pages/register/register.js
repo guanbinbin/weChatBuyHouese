@@ -265,7 +265,8 @@ Page({
             icon: 'loading',
             mask:true
           });
-        app.globalData.userInfo = that.data.userInfo;        wx.setStorageSync('userId', res.data.data.userId); 
+        app.globalData.userInfo = that.data.userInfo; 
+        wx.setStorageSync('userId', res.data.data.userId); 
         if(that.data.type=="collect"){
           wx.navigateTo({
             url: '../housePart/houseDetail/houseDetail?id=' + id + "&resourceId=" + resourceId

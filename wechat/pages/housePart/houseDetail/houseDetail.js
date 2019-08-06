@@ -37,6 +37,9 @@ Page({
     subTitle:[],
     isLogin:false,
     collect:false,
+    //
+    onsale:false,
+    deal:false
   },
 
   /**
@@ -121,6 +124,28 @@ Page({
              var imgUrls = [];
              imgUrls = res.data.data[0].houseResources.houseFilePath.substr(0, res.data.data[0].houseResources.houseFilePath.length - 1).split(";");
              var imgUrls01 = "swiper.imgUrls";
+             if (res.data.data[0].type==3){
+               that.setData({
+                 deal:true,
+                 onsale:false,
+               })
+             } else if (res.data.data[0].type == 2 && res.data.data[0].status == 1){
+              //  that.setData({
+              //    deal: false,
+              //    onsale: true,
+              //  })
+               that.setData({
+                 deal: true,
+                 onsale: false,
+               })
+             }else{
+               that.setData({
+                 deal: false,
+                 onsale: false,
+               })
+             }
+             //lastUpdateTime
+             res.data.data[0].houseResources.lastUpdateTime = res.data.data[0].houseResources.lastUpdateTime.substr(0,10)
              //swiper.imgUrls
              that.setData({
                houseDetail: res.data.data[0].houseResources,

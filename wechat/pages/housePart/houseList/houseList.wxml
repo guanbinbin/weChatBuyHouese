@@ -17,12 +17,12 @@
  </view>
 </view> 
 
-<view class="{{top? 'position_f topNav' : ''}}" style="{{topStyle}}">
+<view class="{{top? 'position_f' : ''}}" style="{{topStyle}};width:100%">
 <dropdownmenu  style="margin-top: {{height}}px;height:100vh" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuDistrictData='{{data1}}' dropDownMenuSourceData='{{data2}}' dropDownMenuStyleData='{{data3}}' dropDownMenuFilterData='{{data4}}'
 bind:selectedItem='selectedItem' />
 </view>
 
-<view class='flex-container indexContainer' style="height:100vh">
+<view class='flex-container indexContainer' style="height:{{itemHeight}}">
 <view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" data-resourceId="{{item.resourceId}}" bindtap='jumpToDetail'>
 
 <view class='roomImg' style='width:40%'>

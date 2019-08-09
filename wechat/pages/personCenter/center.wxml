@@ -10,7 +10,7 @@
 </view>
 <view class='userInfo_name' style="width:75%">
 <text class="block font16">{{userInfo.nickName}}</text>
-<text class="block font12">点击查看我的个人信息 </text>
+<!-- <text class="block font12">点击查看我的个人信息 </text> -->
 </view>
 </view> 
 

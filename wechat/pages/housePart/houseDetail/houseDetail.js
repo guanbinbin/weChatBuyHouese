@@ -2,7 +2,7 @@ const app = getApp();
 var that;
 var resourceId,statusId,collectionId;
 const APP_ID = 'wxe5fa3487aa7ea615';//输入小程序appid  
-const APP_SECRET = '8ffa0fc438544af6c728c8b050f97034';//输入小程序app_secret  
+const APP_SECRET = '92e6aab17237ff9911e2d36e6009b660';//输入小程序app_secret  
 var OPEN_ID = ''//储存获取到openid  
 var SESSION_KEY = ''//储存获取到session_key  
 // pages/housePart/houseDetail/houseDetail.js
@@ -86,9 +86,13 @@ Page({
         console.log("该用户已收藏该房源")
         //var collect = "collect";
         that.setData({
-          collect: true
+          collect: true 
         }) 
-          collectionId=res.data.data[0].id; 
+          collectionId=res.data.data[0].id;  
+      }else{
+        that.setData({
+          collect: false 
+        }) 
       }
     }
     }
@@ -130,14 +134,11 @@ Page({
                  onsale:false,
                })
              } else if (res.data.data[0].type == 2 && res.data.data[0].status == 1){
-              //  that.setData({
-              //    deal: false,
-              //    onsale: true,
-              //  })
                that.setData({
-                 deal: true,
-                 onsale: false,
+                 deal: false,
+                 onsale: true,
                })
+                
              }else{
                that.setData({
                  deal: false,
@@ -219,20 +220,21 @@ Page({
       success: function (res) {
         wx.request({
           //获取openid接口  
-          url: 'https://api.weixin.qq.com/sns/jscode2session',
+          url: app.globalData.hostUrl + "/wxInterface/getAccessToken",
           data: {
-            appid: APP_ID,
-            secret: APP_SECRET,
-            js_code: res.code,
-            grant_type: 'authorization_code'
+            //appid: APP_ID,
+            //secret: APP_SECRET,
+            code: res.code,
+            // grant_type: 'authorization_code'
           },
           method: 'GET',
           success: function (res) {
             console.log(res.data)
-            OPEN_ID = res.data.openid;//获取到的openid  
-            SESSION_KEY = res.data.session_key;//获取到session_key  
+            console.log(app.globalData.userInfo)
+            OPEN_ID = res.data.data.openid;//获取到的openid  
+            SESSION_KEY = res.data.data.session_key;//获取到session_key  
             console.log(OPEN_ID);
-            console.log(SESSION_KEY.length);
+            console.log(SESSION_KEY);
 
             that.isOurUser(OPEN_ID);
           }
@@ -276,13 +278,48 @@ Page({
             })
 
           } else {
-            console.log("用户存在获取其userid直接收藏");
+            console.log("用户存在判断他之前是否收藏过该房源");
             app.globalData.userInfo = that.data.userInfo;
             that.setData({
-              isLogin:true
+              isLogin: true
             })
             wx.setStorageSync('userId', res.data.data[0].userId);
-            that.insertCollect(res.data.data[0].userId);
+            //that.getCollect(resourceId, res.data.data[0].userId);
+            wx.request({
+              url: app.globalData.hostUrl + '/housecollection/queryListWithNoPage',
+              data: {
+                resourcesId: resourceId,
+                userId: res.data.data[0].userId
+              },
+              method: 'GET',
+              success: function (res) {
+                console.log(res.data)
+                if (res.data.code == 0) {
+                  if (res.data.data.length > 0) {
+                    console.log("该用户已收藏该房源") 
+                    that.setData({
+                      collect: true
+                    })
+                    collectionId = res.data.data[0].collectionId;
+                    wx.showToast({
+                      title: '您已收藏过该房源',
+                      icon:'none',
+                      duration:1000
+                    })
+                  } else {
+                    that.setData({
+                      collect: false
+                    })
+                      console.log("用户之前没有收藏过该房源")
+                    that.insertCollect(wx.getStorageSync('userId'));
+                  }
+                }
+              }
+            })
+            // if(!that.data.collect){
+            //   console.log("用户之前没有收藏过该房源")
+            //   that.insertCollect(res.data.data[0].userId);
+            // } 
           }
         }
       }

@@ -12,11 +12,11 @@
  <view  class='flex-container indexContainer'>
 <view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}">
 
-<view class='roomImg' style='width:40%'>
+<view class='roomImg' data-id="{{item.id}}" data-check='true' bindtap="jumpToDetail" style='width:40%'>
 <image src="{{item.imgPath}}"/>
 </view>
 
-<view class="roomInfo" style='width:60%'>
+<view class="roomInfo" data-id="{{item.id}}" data-check='true' bindtap="jumpToDetail" style='width:60%'>
 <text class='block title'>{{item.vilageName}}</text>
 <text class='block addr font14'>房屋地址：{{item.residential}}</text>
 <!--<text class='block addr'>所在区域：{{item.regionName}}</text> 
@@ -31,6 +31,10 @@
 </text>-->
 </view>
 
+<view wx:if="{{item.status=='已成交'}}" class='operate_box' style='width:100%;'> 
+<view space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>成交金额：{{item.finalPrice}}万</view>  
+</view>
+
 <view wx:if="{{item.status=='修改申请中'}}" class='operate_box' style='width:100%;'> 
 <view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看申请内容</view>  
 </view>
@@ -41,34 +45,34 @@
 </view>
 <view wx:if="{{item.status=='待审核'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.id}}" space="nbsp" bindtap='jumpToDetail'><image class='icon_img' src="{{editUrl}}"></image> 修改</view>
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>  
+<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>   -->
 </view>
 
 <view wx:if="{{item.status=='审核未通过'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
 <view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view> 
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
+<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>
 
 <view wx:if="{{item.status=='勘察未通过'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
 <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view>
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> 
+<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>  -->
 </view>
 <view wx:if="{{item.status=='已下架'}}" class='operate_box' style='width:100%;'> 
 <view data-id="{{item.id}}" data-price="{{item.price}}" bindtap='changePrice' space="nbsp" ><image class='icon_img' src="{{priceUrl}}"></image> 改价</view> 
 <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{onsaleUrl}}"></image> 重新上架</view> 
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
+<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>
 <view wx:if="{{item.status=='待勘察'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
 <view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
+<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>
 <view wx:if="{{item.status=='勘察通过'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
 <view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image> 改价</view>
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>
+<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>
 
 </view>

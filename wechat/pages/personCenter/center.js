@@ -13,7 +13,8 @@ Page({
     // 组件所需的参数
     nvabarData: {
       showCapsule: 0, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '我的主页', //导航栏 中间的标题
+      title: '个人中心', //导航栏 中间的标题
+      bkcolor:"#4DBC70"
     },
     height: app.globalData.height * 2 + 20, 
   }, 

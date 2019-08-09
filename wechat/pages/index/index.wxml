@@ -31,14 +31,19 @@
 </view>
 <view class='part_two'>
 <view class='info_swiper'>
-<text>消息推送推荐</text>
+<view class="flexBox">
+<view style="width:50%">最新房源</view>
+<view class="font14" bindtap="jumpToList" data-type="new" style="width:50%;text-align:right;color:#70C677">查看更多</view>
+</view>
 <swiper class='swiper' display-multiple-items='3' indicator-dots="{{swiper2.indicatorDots}}"
   autoplay="{{swiper2.autoplay}}" interval="{{swiper2.interval}}" duration="{{swiper2.duration}}">
   <block wx:for="{{swiper2.content}}" wx:key="1">
-    <swiper-item class="swiper_box" bindtap='jumpToDetail'>
+    <swiper-item class="swiper_box" data-id="{{item.id}}" data-resourceId="{{item.resourceId}}" bindtap='jumpToDetail'>
       <image src="{{item.imgUrl}}" class="slide-image swiper_img" width="100%" height="150"/>
        <view>
       <text class='block font12'>{{item.title}}</text>
+      <text style="color:#4DBC70" class='block font10'>{{item.addr}}</text>
+      
       <text class='block font12 price' space='nbsp'>总价 {{item.price}}</text>
       </view>
     </swiper-item>
@@ -49,7 +54,7 @@
 <view>
 <text>推荐好房</text>
 <view class='flex-container indexContainer'>
-<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" data-resourceId="{{item.resourceId}}" bindtap='jumpToDetail'>
 
 <view class='roomImg' style='width:40%'>
 <image src="{{item.img}}"/>
@@ -68,7 +73,7 @@
 
 </view>
 </view>
-
+<button class="font16" style="background-color:#70C677;" bindtap="jumpToList" data-type="recommend" type="primary">查看更多推荐房源</button>
 </view>
 </view>
 </scroll-view>

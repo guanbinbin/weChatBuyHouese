@@ -150,18 +150,22 @@ Page({
       if (data[i].status == 1) {
         roomItem.status = "已上架";
       } 
-      // else if (data[i].status == 3) {
-      //   roomItem.status = "上架数据修改申请中";
-      // } 
+      else if (data[i].status == 3) {
+        roomItem.status = "上架数据修改申请中";
+      } 
       else if (data[i].status == 0){
         roomItem.status = "勘察通过";
       }
-    }else{
-      if (data[i].status == 1) {
+      else if (data[i].status == 2) {
         roomItem.status = "已下架";
-      } else if (data[i].status == 4) {
-        roomItem.status = "下架申请中";
-      } 
+      }
+    }else{
+      if (data[i].status == 0) {
+        roomItem.status = "已成交";
+      }
+      // } else if (data[i].status == 4) {
+      //   roomItem.status = "下架申请中";
+      // } 
     }
     if (data[i].houseResources.houseFilePath!=null){
       var imgPath = data[i].houseResources.houseFilePath.split(";");
@@ -210,9 +214,20 @@ Page({
     })
   },
   jumpToDetail:function(e){
-    wx.navigateTo({
-      url: './publishInfoUpdate/publishInfoUpdate?id=' + e.currentTarget.dataset.id
-    })
+    console.log(typeof e.currentTarget.dataset.check);
+    var check = typeof e.currentTarget.dataset.check;
+    if(check=="undefined"){
+    console.log("跳转到修改页面...");
+      wx.navigateTo({
+        url: './publishInfoUpdate/publishInfoUpdate?id=' + e.currentTarget.dataset.id 
+      })
+    }else{
+      console.log("跳转到查看页面...");
+      wx.navigateTo({
+        url: './publishInfoCheck/publishInfoCheck?id=' + e.currentTarget.dataset.id  
+      })
+    }
+    
   },
   //
   checkReason(e){

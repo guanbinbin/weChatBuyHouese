@@ -36,7 +36,7 @@ Page({
   tapToDetail:function(e){
     console.log("跳转到房源列表页......");
     wx.navigateTo({
-      url: '../../housePart/houseList/houseList?content=' + e.currentTarget.dataset.param
+      url: '../../housePart/houseList/houseList?content=' + e.currentTarget.dataset.param+"&type=new"
     })
   },
   /**

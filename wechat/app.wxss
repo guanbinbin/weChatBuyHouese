@@ -73,7 +73,8 @@ pages {
   font-size: 12px
 }
 .font14{
-  font-size: 14px
+ /* font-size: 14px*/
+ font-size: 25rpx
 }
 .font16{
   font-size: 16px;

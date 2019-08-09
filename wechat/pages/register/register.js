@@ -25,6 +25,8 @@ Page({
   },
   sendCode(){
   //验证手机号码
+    that.data.register.telephone = that.data.register.telephone.replace(/\s+/g, "");
+    console.log(that.data.register.telephone)
     if (!(/^1[34578]\d{9}$/.test(that.data.register.telephone))) {
 
       wx.showToast({

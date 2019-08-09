@@ -7,13 +7,13 @@
 <image wx:if="{{!showImg}}" bindtap="chooseImg" data-type="room" src="../../../../images/index/apply.png"/>
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showImg}}"> 
 <view wx:for="{{imgPath}}" class='img_list'>
-<image class='upload_img' bindtap="previewImage" data-type="room" data-src='{{item.path}}' src="{{item.path}}">
-<image class='delete_icon delete_position' bindtap="deleteImage" data-type="room" data-index='{{index}}' src='../../../../images/delete.png'></image>
+<image class='upload_img' bindtap="previewImage" data-type="room" data-src='{{item.path}}' src="{{item.path}}"> 
 </image>
 </view>
-<view  class='add_icon' wx:if="{{imgPath.length<9}}">
+
+<!-- <view  class='add_icon' wx:if="{{imgPath.length<9}}">
 <image bindtap="continueUpload"  data-type="room"  src="../../../../images/people/add.png"></image>
-</view>
+</view> -->
  
 </view>
 </view>
@@ -21,21 +21,21 @@
 <view class="baseInfo font14">
 <view><text class="font16 title ">基本信息</text></view>
 <view class="flexBox align">
-<picker class='pickerBox' mode="multiSelector" bindchange="cityChange" value="{{cityIndex}}" range="{{cityArray}}" style='width:100%'>
+<view class='pickerBox' mode="multiSelector" bindchange="cityChange" value="{{cityIndex}}" range="{{cityArray}}" style='width:100%'>
     <view class="picker flex">
-      <view class="block space" ><text style="color:red">*</text>所在区域
+      <view class="block space" >所在区域
       </view>
       <view style='width:70%'>
       {{cityArray[0][cityIndex[0]]}} - {{cityArray[1][cityIndex[1]]}}
       </view>
     </view>
-  </picker> 
+  </view> 
 </view> 
-<view class="flexBox align"><view class=" space block"><text style="color:red">*</text>小区名称</view>
+<view class="flexBox align"><view class=" space block">小区名称</view>
 <input  bindinput="getInput" data-options='vilageName' value="{{houseDetail.vilageName}}" name="vilageName" placeholder="请输入小区名称"></input>
 </view>
 <view class="flexBox align"> 
-<picker class='pickerBox' mode="multiSelector" bindchange="roomInfoChange" value="{{roomInfoIndex}}" range="{{roomInfoArray}}" style='width:100%'>
+<view class='pickerBox' mode="multiSelector" bindchange="roomInfoChange" value="{{roomInfoIndex}}" range="{{roomInfoArray}}" style='width:100%'>
     <view class="picker flex">
       <view class="block space" >房型信息
       </view>
@@ -43,18 +43,18 @@
       {{roomInfoArray[0][roomInfoIndex[0]]}} - {{roomInfoArray[1][roomInfoIndex[1]]}} - {{roomInfoArray[2][roomInfoIndex[2]]}}
       </view>
     </view>
-  </picker> 
+  </view> 
 </view>
-<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>所在楼层</text>
-<input bindinput="getInput" data-options='floor' value="{{houseDetail.floor}}" name="floor" ></input>
+<view class="flexBox align"><text class=" space block">所在楼层</text>
+<input bindinput="getInput" disabled="true" data-options='floor' value="{{houseDetail.floor}}" name="floor" ></input>
 </view>
 <view class="flexBox align"><text class=" space block">房屋地址</text>
-<input bindinput="getInput" data-options='residential' value="{{houseDetail.residential}}" name="residential" placeholder="如:1栋1单元702室"></input>
+<input bindinput="getInput" disabled="true" data-options='residential' value="{{houseDetail.residential}}" name="residential" placeholder="如:1栋1单元702室"></input>
 </view>
 <view class="flexBox align">
 <picker class='pickerBox'  bindchange="liveInOrnotChange" value="{{liveInOrnotIndex}}" range="{{liveInOrnotArray}}" style='width:100%'>
     <view class="picker flex">
-      <view class="block space" ><text style="color:red">*</text>是否在住
+      <view class="block space" >是否在住
       </view>
       <view style='width:70%'>
      {{liveInOrnotArray[liveInOrnotIndex]}}
@@ -62,12 +62,25 @@
     </view>
   </picker> 
 </view>
-<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>产权面积</text>
-<input bindinput="getInput" data-options='houseArea' value="{{houseDetail.houseArea}}" name="houseArea" placeholder="请输入产权面积"></input>m<text class="sup">2</text> 
+<view class="flexBox align"><text class=" space block">产权面积</text>
+<input bindinput="getInput" disabled="true" data-options='houseArea' value="{{houseDetail.houseArea}}" name="houseArea" placeholder="请输入产权面积"></input>m<text class="sup">2</text> 
 </view>
-<view bindtap='openRightDialog' class="flexBox align"><text class=" space block">房产权属</text>
-<image class='delete_icon' src="../../../../images/icons/add.png"></image>
-<text>上传产权、身份证照片</text>
+<view class="flexBox align" style="height:auto"><text class=" space block">房产证：</text>
+<!-- <image class='delete_icon' src="../../../../images/icons/add.png"></image>
+<text>上传产权、身份证照片</text> --> 
+<view  class='img_box_01'>
+<image wx:for="{{rightImgPath}}" class='upload_img01' bindtap="previewImage" data-type="right" data-src='{{item.path}}'src="{{item.path}}"> 
+</image> 
+</view>
+</view>
+
+<view class="flexBox align" style="height:auto"><text class=" space block">身份证证：</text>
+<!-- <image class='delete_icon' src="../../../../images/icons/add.png"></image>
+<text>上传产权、身份证照片</text> --> 
+<view  class='img_box_01'>
+<image wx:for="{{idCardImgPath}}" class='upload_img01' bindtap="previewImage" data-type="right" data-src='{{item.path}}'src="{{item.path}}"> 
+</image> 
+</view>
 </view>
 <!--<view class="flexBox align"><text class=" space block">车位</text>
 <input placeholder="请选择"></input>
@@ -75,8 +88,8 @@
 <!--<view class="flexBox align"><text class=" space block">房屋标签</text>
 <input  placeholder="请选择"></input>
 </view>-->
-<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>期望售价</text>
-<input bindinput="getInput" data-options='price' value="{{houseDetail.price}}" name="price" placeholder="请输入您期望卖出的价格"></input><text>万</text>
+<view class="flexBox align"><text class=" space block">期望售价</text>
+<input bindinput="getInput" disabled="true" data-options='price' value="{{houseDetail.price}}" name="price" placeholder="请输入您期望卖出的价格"></input><text>万</text>
 </view> 
 </view>
 
@@ -98,17 +111,17 @@
 
 <view class="contact font14">
 <view><text class="font16 title ">联系方式</text></view>
-<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系人</text>
-<input bindinput="getInput" data-options='contact' value="{{houseDetail.contact}}" name="contact" placeholder="我们该如何称呼您"></input>
+<view class="flexBox align"><text class=" space block">联系人</text>
+<input bindinput="getInput" disabled="true" data-options='contact' value="{{houseDetail.contact}}" name="contact" placeholder="我们该如何称呼您"></input>
 </view>
-<view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系电话</text>
-<input bindinput="getInput" data-options='contactInformation' value="{{houseDetail.contactInformation}}" name="contactInformation" placeholder="方便我们及时与您联系"></input>
+<view class="flexBox align"><text class=" space block">联系电话</text>
+<input bindinput="getInput" data-options='contactInformation' disabled="true" value="{{houseDetail.contactInformation}}" name="contactInformation" placeholder="方便我们及时与您联系"></input>
 </view>
 </view>
 </view>
 
-<view class="flexBox align publishBtn font14">
-    <button class="submitBtn" formType="submit">提交</button></view>
+<!-- <view class="flexBox align publishBtn font14">
+    <button class="submitBtn" formType="submit">提交</button></view> -->
 </view>
 
 </scroll-view>

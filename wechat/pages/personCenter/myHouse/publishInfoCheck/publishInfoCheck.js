@@ -6,13 +6,13 @@ Page({
     // 组件所需的参数
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '修改房源', //导航栏 中间的标题
+      title: '查看房源信息', //导航栏 中间的标题
       indexUrl: '../../../index/index',
       innerPage: false,//是否是该页面的第二个页面
     },
     //
     isRoomUpdate: false,
-    resouceId:'',
+    resouceId: '',
     height: app.globalData.height * 2 + 20,
     isUpdate: false,
     //图片预览
@@ -30,7 +30,7 @@ Page({
     that: [],
     roomFormData: {},
     //表单对象
-    formData:{},
+    formData: {},
 
     //城市-区域下拉框数据
     cityIndex: [0, 0],
@@ -67,18 +67,18 @@ Page({
       title: '',
       duration: 15000,
       icon: 'loading',
-      mask:true,
+      mask: true,
     })
     //获取区域数据
     that.getRegionData();
-    if (typeof options.id != 'undefined') { 
+    if (typeof options.id != 'undefined') {
       var id = options.id;
       that.setData({
-        isRoomUpdate:true,
-        resouceId:id
-      })  
+        isRoomUpdate: true,
+        resouceId: id
+      })
       this.getMyRoomDetail(id);
-    } else { 
+    } else {
       console.log("没有参数，新增房源")
     }
 
@@ -126,7 +126,7 @@ Page({
           var obj = res.data.data;
           console.log(obj);
           var item = {}
-          if (obj[0].estateFilePath!=null){
+          if (obj[0].estateFilePath != null) {
             var rightImgPath = obj[0].estateFilePath.split(";");
             for (let j = 0; j < rightImgPath.length - 1; j++) {
               item = {};
@@ -139,7 +139,7 @@ Page({
               showRightImg: true,
               rightImgPath: that.data.rightImgPath
             })
-          }else{
+          } else {
             var rightImgPath = [];
           }
 
@@ -159,14 +159,14 @@ Page({
           } else {
             var cardImgPath = [];
           }
-         
+
 
 
           var houseImgPath = obj[0].houseFilePath.split(";");
           for (let i = 0; i < houseImgPath.length - 1; i++) {
             item = {};
             item.type = 'room';
-            item.isOld= true;
+            item.isOld = true;
             item.path = houseImgPath[i];
             that.data.imgPath.push(item);
           }
@@ -175,9 +175,9 @@ Page({
             imgPath: that.data.imgPath
           })
           //
-         
+
           //
-         
+
 
           // 除图片之外的input数据回填
           that.setData({
@@ -230,11 +230,11 @@ Page({
             })
           }
 
-        }else{
+        } else {
           wx.showToast({
             title: '加载失败',
-            icon:'none',
-            duration:2000
+            icon: 'none',
+            duration: 2000
           })
         }
       }
@@ -259,7 +259,7 @@ Page({
           tempFilePaths.push(item);
         }
         //这里要条件判断
-        if (type == "room") { 
+        if (type == "room") {
           _this.setData({
             showImg: true,
             imgPath: _this.data.imgPath.concat(tempFilePaths)
@@ -342,7 +342,7 @@ Page({
       var num = 9 - this.data.idCardImgPath.length;
     }
     console.log(num)
-    wx.chooseImage({ 
+    wx.chooseImage({
       count: num,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
@@ -350,7 +350,7 @@ Page({
         console.log("继续上传的图片文件......");
         console.log(res);
         var tempFilePaths = [];
-        
+
 
         //这里要条件判断
         if (type == "room") {
@@ -507,8 +507,8 @@ Page({
   formSubmit: function (e) {
     wx.showToast({
       title: '',
-      icon:'loading',
-      duration:20000,
+      icon: 'loading',
+      duration: 20000,
       mask: true,
     })
     console.log("表单提交...");
@@ -532,22 +532,22 @@ Page({
     formData["creator"] = wx.getStorageSync('userId');
     console.log("表单数据：");
     console.log(formData);
-    if(that.validate(formData)){
+    if (that.validate(formData)) {
       that.setData({
         formData: formData
       })
       console.log("图片分类......");
       that.tellImages();
     }
-    
+
     //allImg
-  /*  this.setData({
-      allImg: that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath)
-    })
-    console.log("图片数据：");
-    console.log(this.data.allImg);
-    //上传表单和图片
-    this.upload(formData);*/
+    /*  this.setData({
+        allImg: that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath)
+      })
+      console.log("图片数据：");
+      console.log(this.data.allImg);
+      //上传表单和图片
+      this.upload(formData);*/
   },
   validate(formData) {
     if (formData.vilageName == "") {
@@ -616,7 +616,7 @@ Page({
     }
     return true
   },
-  tellImages(){
+  tellImages() {
     console.log(that.data.imgPath);
     console.log(that.data.rightImgPath);
     console.log(that.data.idCardImgPath);
@@ -647,50 +647,50 @@ Page({
     var allImg = that.data.imgPath.concat(that.data.rightImgPath, that.data.idCardImgPath);
     var newImg = [];
     var oldImg = [];
-  for(let i =0 ;i<allImg.length;i++){
-    if (allImg[i].isOld){
-      oldImg.push(allImg[i]);
-    }else{
-      newImg.push(allImg[i])
+    for (let i = 0; i < allImg.length; i++) {
+      if (allImg[i].isOld) {
+        oldImg.push(allImg[i]);
+      } else {
+        newImg.push(allImg[i])
+      }
     }
-  }
-  console.log("老图");
+    console.log("老图");
     console.log(oldImg);
-  console.log("新图");
+    console.log("新图");
     console.log(newImg);
 
     //先传老图
-    that.uploadOldImg(oldImg,newImg);
+    that.uploadOldImg(oldImg, newImg);
   },
   //传旧图
   uploadOldImg(oldImg, newImg) {
-  var homeImg = [];
-  var estateImg = [];
-  var cardImg = [];
-  for(let i=0;i<oldImg.length;i++){
-    if(oldImg[i].type=="room"){
-      homeImg.push(oldImg[i].path);
-    } else if (oldImg[i].type == "right"){
-      estateImg.push(oldImg[i].path);
-    }else{
-      cardImg.push(oldImg[i].path);
+    var homeImg = [];
+    var estateImg = [];
+    var cardImg = [];
+    for (let i = 0; i < oldImg.length; i++) {
+      if (oldImg[i].type == "room") {
+        homeImg.push(oldImg[i].path);
+      } else if (oldImg[i].type == "right") {
+        estateImg.push(oldImg[i].path);
+      } else {
+        cardImg.push(oldImg[i].path);
+      }
     }
-  }
-    var type = ['HOUSE', 'ESTATE','CARD']
-    for(let j=0;j<type.length;j++){ 
-      if(type[j]=='HOUSE'){
+    var type = ['HOUSE', 'ESTATE', 'CARD']
+    for (let j = 0; j < type.length; j++) {
+      if (type[j] == 'HOUSE') {
         var oldPath = homeImg.join(";");
-      } else if (type[j] == 'ESTATE'){
+      } else if (type[j] == 'ESTATE') {
         var oldPath = estateImg.join(";");
-      }else{
+      } else {
         var oldPath = cardImg.join(";");
       }
       console.log(oldPath)
       wx.request({
         url: app.globalData.hostUrl + "/housepicture/wxInsertJson",
         data: {
-          resouceId:that.data.resouceId,
-          type:type[j],
+          resouceId: that.data.resouceId,
+          type: type[j],
           oldPath: oldPath
         },
         method: 'POST',
@@ -698,17 +698,17 @@ Page({
           "Content-Type": "application/json"
         },
         success(res) {
-          console.log(res.data); 
-          if(res.data.code==0){
-            if(j==type.length-1){
+          console.log(res.data);
+          if (res.data.code == 0) {
+            if (j == type.length - 1) {
               console.log("传新的图片。。。");
               that.uploadImg(newImg);
             }
-          }else{
+          } else {
             wx.showToast({
               title: '操作失败',
-              duration:15000,
-              icon:'none'
+              duration: 15000,
+              icon: 'none'
             })
             return
           }
@@ -720,7 +720,7 @@ Page({
   upload: function () {
     var id = "formData.id";
     that.setData({
-      [id]:that.data.resouceId
+      [id]: that.data.resouceId
     })
     wx.request({
       url: app.globalData.hostUrl + "/houserelease/update",
@@ -730,19 +730,19 @@ Page({
         "Content-Type": "application/json"
       },
       success(res) {
-        console.log(res.data); 
+        console.log(res.data);
         if (res.data.code == 0) {
           wx.showToast({
             title: '修改成功！',
             duration: 1500,
             mask: 'false',
-            icon:'success'
+            icon: 'success'
           });
-          setTimeout(function(){
-           wx.navigateTo({
-             url: '../myHouse',
-           })
-          },2000)
+          setTimeout(function () {
+            wx.navigateTo({
+              url: '../myHouse',
+            })
+          }, 2000)
         }
       }
     })
@@ -751,8 +751,8 @@ Page({
   //传新图
   uploadImg: function (data) {
     console.log(data);
-    if(data.length>0){
-      for (let i = 0; i <data.length; i++) {
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
         var type = "";
         if (data[i].type == 'room') {
           type = "HOUSE";
@@ -794,12 +794,12 @@ Page({
           }
         });
       }
-    }else{
+    } else {
       console.log("没有新图，直接保存数据......");
       that.upload();
     }
- },
- 
+  },
+
   cityChange: function (e) {
     that.setData({
       "cityIndex[0]": e.detail.value[0],

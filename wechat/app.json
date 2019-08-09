@@ -1,13 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/housePart/houseList/houseList",
-   
-    "pages/index/search/search",
-    
-    "pages/personCenter/myHouse/myHouse",
-    
     "pages/register/register",
+   
+    "pages/housePart/houseList/houseList",
+    "pages/index/search/search",
+    "pages/personCenter/myHouse/myHouse",
     
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     "pages/personCenter/center",
@@ -19,8 +17,8 @@
     "pages/personCenter/commond/commond",
     "pages/map/map",
     "pages/housePart/houseDetail/houseDetail",
-    "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate"
-    
+    "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate",
+    "pages/personCenter/myHouse/publishInfoCheck/publishInfoCheck"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -28,12 +26,12 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom",
-    "enablePullDownRefresh": true 
-
+    "enablePullDownRefresh": true
   },
   "sitemapLocation": "sitemap.json",
   "networkTimeout": {
-    "request": 300000
+    "request": 300000,
+    "downloadFile": 10000
   },
   "tabBar": {
     "color": "#a9b7b7",

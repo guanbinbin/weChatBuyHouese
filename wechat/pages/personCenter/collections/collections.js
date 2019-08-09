@@ -1,5 +1,6 @@
 const app = getApp();
 var that;
+var pageNum=1,size=5;
 Page({
   data: {
     // 组件所需的参数
@@ -63,14 +64,17 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    that.getMyCollection();
+    pageNum = 1
+    that.getMyCollection(1);
   },
-  getMyCollection(){
+  getMyCollection(page){ 
   console.log("获取我收藏的房源...");
   wx.request({
     url: app.globalData.hostUrl +'/housecollection/queryListWithPage',
     data:{
-      userId:wx.getStorageSync("userId")
+      userId:wx.getStorageSync("userId"),
+      pageNum: pageNum,
+      size:size
     },
     method:"GET",
     success(res){
@@ -189,7 +193,81 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if(pageNum==1){
+      pageNum++
+    }
+    console.log("上拉翻页...");
+    wx.request({
+      url: app.globalData.hostUrl + '/housecollection/queryListWithPage',
+      data: {
+        userId: wx.getStorageSync("userId"),
+        pageNum: pageNum,
+        size: size
+      },
+      method: "GET",
+      success(res) {
+        console.log(res.data);
+        if (res.data.code == 0) {
+          if (res.data.data.length > 0) {
+            pageNum++ 
+            for (let i = 0; i < res.data.data.length; i++) {
+              var item = {};
+              item.img = res.data.data[i].houseFilePath.split(";")[0];
+              //item.id = res.data.data[i].id;
+              item.id = res.data.data[i].id;
+              item.title = res.data.data[i].title;
+              item.addr = "成都市-" + res.data.data[i].regionName + "-" + res.data.data[i].vilageName;
 
+              item.subTitle = [];
+              var labels = res.data.data[i].houseLabelList;
+              if (labels.length > 0) {
+                if (labels.length > 4) {
+                  labels.length = 4;
+                }
+                for (let i = 0; i < labels.length; i++) {
+                  item.subTitle.push(labels[i].labelName);
+                }
+              }
+              //已成交
+              if (res.data.data[i].type == 3) {
+                item.status = 1
+              } else if (res.data.data[i].type == 2) {
+                if (res.data.data[i].status == 1) {
+                  //已上架
+                  item.status = 2
+                } else if (res.data.data[i].status == 2) {
+                  //已下架
+                  item.status = 0
+                }
+
+              }
+              item.price = res.data.data[i].price + "万";
+              item.room = res.data.data[i].roomTypeInfo;
+              item.size = res.data.data[i].houseArea;
+              item.id = res.data.data[i].id;
+              item.resourceid = res.data.data[i].resourcesId;
+              that.data.roomList.push(item);
+            }
+            that.setData({
+              roomList: that.data.roomList
+            })
+            console.log(that.data.roomList)
+          } else {
+            wx.showToast({
+              title: '没有更多啦',
+              icon: 'none',
+              duration: 1000
+            })
+          }
+        } else {
+          wx.showToast({
+            title: '没有更多啦',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      }
+    })
   },
 
   /**

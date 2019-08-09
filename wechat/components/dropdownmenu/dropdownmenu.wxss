@@ -69,7 +69,7 @@
   display: block;
   z-index: 5;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -224,7 +224,7 @@
 
 .container_hd {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   overflow-y: scroll;
   background-color:  rgba(0, 0, 0, 0.2);

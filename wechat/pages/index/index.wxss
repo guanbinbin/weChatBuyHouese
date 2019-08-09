@@ -38,7 +38,7 @@ margin-top:30rpx
   height: 12vh;
 }
 .info_swiper .swiper{
-  height: 20vh;
+  height: 22vh;
   margin-bottom: 30rpx;
 }
 .flex-container{

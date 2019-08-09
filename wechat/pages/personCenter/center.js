@@ -207,7 +207,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    that = this;
+    //判断有无用户信息
+    if (app.globalData.userInfo) {
+      console.log("已有用户信息，直接展示...");
+      console.log(app.globalData.userInfo);
+      console.log(wx.getStorageSync('userId'));
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        showAuthBox: false,
+        authPass: true
+      })
+    } else {
+      console.log("用户没有登陆过...");
+      console.log(app.globalData.userInfo);
+      this.setData({
+        userInfo: {},
+        showAuthBox: true,
+        authPass: false
+      })
+    }
   },
 
   /**

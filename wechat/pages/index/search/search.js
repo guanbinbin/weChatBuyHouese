@@ -1,4 +1,5 @@
 const app = getApp();
+var his =[];
 Page({ 
   data: {
     nvabarData: {
@@ -7,7 +8,8 @@ Page({
       indexUrl:'../index'
     },
     height: app.globalData.height * 2 + 20, 
-    historyData: ["仁和春天", "火车南站", "中德英伦联邦", "伊藤洋华堂", "高新区", "郫县", "仁和春天", "火车南站", "中德英伦联邦", "伊藤洋华堂", "高新区", "郫县"],
+    historyData: [],
+    // ["仁和春天", "火车南站", "中德英伦联邦", "伊藤洋华堂", "高新区", "郫县", "仁和春天", "火车南站", "中德英伦联邦", "伊藤洋华堂", "高新区", "郫县"],
     searchContent:''
   },
 
@@ -15,7 +17,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (wx.getStorageSync("historyData")!=""){
+      console.log("存在历史记录");
+      his = wx.getStorageSync("historyData");
+      if(his.length>15){
+        his = his.slice(0,15);
+        wx.setStorageSync("historyData", his);
+      }
+      this.setData({
+        historyData: his,
+        hasHistory: true
+      }); 
+    }else{
+      wx.setStorageSync("historyData", []);
+      his=[];
+      console.log("不存在历史记录");
+      this.setData({
+        hasHistory: false
+      });
+    } 
   },
   //获取输入框的值
   getInput: function (e) {
@@ -27,7 +47,12 @@ Page({
   //手机键盘输入确认
   searchConfirm: function () {
     console.log("跳转到房源列表页......");
-    console.log(this.data.searchContent)
+    console.log(this.data.searchContent);
+    if(this.data.searchContent!=""){ 
+      his.unshift(this.data.searchContent) 
+      wx.setStorageSync("historyData", his)
+      console.log(wx.getStorageSync("historyData"));
+    }
     wx.navigateTo({
       url: '../../housePart/houseList/houseList?content=' + this.data.searchContent
     })
@@ -50,7 +75,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+       this.onLoad();
   },
 
   /**

@@ -1,6 +1,7 @@
 const app = getApp();
 var that;
 var pageNum = 1,size=5;
+var his = [];
 // pages/housePart/houseList/houseList.js
 Page({
   data: {
@@ -48,6 +49,27 @@ Page({
   }, 
   onLoad: function (options) {
   that = this;
+
+    if (wx.getStorageSync("historyData") != "") {
+      console.log("存在历史记录");
+      his = wx.getStorageSync("historyData");
+      if (his.length > 15) {
+        his = his.slice(0, 15);
+        wx.setStorageSync("historyData", his);
+      }
+      this.setData({
+        historyData: his,
+        hasHistory: true
+      });
+    } else {
+      wx.setStorageSync("historyData", []);
+      his = [];
+      console.log("不存在历史记录");
+      this.setData({
+        hasHistory: false
+      });
+    } 
+
   pageNum=1;
   console.log("获取上一页面传来的参数......");
   console.log(options)
@@ -208,7 +230,12 @@ Page({
     console.log("搜索框输入内容：" + this.data.searchData.title)
   },
   searchConfirm(){
-    pageNum =1 ;
+    if (this.data.searchData.title != "") {
+      his.unshift(this.data.searchData.title)
+      wx.setStorageSync("historyData", his)
+      console.log(wx.getStorageSync("historyData"));
+    }
+  pageNum =1 ;
   that.getRoomList(1);
   },
   selectedItem: function (e) {

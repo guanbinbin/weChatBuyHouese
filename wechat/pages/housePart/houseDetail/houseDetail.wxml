@@ -104,7 +104,7 @@
 
 <view style='width:30%;text-align:left'>
 <text class='block font14'>{{salerInfo.name}}</text>
-<text class='block font12 gray'>{{salerInfo.name}}</text>
+<text class='block font12 gray'>{{salerInfo.point}}</text>
 </view>
 
 <view style='width:55%;'>

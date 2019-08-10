@@ -30,8 +30,9 @@ Page({
     height: app.globalData.height * 2 + 20,
     contactHeight:7,
     salerInfo:{
-      image:"../../../images/people/test.jpg",
-      name:"Tansy"
+      image:"../../../images/people/test.png",
+      name:"Tansy",
+      point:"销售经理"
     }, 
     houseDetail:{},
     subTitle:[],
@@ -172,6 +173,12 @@ Page({
              }
              //lastUpdateTime
              res.data.data[0].houseResources.lastUpdateTime = res.data.data[0].houseResources.lastUpdateTime.substr(0,10)
+             //salerInfo
+             var name = "salerInfo.name";
+             that.setData({
+               [name]: res.data.data[0].operatorName
+             })
+             
              //swiper.imgUrls
              that.setData({
                houseDetail: res.data.data[0].houseResources,

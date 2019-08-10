@@ -55,66 +55,7 @@ Page({
     },
     height: app.globalData.height * 2 + 20, 
     //推荐好房列表
-    roomList:[
-      { img:'../../images/index/house1.jpg',
-      title:'首月免租 月月返现 近地铁站',
-      addr:'双流区-茶店子-龙祥佳苑',
-      subTitle:['合租','朝南','近地铁'],
-      price:'820元/月',
-      size:'97.24',
-      room:'三室一厅',
-      id:"1"},
-      {
-        img: '../../images/index/house2.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "2"
-      },
-      {
-        img: '../../images/index/house3.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "3"
-      },
-      {
-        img: '../../images/index/house4.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "4"
-      },
-      {
-        img: '../../images/index/house5.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "5"
-      },
-      {
-        img: '../../images/index/house6.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "6"
-      }
-    ],
+    roomList:[],
     //底部导航栏配置
     tabbar: {
       color: "#000000",

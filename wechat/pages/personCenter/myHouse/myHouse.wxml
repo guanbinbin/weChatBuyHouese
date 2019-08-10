@@ -41,7 +41,7 @@
 <view wx:if="{{item.status=='已上架'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view> 
 <view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{offsaleUrl}}"></image> 下架</view>
+<view data-id="{{item.statusId}}" bindtap="offSale" space="nbsp"><image class='icon_img' src="{{offsaleUrl}}"></image> 下架</view>
 </view>
 <view wx:if="{{item.status=='待审核'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.id}}" space="nbsp" bindtap='jumpToDetail'><image class='icon_img' src="{{editUrl}}"></image> 修改</view>
@@ -56,12 +56,12 @@
 
 <view wx:if="{{item.status=='勘察未通过'}}" class='operate_box' style='width:100%;'>
 <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view>
+<view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view> 
 <!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>  -->
 </view>
 <view wx:if="{{item.status=='已下架'}}" class='operate_box' style='width:100%;'> 
-<view data-id="{{item.id}}" data-price="{{item.price}}" bindtap='changePrice' space="nbsp" ><image class='icon_img' src="{{priceUrl}}"></image> 改价</view> 
-<view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{onsaleUrl}}"></image> 重新上架</view> 
+<view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
+<view data-id="{{item.statusId}}" bindtap="reOnSale" space="nbsp"><image class='icon_img' src="{{onsaleUrl}}"></image> 重新上架</view> 
 <!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>
 <view wx:if="{{item.status=='待勘察'}}" class='operate_box' style='width:100%;'>
@@ -69,8 +69,8 @@
 <view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
 <!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>
-<view wx:if="{{item.status=='勘察通过'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
+<view wx:if="{{item.status=='待上架'}}" class='operate_box' style='width:100%;'>
+<!-- <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>   -->
 <view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image> 改价</view>
 <!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
 </view>

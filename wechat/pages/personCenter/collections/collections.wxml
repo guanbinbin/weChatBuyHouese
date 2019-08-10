@@ -8,7 +8,7 @@
 <view class='roomImg' style='width:40%'>
 <image class="position_re" src="{{item.img}}">
 <text wx:if="{{item.status==1}}" class='position_ab block font14 tag1' style='top:0;left:0'>已成交</text>
-<text wx:if="{{item.status==0}}" class='position_ab block font14 tag2' style='top:0;left:0'>已停售</text>
+<text wx:if="{{item.status==0}}" class='position_ab block font14 tag2' style='top:0;left:0'>已下架</text>
 </image>
 </view>
 

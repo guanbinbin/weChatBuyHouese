@@ -150,7 +150,7 @@ Page({
       if (data[i].status == 0) {
         roomItem.status = "待勘察";
       } else if (data[i].status == 2) {
-        roomItem.status = "勘察不通过";
+        roomItem.status = "勘察未通过";
       } 
       // else if (data[i].status==3){
       //   roomItem.status = "勘察数据修改申请中";
@@ -160,10 +160,10 @@ Page({
         roomItem.status = "已上架";
       } 
       else if (data[i].status == 3) {
-        roomItem.status = "上架数据修改申请中";
+        roomItem.status = "修改申请中";
       } 
       else if (data[i].status == 0){
-        roomItem.status = "勘察通过";
+        roomItem.status = "待上架";
       }
       else if (data[i].status == 2) {
         roomItem.status = "已下架";
@@ -394,6 +394,136 @@ Page({
           });
         }
       }
+    })
+  },
+  offSale(e){
+    var id = e.target.dataset.id;
+    wx.showModal({
+
+      title: '提示',
+
+      content: '确定要下架该房源吗？',
+
+      success: function (res) {
+        console.log("下架房源...");
+        wx.showToast({
+          title: '',
+          icon: 'loading',
+          duration: 15000
+        });
+        if (res.confirm) { 
+          wx.request({
+            url: app.globalData.hostUrl + '/housereleasemanagement/update',
+            data: {
+              id: id, 
+              status: 2
+            },
+            method: 'POST',
+            fail() {
+              wx.hideToast();
+              wx.showToast({
+                title: '服务器异常，请稍后重试',
+                duration: 1500,
+                icon: 'none',
+                mask: false
+              });
+            },
+            success: (res) => {
+              console.log(res);
+              wx.hideToast();
+              if (res.data.code == 0) {
+                wx.showToast({
+                  title: '下架成功',
+                  duration: 1500,
+                  icon: 'success'
+                });
+                setTimeout(function () {
+                  that.onLoad();
+                }, 2000);
+              } else {
+                wx.showToast({
+                  title: '下架失败',
+                  duration: 1500,
+                  icon: 'none'
+                });
+              }
+            }
+          })
+         
+
+        } else {//这里是点击了取消以后
+
+          console.log('用户点击取消')
+
+        }
+
+      }
+
+    })
+  },
+  reOnSale(e){
+    var id = e.target.dataset.id;
+    wx.showModal({
+
+      title: '提示',
+
+      content: '确定要重新上架该房源吗？',
+
+      success: function (res) {
+        console.log("重新上架房源...");
+        wx.showToast({
+          title: '',
+          icon: 'loading',
+          duration: 15000
+        });
+        if (res.confirm) {
+          wx.request({
+            url: app.globalData.hostUrl + '/housereleasemanagement/update',
+            data: {
+              id: id, 
+              status: 1
+            },
+            method: 'POST',
+            fail() {
+              wx.hideToast();
+              wx.showToast({
+                title: '服务器异常，请稍后重试',
+                duration: 1500,
+                icon: 'none',
+                mask: false
+              });
+            },
+            success: (res) => {
+              console.log(res);
+              wx.hideToast();
+              if (res.data.code == 0) {
+                wx.showToast({
+                  title: '上架成功',
+                  duration: 1500,
+                  icon: 'success'
+                });
+                setTimeout(function () {
+                  that.onLoad();
+                }, 2000);
+              } else {
+                wx.showToast({
+                  title: '上架失败',
+                  duration: 1500,
+                  icon: 'none'
+                });
+              }
+            }
+          })
+
+
+        } else {//这里是点击了取消以后
+
+          console.log('用户点击取消')
+
+        }
+
+      }
+
     })
   },
   //

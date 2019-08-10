@@ -182,8 +182,9 @@ Page({
   jumpToCommond: function (e) {
     console.log("跳转到推荐房源......");
     //console.log(e.currentTarget.dataset.id);
+    var option = e.currentTarget.dataset;
     wx.navigateTo({
-      url: 'commond/commond'
+      url: '../housePart/houseList/houseList?content=&type=' + option.type
     })
   },
   jumpToApplyhouse: function (e) {

@@ -4,7 +4,7 @@
 <scroll-view hidden='{{rightDialog}}' style='margin-top: {{height}}px'>
 <view>
 <view class="imgPart">
-<image wx:if="{{!showImg}}"  data-type="room" src="../../../../images/index/apply.png"/>
+<image wx:if="{{!showImg}}"  data-type="room" src="../../../../images/index/noHouseImg.png"/>
 <view class="flexBox wrap" style="width:100%;" wx:if="{{showImg}}"> 
 <view wx:for="{{imgPath}}" class='img_list'>
 <image class='upload_img' bindtap="previewImage" data-type="room" data-src='{{item.path}}' src="{{item.path}}"> 

@@ -20,7 +20,7 @@
 <image src="../../images/icons/house.png"/>
 <text class='block font12'>发布房源</text>
 </view>
-<view bindtap='jumpToCommond'>
+<view bindtap='jumpToCommond' data-type="recommend">
 <image src="../../images/icons/commond.png"/>
 <text class='block font12'>推荐房源</text>
 </view>

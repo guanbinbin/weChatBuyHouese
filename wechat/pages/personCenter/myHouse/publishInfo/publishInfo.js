@@ -79,6 +79,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
          console.log(res);
         if(res.data.code==0){
@@ -106,6 +115,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
        if (res.data.code == 0) {
@@ -592,6 +610,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res.data);
         console.log("表单数据新增之后开始传图片....");
@@ -683,7 +710,13 @@ Page({
   gobackPage(){
   this.setData({
     rightDialog:false
-  })
+  });
+    var innerPage = "nvabarData.innerPage";
+    var title = "nvabarData.title";
+    this.setData({
+      [title]: "发布房源",
+      [innerPage]: false
+    })
   },
   onReady: function () {
 

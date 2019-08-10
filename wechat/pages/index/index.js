@@ -183,6 +183,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail(){
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res);
         wx.hideToast();
@@ -273,6 +282,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      }, 
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res);

@@ -108,8 +108,10 @@
 </view>
 
 <view style='width:55%;'>
-<button class='font14 btn inline' style="margin-right:10rpx" size="20" type='primary'>在线咨询</button>
-<button class='font14 btn inline' type='primary'>电话咨询</button>
+
+<button class='font14 btn inline' style="margin-right:10rpx" size="20" type='primary' open-type='contact' send-message-title="{{houseDetail.title}}" send-message-path="{{sharePath}}" send-message-img="{{this.data.swiper.imgUrls[0]}}" show-message-card="true">在线咨询</button>
+
+<button class='font14 btn inline' type='primary' bindtap="callNumber">电话咨询</button>
 </view>
 </view>
 

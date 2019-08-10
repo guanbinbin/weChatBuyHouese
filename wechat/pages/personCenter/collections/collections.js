@@ -77,6 +77,15 @@ Page({
       size:size
     },
     method:"GET",
+    fail() {
+      wx.hideToast();
+      wx.showToast({
+        title: '服务器异常，请稍后重试',
+        duration: 1500,
+        icon: 'none',
+        mask: false
+      });
+    },
     success(res){
       console.log(res.data);
       if(res.data.code==0){
@@ -205,6 +214,15 @@ Page({
         size: size
       },
       method: "GET",
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res.data);
         if (res.data.code == 0) {

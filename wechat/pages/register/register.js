@@ -56,6 +56,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res); 
         wx.hideToast();
@@ -161,6 +170,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res);
         if (res.data.code == 0) {
@@ -258,6 +276,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res);
         if (res.data.code == 0) {
@@ -287,7 +314,7 @@ Page({
         
         } else {
           wx.showToast({
-            title: '注册失败',
+            title: res.data.msg,
             duration: 1500,
             icon: 'none'
           });

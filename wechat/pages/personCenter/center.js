@@ -86,6 +86,15 @@ Page({
            // grant_type: 'authorization_code'
           },
           method: 'GET',
+          fail() {
+            wx.hideToast();
+            wx.showToast({
+              title: '服务器异常，请稍后重试',
+              duration: 1500,
+              icon: 'none',
+              mask: false
+            });
+          },
           success: function (res) {
             console.log(res.data)
             console.log(app.globalData.userInfo)
@@ -110,6 +119,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res.data);

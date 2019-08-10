@@ -43,10 +43,10 @@
 <image class='center_icon' src="../../images/icons/scan.png"></image>
 <text class="font14" space="nbsp">   浏览记录</text>
 </view>
-<view bindtap='jumpToQuestionPage'>
+<!-- <view bindtap='jumpToQuestionPage'>
 <image class='center_icon' src="../../images/icons/question.png"></image>
 <text class="font14" space="nbsp">   问题反馈</text>
-</view>
+</view> -->
 <view>
 <image class='center_icon' src="../../images/icons/contact.png"></image>
 <text class="font14" space="nbsp">   联系客服</text>

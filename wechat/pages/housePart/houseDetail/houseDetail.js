@@ -71,14 +71,30 @@ Page({
       console.log("没有用户信息，状态还是未收藏");
     }
    },
+  //打电话
+  callNumber(){
+    wx.makePhoneCall({
+      phoneNumber: '17098335652' //仅为示例，并非真实的电话号码
+    })
+  },
   getCollect(resourceId,userId){
   wx.request({
     url: app.globalData.hostUrl + '/housecollection/queryListWithNoPage',
     data:{
+      sharePath: "/pages/housePart/houseDetail/houseDetail?id=" +statusId+ " & resourceId="+resourceId,
       resourcesId: resourceId,
       userId: userId
     },
     method:'GET',
+    fail() {
+      wx.hideToast();
+      wx.showToast({
+        title: '服务器异常，请稍后重试',
+        duration: 1500,
+        icon: 'none',
+        mask: false
+      });
+    },
     success:function(res){
     console.log(res.data)
     if(res.data.code==0){
@@ -111,6 +127,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res.data);
@@ -228,6 +253,15 @@ Page({
             // grant_type: 'authorization_code'
           },
           method: 'GET',
+          fail() {
+            wx.hideToast();
+            wx.showToast({
+              title: '服务器异常，请稍后重试',
+              duration: 1500,
+              icon: 'none',
+              mask: false
+            });
+          },
           success: function (res) {
             console.log(res.data)
             console.log(app.globalData.userInfo)
@@ -252,6 +286,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res.data);
@@ -292,6 +335,15 @@ Page({
                 userId: res.data.data[0].userId
               },
               method: 'GET',
+              fail() {
+                wx.hideToast();
+                wx.showToast({
+                  title: '服务器异常，请稍后重试',
+                  duration: 1500,
+                  icon: 'none',
+                  mask: false
+                });
+              },
               success: function (res) {
                 console.log(res.data)
                 if (res.data.code == 0) {
@@ -334,6 +386,15 @@ Page({
       resourcesId:resourceId,
       userId: userId
     },
+    fail() {
+      wx.hideToast();
+      wx.showToast({
+        title: '服务器异常，请稍后重试',
+        duration: 1500,
+        icon: 'none',
+        mask: false
+      });
+    },
     success:function(res){
        console.log(res.data);
        if(res.data.code==0){
@@ -368,6 +429,15 @@ Page({
       method: "POST",
       data: {
         id: collectionId
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success: function (res) {
         console.log(res.data);

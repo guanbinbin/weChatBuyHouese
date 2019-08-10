@@ -99,6 +99,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '获取区域数据异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res); 
         if (res.data.code == 0) {
@@ -146,6 +155,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res);
@@ -268,7 +286,7 @@ Page({
     });*/
   },
   //跳转到房源详情页
-  jumpToDetail: function (e) {
+  jumpToDetail: function (e) { 
     console.log("跳转到房源详情页......");
     console.log(e.currentTarget.dataset);
     console.log('../houseDetail/houseDetail?id=' + e.currentTarget.dataset.id + "&resourceId=" + e.currentTarget.dataset.resourceid)
@@ -329,6 +347,15 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res);

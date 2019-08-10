@@ -92,6 +92,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         console.log(res);
         if (res.data.code == 0) {
@@ -120,13 +129,22 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         wx.hideToast();
         if (res.data.code == 0) {
           var obj = res.data.data;
           console.log(obj);
           var item = {}
-          if (obj[0].estateFilePath!=null){
+          if (obj[0].estateFilePath != null && obj[0].estateFilePath != ""){
             var rightImgPath = obj[0].estateFilePath.split(";");
             for (let j = 0; j < rightImgPath.length - 1; j++) {
               item = {};
@@ -141,9 +159,12 @@ Page({
             })
           }else{
             var rightImgPath = [];
+            that.setData({
+              showRightImg:false
+            })
           }
 
-          if (obj[0].cardFilePath != null) {
+          if (obj[0].cardFilePath != null && obj[0].cardFilePath != "") {
             var cardImgPath = obj[0].cardFilePath.split(";");
             for (let k = 0; k < cardImgPath.length - 1; k++) {
               item = {};
@@ -158,22 +179,32 @@ Page({
             })
           } else {
             var cardImgPath = [];
+            that.setData({
+              showIdCardImg: false
+            })
           }
          
 
-
-          var houseImgPath = obj[0].houseFilePath.split(";");
-          for (let i = 0; i < houseImgPath.length - 1; i++) {
-            item = {};
-            item.type = 'room';
-            item.isOld= true;
-            item.path = houseImgPath[i];
-            that.data.imgPath.push(item);
+          if (obj[0].houseFilePath != null && obj[0].houseFilePath != "") {
+            var houseImgPath = obj[0].houseFilePath.split(";");
+            for (let i = 0; i < houseImgPath.length - 1; i++) {
+              item = {};
+              item.type = 'room';
+              item.isOld = true;
+              item.path = houseImgPath[i];
+              that.data.imgPath.push(item);
+            }
+            that.setData({
+              showImg: true,
+              imgPath: that.data.imgPath
+            })
+          }else{
+            var houseImgPath = [];
+            that.setData({
+              showImg: false, 
+            })
           }
-          that.setData({
-            showImg: true,
-            imgPath: that.data.imgPath
-          })
+        
           //
          
           //
@@ -697,6 +728,15 @@ Page({
         header: {
           "Content-Type": "application/json"
         },
+        fail() {
+          wx.hideToast();
+          wx.showToast({
+            title: '服务器异常，请稍后重试',
+            duration: 1500,
+            icon: 'none',
+            mask: false
+          });
+        },
         success(res) {
           console.log(res.data); 
           if(res.data.code==0){
@@ -728,6 +768,15 @@ Page({
       method: 'POST',
       header: {
         "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
       },
       success(res) {
         console.log(res.data); 
@@ -821,6 +870,12 @@ Page({
   gobackPage() {
     this.setData({
       rightDialog: false
+    });
+    var innerPage = "nvabarData.innerPage";
+    var title = "nvabarData.title";
+    this.setData({ 
+      [title]: "修改房源",
+      [innerPage]: false
     })
   },
   onReady: function () {

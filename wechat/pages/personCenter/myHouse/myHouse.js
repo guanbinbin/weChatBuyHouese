@@ -89,6 +89,15 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success(res) {
         wx.hideToast();
         console.log(res.data); 
@@ -302,6 +311,15 @@ Page({
     price:that.data.price01
     },
     method: 'POST',
+    fail() {
+      wx.hideToast();
+      wx.showToast({
+        title: '服务器异常，请稍后重试',
+        duration: 1500,
+        icon: 'none',
+        mask: false
+      });
+    },
     success:(res)=>{
      console.log(res);
      wx.hideToast();
@@ -347,6 +365,15 @@ Page({
         status:3
       },
       method: 'POST',
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
       success: (res) => {
         console.log(res);
         wx.hideToast();

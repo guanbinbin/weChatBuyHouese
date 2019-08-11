@@ -2,11 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/register/register",
-   
     "pages/housePart/houseList/houseList",
     "pages/index/search/search",
     "pages/personCenter/myHouse/myHouse",
-    
     "pages/personCenter/myHouse/publishInfo/publishInfo",
     "pages/personCenter/center",
     "pages/index01/index",
@@ -18,7 +16,8 @@
     "pages/map/map",
     "pages/housePart/houseDetail/houseDetail",
     "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate",
-    "pages/personCenter/myHouse/publishInfoCheck/publishInfoCheck"
+    "pages/personCenter/myHouse/publishInfoCheck/publishInfoCheck",
+    "pages/housePart/map/map"
   ],
   "window": {
     "backgroundTextStyle": "light",

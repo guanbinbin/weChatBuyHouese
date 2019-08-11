@@ -32,7 +32,7 @@ Page({
     salerInfo:{
       image:"../../../images/people/test.png",
       name:"Tansy",
-      point:"销售经理"
+      point:"置业顾问"
     }, 
     houseDetail:{},
     subTitle:[],
@@ -40,7 +40,13 @@ Page({
     collect:false,
     //
     onsale:false,
-    deal:false
+    deal:false,
+    //
+    longitude:10,
+    latitude:10,
+    map:false,
+    markers:[]
+
   },
 
   /**
@@ -124,7 +130,8 @@ Page({
     });
     wx.request({
       url: app.globalData.hostUrl + '/housereleasemanagement/queryListWithPage',
-      data: { id:id },
+      data: { resourcesId: resourceId },
+      //{ id:id } { resourcesId:resourceId },
       method: 'GET',
       header: {
         "Content-Type": "application/json"
@@ -183,10 +190,21 @@ Page({
              that.setData({
                houseDetail: res.data.data[0].houseResources,
                subTitle: subTitle,
-               [imgUrls01]: imgUrls
+               [imgUrls01]: imgUrls,
+               longitude: res.data.data[0].houseResources.houseLocationInfo.longitude,
+               latitude: res.data.data[0].houseResources.houseLocationInfo.latitude,
+               markers: [{
+                 id: "1",
+                 latitude: res.data.data[0].houseResources.houseLocationInfo.latitude,
+                 longitude: res.data.data[0].houseResources.houseLocationInfo.longitude,
+                 width: 30,
+                 height: 30,
+                 iconPath: "../../../images/icons/marker.png"
+               }],
+               map:true,
              }) 
            }
-          
+          console.log(that.data.houseDetail)
         } else {
           wx.showToast({
 
@@ -485,6 +503,20 @@ Page({
       })
     }
 
+  },
+  //
+  jumpToMap(e){
+  console.log(e)
+    console.log(parseFloat(e.target.dataset.latitude))
+    console.log(parseFloat(e.target.dataset.longitude))
+    wx.openLocation({
+      latitude: parseFloat(e.target.dataset.latitude),
+      longitude: parseFloat(e.target.dataset.longitude), 
+      scale: 12
+    })
+  // wx.navigateTo({
+  //   url: '../map/map?longitude=' + e.target.dataset.longitude + "&latitude=" + e.target.dataset.latitude,
+  // })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

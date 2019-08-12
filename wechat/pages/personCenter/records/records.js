@@ -1,5 +1,6 @@
 const app = getApp();
 var that;
+var pageNum = 1, size = 5;
 Page({
   data: {
     // 组件所需的参数
@@ -10,66 +11,6 @@ Page({
     },
     height: app.globalData.height * 2 + 20,
     roomList: [
-      {
-        img: '../../../images/index/house1.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "1"
-      },
-      {
-        img: '../../../images/index/house2.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "2"
-      },
-      {
-        img: '../../../images/index/house3.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "3"
-      },
-      {
-        img: '../../../images/index/house4.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "4"
-      },
-      {
-        img: '../../../images/index/house5.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "5"
-      },
-      {
-        img: '../../../images/index/house6.jpg',
-        title: '首月免租 月月返现 近地铁站',
-        addr: '双流区-茶店子-龙祥佳苑',
-        subTitle: ['合租', '朝南', '近地铁'],
-        price: '820元/月',
-        size: '97.24',
-        room: '三室一厅',
-        id: "6"
-      }
     ],
   },
 
@@ -78,12 +19,88 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    var page={pageNum:pageNum,size:size}
+    that.getRecord(page);
+  },
+
+
+  //获取记录
+  getRecord(page){
+    console.log("获取我的浏览记录...");
+    wx.request({
+      url: app.globalData.hostUrl + '/houserelease/search',
+      data: {
+        userId: wx.getStorageSync("userId"),
+        pageNum: page.pageNum,
+        size: page.size
+      },
+      method: "GET",
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
+      success(res) {
+        console.log(res.data);
+        if (res.data.code == 0) {
+          if (res.data.data.length > 0) {
+            that.setData({
+              roomList: []
+            })
+            for (let i = 0; i < res.data.data.length; i++) {
+              var item = {};
+              item.img = res.data.data[i].houseResources.houseFilePath.split(";")[0];
+              //item.id = res.data.data[i].id;
+              item.id = res.data.data[i].id;
+              item.title = res.data.data[i].houseResources.title;
+              item.addr = "成都市-" + res.data.data[i].houseResources.regionName + "-" + res.data.data[i].houseResources.vilageName;
+              item.subTitle = [];
+              var labels = res.data.data[i].houseResources.houseLabelList;
+              if (labels.length > 0) {
+                if (labels.length > 4) {
+                  labels.length = 4;
+                }
+                for (let i = 0; i < labels.length; i++) {
+                  item.subTitle.push(labels[i].labelName);
+                }
+              }
+              item.price = res.data.data[i].houseResources.price + "万";
+              item.room = res.data.data[i].houseResources.roomTypeInfo;
+              item.size = res.data.data[i].houseResources.houseArea;
+              item.id = res.data.data[i].houseResources.id;
+              item.resourceid = res.data.data[i].resourcesId;
+              that.data.roomList.push(item);
+            }
+            that.setData({
+              roomList: that.data.roomList
+            })
+            console.log(that.data.roomList)
+          } else {
+            wx.showToast({
+              title: '您还没有浏览记录哦！',
+              icon: 'none',
+              duration: 1000
+            })
+          }
+        } else {
+          wx.showToast({
+            title: '获取房源浏览记录失败',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      }
+    })
   },
   jumpToDetail: function (e) {
     console.log("跳转到房源详情页......");
     console.log(e.currentTarget.dataset.id);
     wx.navigateTo({
-      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id
+      url: '../../housePart/houseDetail/houseDetail?id=' + e.currentTarget.dataset.id + "&resourceId=" + e.currentTarget.dataset.id
     })
   },
 
@@ -127,6 +144,76 @@ Page({
    */
   onReachBottom: function () {
 
+    if (pageNum == 1) {
+      pageNum++
+    }
+    console.log("上拉翻页...");
+    wx.request({
+      url: app.globalData.hostUrl + '/houserelease/search',
+      data: {
+        userId: wx.getStorageSync("userId"),
+        pageNum: pageNum,
+        size: size
+      },
+      method: "GET",
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
+      success(res) {
+        console.log(res.data);
+        if (res.data.code == 0) {
+          if (res.data.data.length > 0) {
+            pageNum++
+            for (let i = 0; i < res.data.data.length; i++) {
+              var item = {};
+              item.img = res.data.data[i].houseResources.houseFilePath.split(";")[0];
+              //item.id = res.data.data[i].id;
+              item.id = res.data.data[i].id;
+              item.title = res.data.data[i].houseResources.title;
+              item.addr = "成都市-" + res.data.data[i].houseResources.regionName + "-" + res.data.data[i].houseResources.vilageName;
+              item.subTitle = [];
+              var labels = res.data.data[i].houseResources.houseLabelList;
+              if (labels.length > 0) {
+                if (labels.length > 4) {
+                  labels.length = 4;
+                }
+                for (let i = 0; i < labels.length; i++) {
+                  item.subTitle.push(labels[i].labelName);
+                }
+              }
+              item.price = res.data.data[i].houseResources.price + "万";
+              item.room = res.data.data[i].houseResources.roomTypeInfo;
+              item.size = res.data.data[i].houseResources.houseArea;
+              item.id = res.data.data[i].houseResources.id;
+              item.resourceid = res.data.data[i].resourcesId;
+              that.data.roomList.push(item);
+            }
+            that.setData({
+              roomList: that.data.roomList
+            })
+            console.log(that.data.roomList)
+          } else {
+            wx.showToast({
+              title: '没有更多啦',
+              icon: 'none',
+              duration: 1000
+            })
+          }
+        } else {
+          wx.showToast({
+            title: '没有更多啦',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      }
+    })
   },
 
   /**

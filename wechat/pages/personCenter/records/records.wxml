@@ -1,25 +1,25 @@
- <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
+<!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<scroll-view  style='margin-top: {{height}}px;'>
- 
-<view class='flex-container indexContainer'>
-<view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+<scroll-view style='margin-top: {{height}}px;'>
 
-<view class='roomImg' style='width:40%'>
-<image src="{{item.img}}"/>
-</view>
+  <view class='flex-container indexContainer'>
+    <view wx:for="{{roomList}}" wx:for-index="index" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" bindtap='jumpToDetail'>
+      
+          <view class='roomImg' style='width:40%'>
+            <image src="{{item.img}}" />
+          </view>
 
-<view class="roomInfo" style='width:60%'>
-<text class='block title'>{{item.title}}</text>
-<text class='block addr'>{{item.addr}}</text>
-<text class='subTitle space' wx:for="{{item.subTitle}}">{{item}}</text>
-<text class='block'>
-<text class='price space'>{{item.price}}</text>
-<text class='room space'>{{item.room}}</text>
-<text class='size space'>{{item.size}}m<text class="sup">2</text></text>
-</text>
-</view>
+          <view class="roomInfo" style='width:60%'>
+            <text class='block title'>{{item.title}}</text>
+            <text class='block addr'>{{item.addr}}</text>
+            <text class='subTitle space' wx:for="{{item.subTitle}}">{{item}}</text>
+            <text class='block'>
+          <text class='price space'>{{item.price}}</text>
+            <text class='room space'>{{item.room}}</text>
+            <text class='size space'>{{item.size}}m<text class="sup">2</text></text>
+            </text>
+          </view>
 
-</view>
-</view>
-</scroll-view >
+    </view>
+  </view>
+</scroll-view>

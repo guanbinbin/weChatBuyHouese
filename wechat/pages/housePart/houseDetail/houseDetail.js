@@ -71,6 +71,8 @@ Page({
       console.log(wx.getStorageSync('userId'));
       var userId = wx.getStorageSync('userId');
       this.getCollect(resourceId, userId);
+      //新增用户查看记录
+      this.viewRecord(resourceId, userId);
     }else{
       that.setData({
         isLogin: false
@@ -78,6 +80,17 @@ Page({
       console.log("没有用户信息，状态还是未收藏");
     }
    },
+   //新增查看记录
+  viewRecord(resourceId, userId){ 
+    wx.request({
+      url: app.globalData.hostUrl + '/propertybrowsehistory/insert',
+      method: "POST",
+      data: {
+        resourcesId: resourceId,
+        userId: userId
+      }
+    })
+  },
   //打电话
   callNumber(){
     wx.makePhoneCall({

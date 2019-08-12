@@ -47,10 +47,10 @@
 <image class='center_icon' src="../../images/icons/question.png"></image>
 <text class="font14" space="nbsp">   问题反馈</text>
 </view> -->
-<view>
+<button open-type="contact" class="buttonClass" style="background-color: #fff;   display: flex; align-items: center;height: 100rpx;padding: 0 30rpx;border-bottom: 1px solid #E0E3DA;border-radius: 0px;">
 <image class='center_icon' src="../../images/icons/contact.png"></image>
 <text class="font14" space="nbsp">   联系客服</text>
-</view>
+</button>
 <view bindtap='jumpToUsPage'>
 <image class='center_icon' src="../../images/icons/us.png"></image>
 <text class="font14" space="nbsp">   关于我们</text>
@@ -60,7 +60,7 @@
 </scroll-view> 
 <scroll-view wx:if="{{showAuthBox}}" class='position_re' style='height:100vh;margin-top: {{height}}px;'>
 <view class="position_ab authBox font16">
-需要授权才可访问个人中心
-      <button class="authBtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">去授权</button>
+<text style="padding:5rpx">需要授权才可访问个人中心</text>
+      <button class="authBtn" size="mini" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">去授权</button>
 </view> 
 </scroll-view>

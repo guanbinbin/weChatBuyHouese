@@ -1,6 +1,12 @@
 .container_box{ 
    
 }
+
+.buttonClass::after{
+  border: none;
+  border-radius: 0px;
+}
+
 .infoBox{
   padding: 40rpx 25rpx;  
   height: 13vh;
@@ -47,18 +53,19 @@ box-shadow:0rpx 10rpx 20rpx rgb(182, 180, 180);
 left:5%;
 }
 .authBox{
- width:50%;
+ width:55%;
  border: 1px solid #E0E3DA;
  box-shadow:0rpx 10rpx 20rpx rgb(182, 180, 180);
  padding: 35rpx;
  border-radius:8px;
  top:30%;
- left:22% 
+ left:18% ;
+ text-align: center
 }
 .authBtn{
   width: 80%;
   border: none;
   background-color: #70C677;
   color: #fff;
-  margin-top:30rpx
+  margin-top:40rpx
 }

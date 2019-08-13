@@ -40,6 +40,7 @@ App({
     })
   },
   globalData: {
+    screenHeight: wx.getSystemInfoSync().windowHeight ,
     height: 0,
     share: false,
     userInfo: null,

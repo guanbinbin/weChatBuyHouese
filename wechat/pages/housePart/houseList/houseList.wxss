@@ -6,3 +6,9 @@
 .indexContainer{
   padding: 0 20rpx;
 }
+.heightvh{
+  height: 100vh
+}
+.height01{
+  height: 100%!important
+}

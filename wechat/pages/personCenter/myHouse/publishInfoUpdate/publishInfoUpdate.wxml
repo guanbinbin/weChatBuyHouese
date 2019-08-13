@@ -46,7 +46,7 @@
   </picker> 
 </view>
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>所在楼层</text>
-<input bindinput="getInput" data-options='floor' value="{{houseDetail.floor}}" name="floor" ></input>
+<input type="number" bindinput="getInput" data-options='floor' value="{{houseDetail.floor}}" name="floor" ></input>
 </view>
 <view class="flexBox align"><text class=" space block">房屋地址</text>
 <input bindinput="getInput" data-options='residential' value="{{houseDetail.residential}}" name="residential" placeholder="如:1栋1单元702室"></input>
@@ -63,7 +63,7 @@
   </picker> 
 </view>
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>产权面积</text>
-<input bindinput="getInput" data-options='houseArea' value="{{houseDetail.houseArea}}" name="houseArea" placeholder="请输入产权面积"></input>m<text class="sup">2</text> 
+<input type="digit" bindinput="getInput" data-options='houseArea' value="{{houseDetail.houseArea}}" name="houseArea" placeholder="请输入产权面积"></input>m<text class="sup">2</text> 
 </view>
 <view bindtap='openRightDialog' class="flexBox align"><text class=" space block">房产权属</text>
 <image class='delete_icon' src="../../../../images/icons/add.png"></image>
@@ -76,7 +76,7 @@
 <input  placeholder="请选择"></input>
 </view>-->
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>期望售价</text>
-<input bindinput="getInput" data-options='price' value="{{houseDetail.price}}" name="price" placeholder="请输入您期望卖出的价格"></input><text>万</text>
+<input type="digit" bindinput="getInput" data-options='price' value="{{houseDetail.price}}" name="price" placeholder="请输入您期望卖出的价格"></input><text>万</text>
 </view> 
 </view>
 
@@ -102,7 +102,7 @@
 <input bindinput="getInput" data-options='contact' value="{{houseDetail.contact}}" name="contact" placeholder="我们该如何称呼您"></input>
 </view>
 <view class="flexBox align"><text class=" space block"><text style="color:red">*</text>联系电话</text>
-<input bindinput="getInput" data-options='contactInformation' value="{{houseDetail.contactInformation}}" name="contactInformation" placeholder="方便我们及时与您联系"></input>
+<input type="number" bindinput="getInput" data-options='contactInformation' value="{{houseDetail.contactInformation}}" name="contactInformation" placeholder="方便我们及时与您联系"></input>
 </view>
 </view>
 </view>

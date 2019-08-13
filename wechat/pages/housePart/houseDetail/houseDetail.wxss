@@ -65,3 +65,10 @@ text-align: center
   background-color: #FF8C1C;
   color: #fff
 }
+.subTitle{
+  font-size: 14px;
+  /* background-color: #E8F3EA; */
+  color:#70C677;
+  padding:5rpx 10rpx;
+  border-radius: 5rpx; 
+}

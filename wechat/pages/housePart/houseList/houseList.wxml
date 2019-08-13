@@ -22,7 +22,7 @@
 bind:selectedItem='selectedItem' />
 </view>
 
-<view class='flex-container indexContainer' style="height:{{itemHeight}}">
+<view class= "{{persent?'height01 flex-container indexContainer':'heightvh flex-container indexContainer'}}">
 <view  wx:for="{{roomList}}" wx:key="that" class="roombox" style='width:100%' data-id="{{item.id}}" data-resourceId="{{item.resourceId}}" bindtap='jumpToDetail'>
 
 <view class='roomImg' style='width:40%'>

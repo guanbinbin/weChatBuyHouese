@@ -72,10 +72,22 @@ pages {
 .font12{
   font-size: 12px
 }
-.font14{
- /* font-size: 14px*/
- font-size: 25rpx
+/* @media screen and (max-width: 330px) {
+   
 }
+@media screen and (max-width: 380px) {
+    
+}
+@media screen and (max-width: 420px) {
+     
+}
+@media screen and (min-width: 420px) {
+   
+} */
+.font14{
+ font-size: 14px
+ /* font-size: 25rpx */
+  }
 .font16{
   font-size: 16px;
 }

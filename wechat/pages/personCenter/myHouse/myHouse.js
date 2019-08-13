@@ -75,6 +75,10 @@ Page({
     that.getList(type,status,page,size);
  },
   getList: (type, status,page, size,isPage)=>{
+    wx.showToast({ 
+      duration: 15000,
+      icon: 'loading'
+    })
     wx.request({
       url: app.globalData.hostUrl + '/housereleasemanagement/queryListWithPage',
       data: {

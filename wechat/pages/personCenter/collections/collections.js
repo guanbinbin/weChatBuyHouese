@@ -68,6 +68,10 @@ Page({
     that.getMyCollection(1);
   },
   getMyCollection(page){ 
+    wx.showToast({
+      duration: 15000,
+      icon: 'loading'
+    })
   console.log("获取我收藏的房源...");
   wx.request({
     url: app.globalData.hostUrl +'/housecollection/queryListWithPage',
@@ -90,6 +94,7 @@ Page({
       console.log(res.data);
       if(res.data.code==0){
         if(res.data.data.length>0){
+          wx.hideToast();
           that.setData({
             roomList: []
           })
@@ -202,6 +207,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    wx.showToast({
+      duration: 15000,
+      icon: 'loading'
+    })
     if(pageNum==1){
       pageNum++
     }
@@ -227,6 +236,7 @@ Page({
         console.log(res.data);
         if (res.data.code == 0) {
           if (res.data.data.length > 0) {
+            wx.hideToast();
             pageNum++ 
             for (let i = 0; i < res.data.data.length; i++) {
               var item = {};

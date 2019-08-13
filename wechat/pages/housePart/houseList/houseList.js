@@ -15,6 +15,7 @@ Page({
       indexUrl: '../../index/index'
     },
     height: app.globalData.height * 2 + 20,
+    screenHeight: app.globalData.screenHeight - app.globalData.height * 2 + 20,
     //下拉组件参数
     dropDownMenuTitle: ['区域', '价格', '房型', '更多'],//['区域','价格','户型','排序'],
     data1: [
@@ -26,6 +27,7 @@ Page({
     data3: [{ id: 0, title: '不限', }],
     //
     itemHeight:"100%",
+    persent: true,
       //查询条件对象
     searchData: {
       title:'',
@@ -175,22 +177,34 @@ Page({
               title: '暂无房源信息',
               duration: 1500,
               icon: 'none',
-              mask: false
+              mask: false, 
+            
             }); 
             that.setData({
               roomList: [],
-              itemHeight: "100vh"
+              itemHeight: "100vh",
+              persent: false
             })
             return
           }
           if(res.data.data.length>0){ 
+            if (res.data.data.length > 5){
+             that.setData({
+               itemHeight:'100%',
+               persent: true
+             })
+            }else{
+              that.setData({
+                itemHeight: '100vh',
+                persent: false
+              })
+            }
             console.log("pageNum:" + pageNum);
             var num = "searchData.pageNum";
             var size01 = "searchData.size";
             that.setData({
               roomList: [],
-              [num]: pageNum,
-              itemHeight:"100%" 
+              [num]: pageNum, 
             })
             for (let i = 0; i < res.data.data.length;i++){
             var item = {};
@@ -233,7 +247,8 @@ Page({
             });
             that.setData({
               roomList: [],
-              itemHeight:"100vh"
+              itemHeight:"100vh",
+              persent:false
             })
           }
         }  
@@ -419,9 +434,9 @@ Page({
               duration: 1000,
               icon: 'none', 
             });
-            // that.setData({
-            //   roomList: []
-            // })
+            that.setData({
+              persent:true
+            })
           }
         }
       }

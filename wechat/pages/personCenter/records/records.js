@@ -19,6 +19,8 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    pageNum=1;
+    size=5;
     var page={pageNum:pageNum,size:size}
     that.getRecord(page);
   },
@@ -27,6 +29,10 @@ Page({
   //获取记录
   getRecord(page){
     console.log("获取我的浏览记录...");
+    wx.showToast({
+      duration: 15000,
+      icon: 'loading'
+    })
     wx.request({
       url: app.globalData.hostUrl + '/houserelease/search',
       data: {
@@ -48,6 +54,7 @@ Page({
         console.log(res.data);
         if (res.data.code == 0) {
           if (res.data.data.length > 0) {
+            wx.hideToast();
             that.setData({
               roomList: []
             })
@@ -143,7 +150,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    wx.showToast({
+      duration: 15000,
+      icon: 'loading'
+    })
     if (pageNum == 1) {
       pageNum++
     }
@@ -169,6 +179,7 @@ Page({
         console.log(res.data);
         if (res.data.code == 0) {
           if (res.data.data.length > 0) {
+            wx.hideToast();
             pageNum++
             for (let i = 0; i < res.data.data.length; i++) {
               var item = {};

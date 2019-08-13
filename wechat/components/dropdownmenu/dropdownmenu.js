@@ -62,9 +62,9 @@
     clickPriceId:999,
     priceTwice:false,
     //
-    dropDownMenuRoomData1: [{ id: 0, title: "1室" }, { id: 1, title: "2室" }, { id: 2, title: "3室" }, { id: 3, title: "4室" }, { id: 4, title: "5室" }, { id: 5, title: "6室" }, { id: 6, title: "7室" }, { id: 7, title: "8室" }, { id: 8, title: "9室" }, { id: 9, title: "10室" }],
-    dropDownMenuRoomData2: [{ id: 0, title: "1厅" }, { id: 1, title: "2厅" }, { id: 2, title: "3厅" }, { id: 3, title: "4厅" }, { id: 4, title: "5厅" }, { id: 5, title: "6厅" }, { id: 6, title: "7厅" }, { id: 7, title: "8厅" }, { id: 8, title: "9厅" }, { id: 9, title: "10厅" }],
-    dropDownMenuRoomData3: [{ id: 0, title: "1卫" }, { id: 1, title: "2卫" }, { id: 2, title: "3卫" }, { id: 3, title: "4卫" }, { id: 4, title: "5卫" }, { id: 5, title: "6卫" }, { id: 6, title: "7卫" }, { id: 7, title: "8卫" }, { id: 8, title: "9卫" }, { id: 9, title: "10卫" }],
+    dropDownMenuRoomData1: [{id:10,title:"不限"},{ id: 0, title: "1室" }, { id: 1, title: "2室" }, { id: 2, title: "3室" }, { id: 3, title: "4室" }, { id: 4, title: "5室" }, { id: 5, title: "6室" }, { id: 6, title: "7室" }, { id: 7, title: "8室" }, { id: 8, title: "9室" }, { id: 9, title: "10室" }],
+    dropDownMenuRoomData2: [{ id: 10, title: "不限" },{ id: 0, title: "1厅" }, { id: 1, title: "2厅" }, { id: 2, title: "3厅" }, { id: 3, title: "4厅" }, { id: 4, title: "5厅" }, { id: 5, title: "6厅" }, { id: 6, title: "7厅" }, { id: 7, title: "8厅" }, { id: 8, title: "9厅" }, { id: 9, title: "10厅" }],
+    dropDownMenuRoomData3: [{ id: 10, title: "不限" },{ id: 0, title: "1卫" }, { id: 1, title: "2卫" }, { id: 2, title: "3卫" }, { id: 3, title: "4卫" }, { id: 4, title: "5卫" }, { id: 5, title: "6卫" }, { id: 6, title: "7卫" }, { id: 7, title: "8卫" }, { id: 8, title: "9卫" }, { id: 9, title: "10卫" }],
     clickRoom1Id:999,
     clickRoom2Id: 999,
     clickRoom3Id: 999,
@@ -175,10 +175,16 @@
       var model = e.target.dataset.model.childModel;
       var selectedId = e.target.dataset.model.id;
       var selectedTitle = e.target.dataset.model.title;
+      if (selectedTitle=="不限"){
+        that.setData({
+          [regionCode]:""
+        })
+      }
       this.setData({
         dropDownMenuDistrictDataRight: model==null?"":model,
         district_left_select: selectedId,
         district_right_select: '',
+        district_right_select_name: selectedTitle
       })
       if (model == null || model.length == 0) { 
         this.closeHyFilter();
@@ -208,6 +214,23 @@
         });
         
       }
+      if (this.data.clickRoom1Id == 10 || this.data.clickRoom2Id == 10 || this.data.clickRoom3Id ==10) {
+        this.closeHyFilter();
+        this.setData({
+          clickRoom3Id: 10,
+          clickRoom1Id: 10,
+          clickRoom2Id: 10
+        });
+        var selectedTitle = "不限"
+        this.setData({
+          selected_style_name: selectedTitle,
+          [roomTypeInfo]: "",
+        })
+        this.triggerEvent("selectedItem", that.data.searchData);
+        return
+      }
+
+
       if (this.data.clickRoom1Id != 999 && this.data.clickRoom2Id != 999 && this.data.clickRoom3Id != 999 ){
         this.closeHyFilter();
         var selectedTitle = this.data.selectedroom1 + "-" + this.data.selectedroom2 + "-" + this.data.selectedroom3
@@ -269,8 +292,9 @@
           [priceMax]: max,
           [priceMin]: min
         }) 
-        this.triggerEvent("selectedItem", this.data.searchData)
+       
       }
+      this.triggerEvent("selectedItem", this.data.searchData)
       this.closeHyFilter();
       
       

@@ -171,6 +171,7 @@ Page({
             }
            } 
            if(res.data.data.length>0){
+             var location = res.data.data[0].houseResources.houseLocationInfo;
              var imgUrls = [];
              imgUrls = res.data.data[0].houseResources.houseFilePath.substr(0, res.data.data[0].houseResources.houseFilePath.length - 1).split(";");
              var imgUrls01 = "swiper.imgUrls";
@@ -192,30 +193,40 @@ Page({
                })
              }
              //lastUpdateTime
-             res.data.data[0].houseResources.lastUpdateTime = res.data.data[0].houseResources.lastUpdateTime.substr(0,10)
+             res.data.data[0].houseResources.lastUpdateTime = res.data.data[0].lastUpdateTime.substr(0,10)
              //salerInfo
              var name = "salerInfo.name";
              that.setData({
                [name]: res.data.data[0].operatorName
              })
-             
-             //swiper.imgUrls
-             that.setData({
-               houseDetail: res.data.data[0].houseResources,
-               subTitle: subTitle,
-               [imgUrls01]: imgUrls,
-               longitude: res.data.data[0].houseResources.houseLocationInfo.longitude,
-               latitude: res.data.data[0].houseResources.houseLocationInfo.latitude,
-               markers: [{
-                 id: "1",
-                 latitude: res.data.data[0].houseResources.houseLocationInfo.latitude,
+             if(location==null){
+               //swiper.imgUrls
+               that.setData({
+                 houseDetail: res.data.data[0].houseResources,
+                 subTitle: subTitle,
+                 [imgUrls01]: imgUrls, 
+                 map: false,
+               }) 
+             }else{
+               //swiper.imgUrls
+               that.setData({
+                 houseDetail: res.data.data[0].houseResources,
+                 subTitle: subTitle,
+                 [imgUrls01]: imgUrls,
                  longitude: res.data.data[0].houseResources.houseLocationInfo.longitude,
-                 width: 30,
-                 height: 30,
-                 iconPath: "../../../images/icons/marker.png"
-               }],
-               map:true,
-             }) 
+                 latitude: res.data.data[0].houseResources.houseLocationInfo.latitude,
+                 markers: [{
+                   id: "1",
+                   latitude: res.data.data[0].houseResources.houseLocationInfo.latitude,
+                   longitude: res.data.data[0].houseResources.houseLocationInfo.longitude,
+                   width: 30,
+                   height: 30,
+                   iconPath: "../../../images/icons/marker.png"
+                 }],
+                 map: true,
+               }) 
+             }
+             
            }
           console.log(that.data.houseDetail)
         } else {

@@ -84,8 +84,8 @@
       roomAreaMax:'',
       roomAgeMin:'',
       roomAgeMax:'',
-      propertyType:'',
-      labelId:'',
+      propertyTypes:'',
+      labelIds:'',
    }
   },
   methods: {
@@ -321,9 +321,9 @@
           that.data.tagIds.push(item.id);
           
       }
-        var labelId = "searchData.labelId";
+        var labelIds = "searchData.labelIds";
         that.setData({
-          [labelId]: that.data.tagIds.toString()
+          [labelIds]: that.data.tagIds.toString()
         })
         console.log(this.data.dropDownMenuTags[index])
         }
@@ -358,9 +358,9 @@
           })
           that.data.checkTypes.push(item.title);
         }
-        var propertyType = "searchData.propertyType";
+        var propertyTypes = "searchData.propertyTypes";
         that.setData({
-          [propertyType]: that.data.checkTypes.toString()
+          [propertyTypes]: that.data.checkTypes.toString()
         })
         console.log(this.data.dropDownMenuTypeData[index])
       }//房龄

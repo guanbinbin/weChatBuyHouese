@@ -41,8 +41,8 @@ Page({
       roomAreaMax: '',
       roomAgeMin: '',
       roomAgeMax: '',
-      propertyType: '',
-      labelId: '',
+      propertyTypes: '',
+      labelIds: '',
       pageNum:1,
       size:size
     
@@ -338,6 +338,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if (that.data.roomList.length < 5) {
+      return
+    }
     console.log("上拉翻页..."); 
     console.log(pageNum)
     if(pageNum==1){
@@ -374,6 +377,7 @@ Page({
       },
       success(res) {
         console.log(res);
+       
         wx.hideToast();
         if (res.data.code == 0) {
           if (res.data.data == null) {

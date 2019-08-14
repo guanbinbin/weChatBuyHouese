@@ -188,11 +188,15 @@ Page({
     })
   },
   jumpToApplyhouse: function (e) {
-    console.log("跳转到购房申请......");
-    //console.log(e.currentTarget.dataset.id);
-    wx.navigateTo({
-      url: 'applyHouse/applyHouse'
+    wx.showToast({
+      title: '暂未开放',
+      icon:'none'
     })
+    // console.log("跳转到购房申请......");
+    // //console.log(e.currentTarget.dataset.id);
+    // wx.navigateTo({
+    //   url: 'applyHouse/applyHouse'
+    // })
   },
   jumpToCollectPage:function(e){
     console.log("跳转到我的收藏页面......");

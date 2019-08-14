@@ -262,7 +262,7 @@ Page({
               //item.id = res.data.data[i].houseResources.id;
               item.id = res.data.data[i].id;
               item.title = res.data.data[i].houseResources.title;
-              if (item.title.length > 10) {
+              if (item.title.length > 9) {
                 item.title = item.title.substr(0, 8) + "..."
               }
               item.addr = "成都市-" + res.data.data[i].houseResources.regionName + "-" + res.data.data[i].houseResources.vilageName;

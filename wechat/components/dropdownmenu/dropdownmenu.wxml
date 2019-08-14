@@ -65,7 +65,7 @@
     <view>
     <text class="block title">排序</text>
     <view class='itemBox'>
-    <text class='subTitle01 space {{filterCheckId==item.id&&!filterIsTwice?"tagItemActive":""}}' style='width:42%' wx:for="{{dropDownMenuFilterData}}" data-model='{{item}}' wx:key="unique"  data-type="filter" data-active='{{filterCheckId==item.id?true:false}}' bindtap='selectFilterItem'> {{item.title}}</text>
+    <text class='subTitle01 space {{filterCheckId==item.id&&!filterIsTwice?"tagItemActive":""}}' style='width:35%' wx:for="{{dropDownMenuFilterData}}" data-model='{{item}}' wx:key="unique"  data-type="filter" data-active='{{filterCheckId==item.id?true:false}}' bindtap='selectFilterItem'> {{item.title}}</text>
     </view>
     </view>
 

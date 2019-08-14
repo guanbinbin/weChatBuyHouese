@@ -317,7 +317,7 @@ Page({
   },
   onPageScroll: function (e) {
    // console.log(e);//{scrollTop:99}
-    if(e.scrollTop>100){
+    if(e.scrollTop>50){
     this.setData({
       top:true,
       topStyle:'top:'+this.data.height+'px'
@@ -452,5 +452,8 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  onPullDownRefresh:function(){  
+      wx.stopPullDownRefresh(); 
   }
 })

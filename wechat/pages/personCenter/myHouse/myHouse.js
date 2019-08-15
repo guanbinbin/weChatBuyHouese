@@ -273,7 +273,7 @@ Page({
     }) 
   }else if(type=="apply"){
     that.setData({ 
-      statusId: e.target.dataset.id,
+      id: e.target.dataset.id,
       showPriceDialog: false,
       showReasonDialog: false,
       showApplyDialog:true,
@@ -362,9 +362,9 @@ Page({
       return
     }
     wx.request({
-      url: app.globalData.hostUrl + '/housereleasemanagement/update',
+      url: app.globalData.hostUrl + '/modifyapplication/insert',
       data: {
-        id: that.data.statusId,
+        resourcesId : that.data.id,
         remarks: that.data.remarksInputValue,
         status:3
       },

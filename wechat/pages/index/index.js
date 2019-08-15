@@ -2,6 +2,8 @@ const app = getApp();
 var that;
 Page({ 
   data: {
+    //
+    loading:true,
     //输入框的输入内容
     searchContent:'', 
     swiper1:{
@@ -16,32 +18,34 @@ Page({
       duration: 1000,
     },
     swiper2: {
-      content: [{
-        title: '万科璟南堂今日...',
-        price:"200万",
-        addr:"双流区-茶店子-龙祥佳苑",
-        imgUrl: '../../images/index/head1.jpg',
-      }, {
-          title: '万科璟南堂今日...',
-          price: "200万",
-          imgUrl: '../../images/index/head1.jpg',
-        }, {
-          title: '万科璟南堂今日...',
-          price: "200万",
-          imgUrl: '../../images/index/head1.jpg',
-        }, {
-          title: '万科璟南堂今日...',
-          price: "200万",
-          imgUrl: '../../images/index/head1.jpg',
-        }, {
-          title: '万科璟南堂今日...',
-          price: "200万",
-          imgUrl: '../../images/index/head1.jpg',
-        }, {
-          title: '万科璟南堂今日...',
-          price: "200万",
-          imgUrl: '../../images/index/head1.jpg',
-        }],
+      content: [
+      //   {
+      //   title: '万科璟南堂今日...',
+      //   price:"200万",
+      //   addr:"双流区-茶店子-龙祥佳苑",
+      //   imgUrl: '../../images/index/head1.jpg',
+      // }, {
+      //     title: '万科璟南堂今日...',
+      //     price: "200万",
+      //     imgUrl: '../../images/index/head1.jpg',
+      //   }, {
+      //     title: '万科璟南堂今日...',
+      //     price: "200万",
+      //     imgUrl: '../../images/index/head1.jpg',
+      //   }, {
+      //     title: '万科璟南堂今日...',
+      //     price: "200万",
+      //     imgUrl: '../../images/index/head1.jpg',
+      //   }, {
+      //     title: '万科璟南堂今日...',
+      //     price: "200万",
+      //     imgUrl: '../../images/index/head1.jpg',
+      //   }, {
+      //     title: '万科璟南堂今日...',
+      //     price: "200万",
+      //     imgUrl: '../../images/index/head1.jpg',
+      //   }
+        ],
        
       indicatorDots: false,
       autoplay: false,
@@ -147,6 +151,7 @@ Page({
             });
             that.setData({
               roomList: [], 
+              loading: false
             })
             return
           }
@@ -183,7 +188,8 @@ Page({
               that.data.roomList.push(item);
             }
             that.setData({
-              roomList: that.data.roomList
+              roomList: that.data.roomList,
+              loading: false
             })
           } else {
             wx.hideToast();
@@ -195,6 +201,7 @@ Page({
             });
             that.setData({
               roomList: [], 
+              loading:false
             })
           }
         }

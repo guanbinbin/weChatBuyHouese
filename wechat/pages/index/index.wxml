@@ -1,7 +1,7 @@
  <!--引入自定义组价。'navbar-data'中navbar是自定义名字，决定了组件中'navbarData'的名字-->
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-
-<scroll-view scroll-y class='home-page' style='margin-top: {{height}}px'>
+<view class="loadingPage" v-if="loading"></view>
+<scroll-view v-if="!loading" scroll-y class='home-page' style='margin-top: {{height}}px'>
 
 <view class='search_container'> 
  <view class="flex-row search_box middle">

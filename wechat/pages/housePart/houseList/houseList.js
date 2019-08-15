@@ -36,7 +36,7 @@ Page({
       priceMax: '',
 
       roomTypeInfo: '',
-
+      orderType:'',
       roomAreaMin: '',
       roomAreaMax: '',
       roomAgeMin: '',
@@ -53,7 +53,7 @@ Page({
   that = this;
 
     if (wx.getStorageSync("historyData") != "") {
-      console.log("存在历史记录");
+      //console.log("存在历史记录");
       his = wx.getStorageSync("historyData");
       if (his.length > 15) {
         his = his.slice(0, 15);
@@ -66,20 +66,20 @@ Page({
     } else {
       wx.setStorageSync("historyData", []);
       his = [];
-      console.log("不存在历史记录");
+      //console.log("不存在历史记录");
       this.setData({
         hasHistory: false
       });
     } 
 
   pageNum=1;
-  console.log("获取上一页面传来的参数......");
-  console.log(options)
+  //console.log("获取上一页面传来的参数......");
+  //console.log(options)
   var content = options.content;
     //var content = "";
-  console.log("content:"+content);
+  //console.log("content:"+content);
     if (options.type =="recommend"){
-      console.log("recommend")
+      //console.log("recommend")
       var isRecommend = "searchData.isRecommend";
     that.setData({
       [isRecommend]: "111"
@@ -93,7 +93,7 @@ Page({
   this.getArea();
   },
   getArea:function(){
-    console.log("获取区域数据...");
+    //console.log("获取区域数据...");
     wx.request({
       url: app.globalData.hostUrl + '/area/hierarchicalArea',
       data: {},
@@ -111,7 +111,7 @@ Page({
         });
       },
       success(res) {
-        console.log(res); 
+        //console.log(res); 
         if (res.data.code == 0) {
           var obj = res.data.data[0].list[0]; 
           var regionObj = {};
@@ -130,15 +130,16 @@ Page({
           that.setData({
             data1: that.data.data1
           })
-          console.log(that.data.data1);
+          //console.log(that.data.data1);
         } else {
-          console.log("区域获取失败");
+          //console.log("区域获取失败");
         }
       }
     });
   },
   getRoomList:function(page){
-  console.log("获取房源列表......");
+  //console.log("获取房源列表......");
+    pageNum=1;
     wx.showToast({
       title:'',
       duration: 15000,
@@ -150,7 +151,7 @@ Page({
       // roomList: [],
       [num]: page,
     })
-    console.log(that.data.searchData); 
+    //console.log(that.data.searchData); 
     wx.request({
       url: app.globalData.hostUrl + '/houserelease/search',
       data: that.data.searchData,
@@ -168,7 +169,7 @@ Page({
         });
       },
       success(res) {
-        console.log(res);
+        //console.log(res);
         wx.hideToast();
         if (res.data.code == 0) {
           if(res.data.data==null){
@@ -193,13 +194,14 @@ Page({
                itemHeight:'100%',
                persent: true
              })
+             console.log("persent:"+that.data.persent)
             }else{
               that.setData({
                 itemHeight: '100vh',
                 persent: false
               })
             }
-            console.log("pageNum:" + pageNum);
+            //console.log("pageNum:" + pageNum);
             var num = "searchData.pageNum";
             var size01 = "searchData.size";
             that.setData({
@@ -260,20 +262,20 @@ Page({
     this.setData({
       [title]: e.detail.value,
     });
-    console.log("搜索框输入内容：" + this.data.searchData.title)
+    //console.log("搜索框输入内容：" + this.data.searchData.title)
   },
   searchConfirm(){
     if (this.data.searchData.title != "") {
       his.unshift(this.data.searchData.title)
       wx.setStorageSync("historyData", his)
-      console.log(wx.getStorageSync("historyData"));
+      //console.log(wx.getStorageSync("historyData"));
     }
   pageNum =1 ;
   that.getRoomList(1);
   },
   selectedItem: function (e) {
-    console.log("搜索参数返回：");
-    console.log(e.detail);
+    //console.log("搜索参数返回：");
+    //console.log(e.detail);
     var data = e.detail; 
     data.title = that.data.searchData.title;
     data.pageNum = 1;
@@ -291,20 +293,20 @@ Page({
         "Content-Type": "application/json"
       },
       success(res) {
-        console.log(res);
+        //console.log(res);
         if (res.data.code == 0) {
            
         } else {
-          console.log("区域获取失败");
+          //console.log("区域获取失败");
         }
       }
     });*/
   },
   //跳转到房源详情页
   jumpToDetail: function (e) { 
-    console.log("跳转到房源详情页......");
-    console.log(e.currentTarget.dataset);
-    console.log('../houseDetail/houseDetail?id=' + e.currentTarget.dataset.id + "&resourceId=" + e.currentTarget.dataset.resourceid)
+    //console.log("跳转到房源详情页......");
+    //console.log(e.currentTarget.dataset);
+    //console.log('../houseDetail/houseDetail?id=' + e.currentTarget.dataset.id + "&resourceId=" + e.currentTarget.dataset.resourceid)
     wx.navigateTo({
       url: '../houseDetail/houseDetail?id=' + e.currentTarget.dataset.id + "&resourceId=" +e.currentTarget.dataset.resourceid
     })
@@ -316,7 +318,7 @@ Page({
   
   },
   onPageScroll: function (e) {
-   // console.log(e);//{scrollTop:99}
+   // //console.log(e);//{scrollTop:99}
     if(e.scrollTop>50){
     this.setData({
       top:true,
@@ -341,11 +343,11 @@ Page({
     if (that.data.roomList.length < 5) {
       return
     }
-    console.log("上拉翻页..."); 
-    console.log(pageNum)
+    //console.log("上拉翻页..."); 
+    //console.log(pageNum)
     if(pageNum==1){
       pageNum++
-      console.log("第二页")
+      //console.log("第二页")
     }
     var num01 = "searchData.pageNum";
     that.setData({
@@ -358,7 +360,7 @@ Page({
       icon: 'loading',
       mask: true
     });
-    console.log(that.data.searchData);
+    //console.log(that.data.searchData);
     wx.request({
       url: app.globalData.hostUrl + '/houserelease/search',
       data: that.data.searchData,
@@ -376,7 +378,7 @@ Page({
         });
       },
       success(res) {
-        console.log(res);
+        //console.log(res);
        
         wx.hideToast();
         if (res.data.code == 0) {
@@ -394,7 +396,7 @@ Page({
           }
           if (res.data.data.length > 0) {
             pageNum++;
-            console.log("pageNum:" + pageNum);
+            //console.log("pageNum:" + pageNum);
             var num = "searchData.pageNum";
             that.setData({
              // roomList: [],
@@ -454,6 +456,7 @@ Page({
   
   },
   onPullDownRefresh:function(){  
+      that.getRoomList(1)
       wx.stopPullDownRefresh(); 
   }
 })

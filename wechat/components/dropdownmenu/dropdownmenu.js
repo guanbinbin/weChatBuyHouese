@@ -41,7 +41,7 @@
     dropDownMenuTags: [],
     tagIds:[],
 
-    dropDownMenuFilterData: [{ id: "1", title: "价格从高到低" }, { id: "2", title: "价格从低到高" }, { id: "3", title: "面积从大到小" }, { id: "4", title: "面积从小到大" }],
+    dropDownMenuFilterData: [{ id: "0", title: "价格从高到低" }, { id: "1", title: "价格从低到高" }, { id: "2", title: "面积从大到小" }, { id: "3", title: "面积从小到大" }, { id: "4", title: "按发布时间" }],
     filterIsTwice:false,
     filterCheckId:999,
 
@@ -77,7 +77,7 @@
       regionCode:'',
       priceMin:'',
       priceMax:'',
-
+      orderType:'',
       roomTypeInfo:'',
 
       roomAreaMin:'',
@@ -329,10 +329,11 @@
         }
         //排序
       else if (e.target.dataset.type =="filter"){
+        var orderType = "searchData.orderType";
         if(e.target.dataset.active){
          this.setData({
            filterIsTwice:true,
-           filterCheckId:999
+           filterCheckId:''
          })
         }else{
           this.setData({
@@ -340,6 +341,10 @@
             filterCheckId:e.target.dataset.model.id
           })
         }
+        that.setData({
+          [orderType]: that.data.filterCheckId
+        })
+
       }//类型 
       else if (e.target.dataset.type == "roomType"){ 
         var item = e.target.dataset.model;

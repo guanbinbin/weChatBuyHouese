@@ -67,3 +67,11 @@ padding-bottom:0rpx;
 .indexContainer{
   margin-top:20rpx;
 }
+.item_box{
+  width: 33.3%
+}
+
+.item_box>image{
+  width: 150rpx;
+  height: 150rpx
+}

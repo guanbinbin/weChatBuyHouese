@@ -30,12 +30,18 @@
 </swiper>
 </view>
 <view class='part_two'>
-<view class='info_swiper'>
-<view class="flexBox">
+<view style="text-align:center;margin-bottom:20rpx" class='info_swiper flexBox'>
+ <view class="item_box" wx:for="{{iconList}}" data-type="{{item.type}}" bindtap="jumpToPage">
+ <image src="{{item.img}}" class="slide-image swiper_img" />
+      <view>
+      <text style="text-align:center" class='block font14'>{{item.text}}</text>
+      </view>
+ </view>
+<!-- <view class="flexBox">
 <view style="width:50%">最新房源</view>
 <view class="font14" bindtap="jumpToList" data-type="new" style="width:50%;text-align:right;color:#70C677">查看更多</view>
-</view>
-<swiper class='swiper' display-multiple-items='3' indicator-dots="{{swiper2.indicatorDots}}"
+</view> -->
+<!-- <swiper class='swiper' display-multiple-items='3' indicator-dots="{{swiper2.indicatorDots}}"
   autoplay="{{swiper2.autoplay}}" interval="{{swiper2.interval}}" duration="{{swiper2.duration}}">
   <block wx:for="{{swiper2.content}}" wx:key="1">
     <swiper-item class="swiper_box" data-id="{{item.id}}" data-resourceId="{{item.resourceId}}" bindtap='jumpToDetail'>
@@ -48,7 +54,7 @@
       </view>
     </swiper-item>
   </block>
-</swiper>
+</swiper> -->
 </view>
 
 <view>

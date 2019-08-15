@@ -83,7 +83,25 @@ Page({
         }
       ],
       position: "bottom"
-    }
+    },
+    //
+    iconList:[
+      {
+        img:"../../images/index/1.png",
+        text:"地图找房", 
+        type:"map"
+      },
+      {
+        img: "../../images/index/2.png",
+        text: "列表找房",
+        type:"list"
+      },
+      {
+        img: "../../images/index/3.png",
+        text: "我要卖房",
+        type:"sale"
+      }
+    ]
   },
   //跳转到房源详情页
   jumpToDetail:function(e){ 
@@ -312,12 +330,33 @@ Page({
       }
     });
   },
+
+  getBanner(){
+
+  },
+  jumpToPage(e){
+  console.log(e);
+  if(e.currentTarget.dataset.type=="sale"){
+   wx.navigateTo({
+     url: '../personCenter/myHouse/publishInfo/publishInfo',
+   })
+  } else if (e.currentTarget.dataset.type == "map"){
+    wx.switchTab({
+      url: '../map/map',
+    })
+  }else{
+    wx.navigateTo({
+      url: '../housePart/houseList/houseList?content=&type=new'
+    })
+  }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     that=this
-   console.log("展示最新房源...");
+   console.log("展示首页banner图...");
+    this.getBanner();
     this.getRecommedHouse();
   //  console.log("展示最新房源...");
   },

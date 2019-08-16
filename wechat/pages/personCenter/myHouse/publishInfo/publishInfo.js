@@ -1,6 +1,7 @@
 const app = getApp();
 var list = [];
 var that;
+
 Page({ 
   data: {
     // 组件所需的参数
@@ -57,6 +58,11 @@ Page({
    */
   onLoad: function (options) {
     that=this;
+    console.log("userId:"+wx.getStorageSync("userId"))
+    // if(options.source){
+    //   console.log("通过首页过来的，需要判断是否登录");
+
+    // }
     //获取区域数据
     that.getRegionData();
     if(typeof options.id !='undefined'){

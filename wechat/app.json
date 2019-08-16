@@ -17,7 +17,8 @@
     "pages/housePart/houseDetail/houseDetail",
     "pages/personCenter/myHouse/publishInfoUpdate/publishInfoUpdate",
     "pages/personCenter/myHouse/publishInfoCheck/publishInfoCheck",
-    "pages/housePart/map/map"
+    "pages/housePart/map/map",
+    "pages/index/webView/webView"
   ],
   "window": {
     "backgroundTextStyle": "light",

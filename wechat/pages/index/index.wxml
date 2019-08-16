@@ -24,19 +24,35 @@
   autoplay="{{swiper1.autoplay}}" interval="{{swiper1.interval}}" duration="{{swiper1.duration}}">
   <block wx:for="{{swiper1.imgUrls}}" wx:key="1">
     <swiper-item class="swiper_box">
-      <image src="{{item}}" class="slide-image swiper_img" width="100%" height="150"/>
+      <image src="{{item.file}}" data-type="{{item.bannerType}}" data-value="{{item.bannerValue}}" class="slide-image swiper_img" width="100%" bindtap="jumpToSwiper" height="150"/>
      </swiper-item>
   </block>
 </swiper>
 </view>
 <view class='part_two'>
 <view style="text-align:center;margin-bottom:20rpx" class='info_swiper flexBox'>
- <view class="item_box" wx:for="{{iconList}}" data-type="{{item.type}}" bindtap="jumpToPage">
- <image src="{{item.img}}" class="slide-image swiper_img" />
+
+ <view class="item_box" data-type="map" bindtap="jumpToPage">
+ <image src="../../images/index/1.png" class="slide-image swiper_img" />
       <view>
-      <text style="text-align:center" class='block font14'>{{item.text}}</text>
+      <text style="text-align:center" class='block font14'>地图找房</text>
       </view>
  </view>
+
+ <view class="item_box" data-type="list" bindtap="jumpToPage">
+ <image src="../../images/index/2.png" class="slide-image swiper_img" />
+      <view>
+      <text style="text-align:center" class='block font14'>列表找房</text>
+      </view>
+ </view>
+<button class="indexBtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+ <view data-type="sale" bindtap="jumpToPage">
+ <image src="../../images/index/3.png" class="slide-image swiper_img" />
+      <view>
+      <text style="text-align:center" class='block font14'>我要卖房</text>
+      </view>
+ </view>
+ </button>
 <!-- <view class="flexBox">
 <view style="width:50%">最新房源</view>
 <view class="font14" bindtap="jumpToList" data-type="new" style="width:50%;text-align:right;color:#70C677">查看更多</view>

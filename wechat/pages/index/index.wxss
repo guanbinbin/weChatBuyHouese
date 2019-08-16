@@ -75,3 +75,36 @@ padding-bottom:0rpx;
   width: 150rpx;
   height: 150rpx
 }
+.indexBtn{
+  border: 0px;
+  position: static;
+  line-height: 1.6;
+  padding: 0;
+  background-color: transparent;
+  margin:0;
+  width:33.3%;
+  text-align: center;
+  height: 200rpx;
+}
+.indexBtn>view{
+  width:100%;
+}
+.indexBtn>view>image{
+  width: 150rpx;
+  height: 150rpx
+}
+.indexBtn::after { 
+width: 0rpx;
+height: 0rpx;
+position: absolute;
+top: 0;
+left: 0;
+border: 1px solid rgba(0, 0, 0, 0.2);
+-webkit-transform: scale(0.5);
+transform: scale(0.5);
+-webkit-transform-origin: 0 0;
+transform-origin: 0 0;
+box-sizing: border-box;
+border-radius: 10px;
+
+}

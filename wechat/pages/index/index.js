@@ -1,5 +1,11 @@
 const app = getApp();
 var that;
+//
+const APP_ID = 'wxe5fa3487aa7ea615';//输入小程序appid  
+const APP_SECRET = '92e6aab17237ff9911e2d36e6009b660';//输入小程序app_secret  
+var OPEN_ID = ''//储存获取到openid  
+var SESSION_KEY = ''//储存获取到session_key  
+
 Page({ 
   data: {
     //
@@ -8,9 +14,10 @@ Page({
     searchContent:'', 
     swiper1:{
       imgUrls: [
-        '../../images/index/head1.jpg',
-        '../../images/index/head2.jpg',
-        '../../images/index/head3.jpg'
+
+        // '../../images/index/head1.jpg',
+        // '../../images/index/head2.jpg',
+        // '../../images/index/head3.jpg'
       ],
       indicatorDots: false,
       autoplay: true,
@@ -332,15 +339,84 @@ Page({
   },
 
   getBanner(){
-
+   wx.request({ 
+     url: app.globalData.hostUrl + '/bannerurl/queryListWithNoPage',
+     data: {
+       isEffective:0,
+       bannerScene:0
+     },
+     method: 'GET',
+     header: {
+       "Content-Type": "application/json"
+     },
+     fail() {
+       wx.hideToast();
+       wx.showToast({
+         title: '服务器异常，请稍后重试',
+         duration: 1500,
+         icon: 'none',
+         mask: false
+       });
+     },
+     success(res) {
+     console.log("banner");
+     console.log(res.data);
+     if(res.data.code==0){
+      if(res.data.data.length>0){
+        var obj = "swiper1.imgUrls";
+        that.setData({
+          [obj]: res.data.data
+        })
+      }else{
+        var obj = "swiper1.imgUrls";
+        that.setData({
+          [obj]:{
+            file: '../../images/index/head1.jpg',
+            bannerValue:'',
+            bannerType:''
+          }
+        })
+      }
+     }
+     }
+   })
   },
+  //首页swiper跳转
+  jumpToSwiper(e){
+    var type = e.currentTarget.dataset.type;
+    var value = e.currentTarget.dataset.value;
+    if(type==0){
+      console.log("网络链接");
+      wx.navigateTo({
+        url: 'webView/webView?src='+value
+        //url: 'webView/webView?src=http:www.baidu.com' 
+      })
+    } else if (type == 1){
+      console.log("具体房源");
+      wx.navigateTo({
+        url: '../housePart/houseDetail/houseDetail?id=&resourceId=' + value
+      })
+    }else{
+
+    }
+  },
+  //首页icon跳转
   jumpToPage(e){
   console.log(e);
   if(e.currentTarget.dataset.type=="sale"){
-   wx.navigateTo({
-     url: '../personCenter/myHouse/publishInfo/publishInfo',
-   })
-  } else if (e.currentTarget.dataset.type == "map"){
+   console.log("判断是否登录......");
+    if (app.globalData.userInfo) {
+      console.log("用户已登录 直接跳转");
+      console.log(app.globalData);
+      console.log(wx.getStorageSync('userId'));
+      wx.navigateTo({
+        url: './personCenter/myHouse/publishInfo/publishInfo',
+      })
+    } else {
+      console.log("没有用户信息，需要授权");
+      that.bindGetUserInfo();
+    } 
+} else if (e.currentTarget.dataset.type == "map"){
     wx.switchTab({
       url: '../map/map',
     })
@@ -349,6 +425,126 @@ Page({
       url: '../housePart/houseList/houseList?content=&type=new'
     })
   }
+  },
+   bindGetUserInfo(e) {
+    if (e.detail.errMsg == "getUserInfo:ok") {
+      wx.showToast({
+        title: '',
+        duration: 15000,
+        icon: 'loading',
+        mask: true,
+      })
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          //app.globalData.userInfo = res.userInfo;
+          //console.log(app.globalData.userInfo);
+          this.setData({
+            userInfo: res.userInfo
+          })
+          console.log("获取openid...");
+          that.getOpenId();
+        }
+      })
+    }
+    // else {
+    //    wx.switchTab({
+    //     url: '../index/index',
+    //   })
+    // }
+
+  },
+  getOpenId: function () {
+    wx.login({
+      success: function (res) {
+        wx.request({
+          //获取openid接口  
+          url: app.globalData.hostUrl + "/wxInterface/getAccessToken",
+          data: {
+            //appid: APP_ID,
+            //secret: APP_SECRET,
+            code: res.code,
+            // grant_type: 'authorization_code'
+          },
+          method: 'GET',
+          fail() {
+            wx.hideToast();
+            wx.showToast({
+              title: '服务器异常，请稍后重试',
+              duration: 1500,
+              icon: 'none',
+              mask: false
+            });
+          },
+          success: function (res) {
+            console.log(res.data)
+            console.log(app.globalData.userInfo)
+            OPEN_ID = res.data.data.openid;//获取到的openid  
+            SESSION_KEY = res.data.data.session_key;//获取到session_key  
+            console.log(OPEN_ID);
+            console.log(SESSION_KEY);
+
+            that.isOurUser(OPEN_ID);
+          }
+        })
+      }
+    })
+  },
+  isOurUser: function (openId) {
+    wx.request({
+      url: app.globalData.hostUrl + "/userinfo/queryListWithNoPage",
+      data: {
+        openId: openId
+      },
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json"
+      },
+      fail() {
+        wx.hideToast();
+        wx.showToast({
+          title: '服务器异常，请稍后重试',
+          duration: 1500,
+          icon: 'none',
+          mask: false
+        });
+      },
+      success(res) {
+        console.log(res.data);
+        console.log("根据openid判断是否是我们的用户....");
+        if (res.data.code == 0) {
+          wx.hideToast();
+          if (res.data.data.length == 0) {
+            console.log("用户不存在进入注册页面....");
+            wx.showModal({
+              title: '提示',
+              content: '我们没有找到您，您需要注册才能加入我们的用户哦',
+              confirmText: '去注册',
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../register/register?openid=' + openId + "&userName=" + that.data.userInfo.nickName + "&userInfo=" + JSON.stringify(that.data.userInfo) + "&type=sale"
+                  })
+                } else {
+                  wx.switchTab({
+                    url: '../index/index',
+                  })
+                }
+              }
+            })
+
+          } else { 
+            app.globalData.userInfo = that.data.userInfo;
+            wx.setStorageSync('userId', res.data.data[0].userId);
+            console.log("根据openid判断是我们的用户，直接跳转到发布房源页面");
+            wx.navigateTo({
+              url: '../personCenter/myHouse/publishInfo/publishInfo',
+            })
+          }
+        }
+      }
+    })
+
   },
   /**
    * 生命周期函数--监听页面加载

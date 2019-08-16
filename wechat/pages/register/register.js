@@ -105,6 +105,9 @@ Page({
       resourceId = options.resourceId;
       id = options.id;
     }
+    if(options.type=="sale"){
+      console.log("主页跳转而来，链接到房源发布页..."); 
+    }
   that.setData({
     openid:options.openid,
     userName:options.userName,
@@ -299,6 +302,10 @@ Page({
         if(that.data.type=="collect"){
           wx.navigateTo({
             url: '../housePart/houseDetail/houseDetail?id=' + id + "&resourceId=" + resourceId
+          })
+        } else if (that.data.type == "sale"){
+          wx.navigateTo({
+            url: '../personCenter/myHouse/publishInfo/publishInfo'
           })
         }else{
           wx.switchTab({

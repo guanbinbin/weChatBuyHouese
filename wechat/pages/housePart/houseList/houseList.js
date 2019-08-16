@@ -431,7 +431,8 @@ Page({
               that.data.roomList.push(item);
             }
             that.setData({
-              roomList: that.data.roomList
+              roomList: that.data.roomList, 
+                persent: true 
             })
           } else {
             wx.hideToast();

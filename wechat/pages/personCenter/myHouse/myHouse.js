@@ -365,7 +365,7 @@ Page({
       url: app.globalData.hostUrl + '/modifyapplication/insert',
       data: {
         resourcesId : that.data.id,
-        remarks: that.data.remarksInputValue,
+        remark: that.data.remarksInputValue,
         status:3
       },
       method: 'POST',
@@ -400,7 +400,7 @@ Page({
       }
     })
   },
-  offSale(e){
+  offSale(e){ 
     var id = e.target.dataset.id;
     wx.showModal({
 

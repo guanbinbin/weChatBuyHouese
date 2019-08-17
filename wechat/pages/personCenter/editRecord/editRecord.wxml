@@ -22,8 +22,7 @@
 <!--<text class='block addr'>所在区域：{{item.regionName}}</text> 
 <text class='block addr'>户型：{{item.roomTypeInfo}}</text> -->
 <text class='block addr font14'>面积：{{item.houseArea}}m<text class="sup">2</text></text> 
-<text class='block addr font14'>期望售价：<text class='price'>{{item.price}}万</text></text> 
-<text class='block addr font14'>当前状态：<text class='price'>{{item.status}}</text></text> 
+<text class='block addr font14'>期望售价：<text class='price'>{{item.price}}万</text></text>  
 <!--<text class='block'>
 <text class='price space'>{{item.price}}万</text>
 <text class='room space'>{{item.roomTypeInfo}}</text>
@@ -31,49 +30,22 @@
 </text>-->
 </view>
 
-<view wx:if="{{item.status=='已成交'}}" class='operate_box' style='width:100%;'> 
-<view space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>成交金额：{{item.finalPrice}}万</view>  
+<view class="box_rec" style='width:100%;'> 
+<view class="font14 recordsBox" wx:for="{{item.modifyInfo}}">
+<!-- <view class="font14 recordsBox" > -->
+<view class="records">
+<text>{{item.createTime}}</text>  <text wx:if="{{item.status==0}}" style="text-align:right" space="nbsp">发起申请</text>
+<text wx:if="{{item.status==1}}" style="text-align:right;color:#70C677" space="nbsp">已执行</text>
+<text wx:if="{{item.status==2}}" style="text-align:right;color:red" space="nbsp">被驳回</text>
 </view>
-
-<view wx:if="{{item.status=='修改申请中'}}" class='operate_box' style='width:100%;'> 
-<view data-id="{{item.id}}" data-remarks='{{item.editRemark}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看申请内容</view>  
+<view>
+<text wx:if="{{item.status==0}}">修改内容：{{item.remark}}</text> 
+<text wx:if="{{item.status==2}}">驳回原因：{{item.remark}}</text>
 </view>
-<view wx:if="{{item.status=='已上架'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.id}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view> 
-<view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
-<view data-id="{{item.statusId}}" bindtap="offSale" space="nbsp"><image class='icon_img' src="{{offsaleUrl}}"></image> 下架</view>
 </view>
-<view wx:if="{{item.status=='待审核'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.id}}" space="nbsp" bindtap='jumpToDetail'><image class='icon_img' src="{{editUrl}}"></image> 修改</view>
-<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>   -->
-</view>
-
-<view wx:if="{{item.status=='审核未通过'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.id}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
-<view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view> 
-<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
-</view>
-
-<view wx:if="{{item.status=='勘察未通过'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.id}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
-<view data-id="{{item.id}}" data-remarks='{{item.remarks}}' data-type="remarks" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{checkUrl}}"></image> 查看原因</view> 
-<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view>  -->
-</view>
-<view wx:if="{{item.status=='已下架'}}" class='operate_box' style='width:100%;'> 
-<view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
-<view data-id="{{item.statusId}}" bindtap="reOnSale" space="nbsp"><image class='icon_img' src="{{onsaleUrl}}"></image> 重新上架</view> 
-<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
-</view>
-<view wx:if="{{item.status=='待勘察'}}" class='operate_box' style='width:100%;'>
-<view data-id="{{item.id}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>  
-<view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image>改价</view>
-<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
-</view>
-<view wx:if="{{item.status=='待上架'}}" class='operate_box' style='width:100%;'>
-<!-- <view data-id="{{item.statusId}}" data-type="apply" bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{editUrl}}"></image> 修改</view>   -->
-<view data-id="{{item.id}}" data-price="{{item.price}}" data-type='price' bindtap='openDialog' space="nbsp"><image class='icon_img' src="{{priceUrl}}"></image> 改价</view>
-<!-- <view data-id="{{item.id}}" space="nbsp"><image class='icon_img' src="{{deleteUrl}}"></image> 删除</view> -->
-</view>
+</view>  
+ 
+ 
 
 </view>
 </view>
@@ -121,9 +93,7 @@
 </view>
    </view>
  </scroll-view>  
- <view bindtap="jumpToPublish" class="font14 position_f applyBlock flexBox align" style="bottom:0">
- 发布房源
- </view>
+ 
 </view>
 
 <view wx-if="{{showDialog}}" class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">

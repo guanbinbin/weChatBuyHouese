@@ -72,8 +72,8 @@ padding-bottom:0rpx;
 }
 
 .item_box>image{
-  width: 150rpx;
-  height: 150rpx
+  width: 120rpx;
+  height: 120rpx
 }
 .indexBtn{
   border: 0px;
@@ -90,8 +90,8 @@ padding-bottom:0rpx;
   width:100%;
 }
 .indexBtn>view>image{
-  width: 150rpx;
-  height: 150rpx
+  width: 120rpx;
+  height: 120rpx
 }
 .indexBtn::after { 
 width: 0rpx;

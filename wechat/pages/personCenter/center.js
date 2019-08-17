@@ -222,6 +222,12 @@ Page({
       url: 'aboutUs/aboutUs'
     })
   },
+  jumpToEditPage(){
+    console.log("跳转到修改记录页面......");
+    wx.navigateTo({
+      url: 'editRecord/editRecord'
+    })
+  },
   onReady: function () {
     
   },

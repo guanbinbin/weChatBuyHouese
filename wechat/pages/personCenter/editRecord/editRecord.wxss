@@ -57,7 +57,7 @@ background-color: #ffffff;
 .operate_box{
 display:flex;
 justify-content:center;
-/* border-bottom: 1px solid rgba(0, 0, 0, 0.13); */
+border-bottom: 1px solid rgba(0, 0, 0, 0.13);
 font-size: 30rpx
 }
 .operate_box>view{
@@ -108,4 +108,26 @@ font-size: 30rpx
 }
 .btnbox{
   margin-bottom: 30rpx
+}
+.recordsBox{
+  width: 95%;
+  padding-top:10rpx ;
+  border-bottom: 1px solid rgba(170, 170, 170, 0.1);
+  margin: 0 auto;
+}
+.records>text:first-child{
+  display: inline-block;
+  width: 70%;
+}
+.records>text:nth-child(2){
+  display: inline-block;
+  width: 30%;
+}
+.recordsBox>view{
+  width:70%;
+  margin:0 auto;
+  margin-bottom: 10rpx;
+}
+.box_rec>.recordsBox:last-child{
+  border-bottom: none;
 }

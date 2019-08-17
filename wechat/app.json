@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/personCenter/editRecord/editRecord",
     "pages/index/index",
     "pages/register/register",
     "pages/housePart/houseList/houseList",
@@ -19,6 +20,7 @@
     "pages/personCenter/myHouse/publishInfoCheck/publishInfoCheck",
     "pages/housePart/map/map",
     "pages/index/webView/webView"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

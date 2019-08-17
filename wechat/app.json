@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/personCenter/editRecord/editRecord",
     "pages/index/index",
+    "pages/personCenter/editRecord/editRecord",
+    
     "pages/register/register",
     "pages/housePart/houseList/houseList",
     "pages/index/search/search",

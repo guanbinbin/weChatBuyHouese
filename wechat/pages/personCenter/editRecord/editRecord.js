@@ -192,7 +192,12 @@ Page({
       roomItem.regionName = "成都市 - " + data[i].houseResources.regionName;
       roomItem.residential = data[i].houseResources.residential;//房屋地址
       roomItem.roomTypeInfo = data[i].houseResources.roomTypeInfo;
-      roomItem.vilageName = data[i].houseResources.vilageName;
+      if (data[i].houseResources.vilageName.length > 9) {
+        roomItem.vilageName = data[i].houseResources.vilageName.slice(0, 9) + "...";
+      } else {
+        roomItem.vilageName = data[i].houseResources.vilageName;
+      } 
+
       roomItem.price = data[i].houseResources.price;
       roomItem.houseArea = data[i].houseResources.houseArea;
       roomItem.id = data[i].houseResources.id;

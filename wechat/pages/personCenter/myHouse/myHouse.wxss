@@ -82,7 +82,7 @@ font-size: 30rpx
 
 .zan-dialog__container {
   position: fixed;
-  bottom: 500rpx;
+  bottom: 600rpx;
   width: 650rpx;/*弹窗布局宽*/
   
   margin-left: 50rpx;
@@ -107,5 +107,5 @@ font-size: 30rpx
   border-bottom: 1px solid rgba(0, 0, 0, 0.13)
 }
 .btnbox{
-  margin-bottom: 30rpx
+  margin-bottom: 0rpx
 }

@@ -17,7 +17,7 @@
 </view>
 
 <view class="roomInfo" data-id="{{item.id}}" data-check='true' bindtap="jumpToDetail" style='width:60%'>
-<text class='block title'>{{item.vilageName}}</text>
+<text class='block title font16'>{{item.vilageName}}</text>
 <text class='block addr font14'>房屋地址：{{item.residential}}</text>
 <!--<text class='block addr'>所在区域：{{item.regionName}}</text> 
 <text class='block addr'>户型：{{item.roomTypeInfo}}</text> -->
@@ -40,7 +40,8 @@
 </view>
 <view>
 <text wx:if="{{item.status==0}}">修改内容：{{item.remark}}</text> 
-<text wx:if="{{item.status==2}}">驳回原因：{{item.remark}}</text>
+<text wx:if="{{item.status==2}}">驳回原因：{{item.rejectReason}}</text>
+<text wx:if="{{item.status==1}}">修改内容：{{item.remark}}</text>
 </view>
 </view>
 </view>  

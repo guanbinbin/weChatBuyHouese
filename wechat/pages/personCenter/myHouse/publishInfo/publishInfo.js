@@ -46,10 +46,10 @@ Page({
     houseDetail:{},
     cardExamplePath:[
       {
-        path: "https://buy-house-program.oss-cn-chengdu.aliyuncs.com/images/sample/bd37790e7b1c3d6016184af1bf589c2.jpg?Expires=1565063433&OSSAccessKeyId=TMP.hY29Mc94C2CgeQ2uZdm7wsPkdqWELoLx19KThMse4nbQ4UZxaimAreKwbh1EXvJoUYwxw4kqs6JrxmXs3BEQ1Cs7dqzTVL9tES7aNeAAAN3zYrDLF9KCv4swqTtRmG.tmp&Signature=GB9AbhYTiDwkSUC48RYY4K96EBw%3D"}
+        path: "http://buy-house-program.oss-cn-chengdu.aliyuncs.com/images/temporary/20190817202740微信图片_20190817202655.jpg?Expires=1881404860&OSSAccessKeyId=LTAIiKOBZq90Vd1d&Signature=AzDKJi9qkveCA3EEUIF1BJ%2FfDjc%3D"}
     ],
     rightExamplePath: [//rightExamplePath
-      { path: "https://buy-house-program.oss-cn-chengdu.aliyuncs.com/images/sample/2c9ff7964419087a852e050c6081f8a.jpg?Expires=1565063457&OSSAccessKeyId=TMP.hY29Mc94C2CgeQ2uZdm7wsPkdqWELoLx19KThMse4nbQ4UZxaimAreKwbh1EXvJoUYwxw4kqs6JrxmXs3BEQ1Cs7dqzTVL9tES7aNeAAAN3zYrDLF9KCv4swqTtRmG.tmp&Signature=YKDDkcXjcZavt6yRVkcsscT8YRY%3D" }
+      { path: "http://buy-house-program.oss-cn-chengdu.aliyuncs.com/images/temporary/20190817202806微信图片_20190817202706.jpg?Expires=1881404886&OSSAccessKeyId=LTAIiKOBZq90Vd1d&Signature=9DwT0xASjbkYtK4yIKBHnSoPHBc%3D" }
     ],
   },
    
